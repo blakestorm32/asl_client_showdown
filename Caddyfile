@@ -1,157 +1,287 @@
+# Caddyfile — equivalent of your .htaccess for Railway (FrankenPHP + Node)
+
 {
-  auto_https off
-  order php_server before file_server   # important
-  admin off
+	# (Optional) trust the platform proxy; Railway terminates TLS for you.
+	# servers {
+	# 	trust_proxy
+	# }
 }
 
-http://:{$PORT} {
-  root * /app/play.pokemonshowdown.com
+:{$PORT} {
+	# Adjust to your app root inside the container
+	root * /app/play.pokemonshowdown.com
+
 	encode zstd gzip
+	file_server
 
-	# Log to Railway
-	log {
-		output stdout
-		format console
-		level DEBUG
-	}
+	# -------------------------------
+	# Content-Types (AddType)
+	# -------------------------------
+	@phps path *.phps
+	header @phps Content-Type "text/plain"
 
-	# MIME types
-	header *.phps Content-Type "text/plain"
-	header *.tgz Content-Type "application/x-tgz"
-	header *.crx Content-Type "application/x-chrome-extension"
-	header *.webapp Content-Type "application/x-web-app-manifest+json"
-	header *.json5 Content-Type "text/plain; charset=UTF-8"
+	@tgz path *.tgz
+	header @tgz Content-Type "application/x-tgz"
 
-	# Security - block sensitive files/directories
-	@blocked path /backup/* /.git/* /lib/* /index.template.html /preactalpha.template.html /testclient* /apple-touch-icon-precomposed.png
-	respond @blocked 403
+	@crx path *.crx
+	header @crx Content-Type "application/x-chrome-extension"
 
-	# CORS headers for safe resources
-	@safe_resources path /style/fonts?/*.{eot,svg,ttf,woff,woff2} /data/*.js /data/*.json
-	header @safe_resources Access-Control-Allow-Origin "*"
-	header @safe_resources Access-Control-Allow-Methods "GET,POST,OPTIONS"
-	header @safe_resources Access-Control-Allow-Headers "Content-Type, X-Requested-With"
+	@webapp path *.webapp
+	header @webapp Content-Type "application/x-web-app-manifest+json"
 
+	@json5 path *.json5
+	header @json5 Content-Type "text/plain; charset=UTF-8"
+
+	# -------------------------------------------
+	# Cache headers for index.html / preactalpha
+	# -------------------------------------------
+	@indexfiles path_regexp idx ^/(index|preactalpha)\.html$
+	header @indexfiles -ETag
+	header @indexfiles Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+	header @indexfiles Pragma "no-cache"
+	header @indexfiles Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+
+	# -------------------------------------------
 	# colors.json CORS
-	@colors path /colors.json
+	# -------------------------------------------
+	@colors path /config/colors.json
 	header @colors Access-Control-Allow-Origin "*"
 	header @colors Access-Control-Allow-Methods "GET,POST,OPTIONS"
 
-	# Cache control for index files
-	@index_files path /index.html /preactalpha.html
-	header @index_files Cache-Control "no-cache, no-store, must-revalidate"
-	header @index_files Pragma "no-cache"
-	header @index_files Expires "0"
+	# -----------------------------------------------------
+	# X-Forwarded-Proto + host-based redirects (Apache Ifs)
+	# -----------------------------------------------------
+	@redirHttp expression `{http.request.header.X-Forwarded-Proto}` == "http" && {host} == "play.pokemonshowdown.com"
+	redir @redirHttp https://play.pokemonshowdown.com{uri} 307
 
-	# Redirects (from .htaccess)
-	redir /appeals? /view-help-request--appeal 302
-	redir /report? /view-help-request--report 302
-	redir /requesthelp? /view-help-request--other 302
-	redir /rooms?suggestions? https://www.smogon.com/forums/threads/room-suggestions-are-no-longer-being-taken.3522130/ 302
-	redir /suggestions? https://www.smogon.com/forums/forums/517/ 302
-	redir /adminrequests? https://www.smogon.com/forums/threads/names-passwords-rooms-and-servers-contacting-upper-staff.3538721/ 302
-	redir /forgotpassword? https://www.smogon.com/forums/threads/names-passwords-rooms-and-servers-contacting-upper-staff.3538721/post-6227626/ 302
-	redir /bugs?(reports?)? https://www.smogon.com/forums/forums/876/ 302
-	redir /formatsuggestions? https://pokemonshowdown.com/pages/formatsuggestions 302
-	redir /rules? https://pokemonshowdown.com/rules 302
-	redir /faq? https://www.smogon.com/forums/posts/6774128/ 302
-	redir /credits? https://pokemonshowdown.com/credits 302
-	redir /news? https://pokemonshowdown.com/news 302
-	redir /privacy? https://pokemonshowdown.com/privacy 302
-	redir /contact? https://pokemonshowdown.com/contact 302
-	redir /dex? https://dex.pokemonshowdown.com/ 302
-	redir /(damage)?calc? https://calc.pokemonshowdown.com/ 302
-	redir /insecure? /?insecure 302
-	redir /devdiscord? https://discord.com/invite/D8QwhsH 302
-	redir /smogcord? https://discord.gg/smogon 302
-	redir /smogdex? https://smogon.com/dex/ 302
-	redir /forums? https://smogon.com/forums/ 302
-	redir /replays? https://replay.pokemonshowdown.com/ 302
-	redir /trustworthy-dlc-link? https://www.youtube.com/watch?v=dQw4w9WgXcQ 302
+	# If https + query contains insecure=... -> send to insecure.psim.us
+	@redirInsecure expression `{http.request.header.X-Forwarded-Proto}` == "https" && {host} == "play.pokemonshowdown.com" && regexp_match(`{query}`, `(?i)(^|&)insecure($|&)`)
+	redir @redirInsecure http://insecure.psim.us{uri}?{query} 307
 
-	# Shortlinks
-	redir /t? https://teams.pokemonshowdown.com/ 302
-	redir /t/{team} https://teams.pokemonshowdown.com/view/{team} 302
-	redir /r? https://replay.pokemonshowdown.com/ 302
-	redir /r/{replay} https://replay.pokemonshowdown.com/{replay} 302
+	# -------------------------------------------
+	# Canonical host redirect for www subdomain
+	# -------------------------------------------
+	@www host www.play.pokemonshowdown.com
+	redir @www https://play.pokemonshowdown.com{uri} 301
 
-	# Battle redirects
-	redir /battle-{battle} https://replay.pokemonshowdown.com/{battle} 302
-	redir /replay/battle-{battle} https://replay.pokemonshowdown.com/{battle} 302
-	redir /replay/turn_{data}.png /replay/turn-image.php?data={data} 302
+	# -------------------------------------------
+	# Shortlinks / external redirects
+	# -------------------------------------------
+	redir /appeal       https://play.pokemonshowdown.com/view-help-request--appeal 302
+	redir /appeals      https://play.pokemonshowdown.com/view-help-request--appeal 302
+	redir /report       https://play.pokemonshowdown.com/view-help-request--report 302
+	redir /requesthelp  https://play.pokemonshowdown.com/view-help-request--other  302
+	redir /roomsuggestion    https://www.smogon.com/forums/threads/room-suggestions-are-no-longer-being-taken.3522130/ 302
+	redir /roomsuggestions   https://www.smogon.com/forums/threads/room-suggestions-are-no-longer-being-taken.3522130/ 302
+	redir /suggestion        https://www.smogon.com/forums/forums/517/ 302
+	redir /suggestions       https://www.smogon.com/forums/forums/517/ 302
+	redir /adminrequest      https://www.smogon.com/forums/threads/names-passwords-rooms-and-servers-contacting-upper-staff.3538721/ 302
+	redir /adminrequests     https://www.smogon.com/forums/threads/names-passwords-rooms-and-servers-contacting-upper-staff.3538721/ 302
+	redir /forgotpassword    https://www.smogon.com/forums/threads/names-passwords-rooms-and-servers-contacting-upper-staff.3538721/post-6227626/ 302
+	redir /bug               https://www.smogon.com/forums/forums/876/ 302
+	redir /bugs              https://www.smogon.com/forums/forums/876/ 302
+	redir /bugreport         https://www.smogon.com/forums/forums/876/ 302
+	redir /bugreports        https://www.smogon.com/forums/forums/876/ 302
+	redir /formatsuggestions https://pokemonshowdown.com/pages/formatsuggestions 302
+	redir /rule              https://pokemonshowdown.com/rules 302
+	redir /rules             https://pokemonshowdown.com/rules 302
+	redir /faq               https://www.smogon.com/forums/posts/6774128/ 302
+	redir /credit            https://pokemonshowdown.com/credits 302
+	redir /credits           https://pokemonshowdown.com/credits 302
+	redir /news              https://pokemonshowdown.com/news 302
+	redir /privacy           https://pokemonshowdown.com/privacy 302
+	redir /contact           https://pokemonshowdown.com/contact 302
+	redir /dex               https://dex.pokemonshowdown.com/ 302
+	redir /calc              https://calc.pokemonshowdown.com/ 302
+	redir /damagecalc        https://calc.pokemonshowdown.com/ 302
+	redir /insecure          https://play.pokemonshowdown.com/?insecure 302
+	redir /devdiscord        https://discord.com/invite/D8QwhsH 302
+	redir /smogcord          https://discord.gg/smogon 302
+	redir /smogdex           https://smogon.com/dex/ 302
+	redir /forum             https://smogon.com/forums/ 302
+	redir /forums            https://smogon.com/forums/ 302
+	redir /replay            https://replay.pokemonshowdown.com/ 302
+	redir /replays           https://replay.pokemonshowdown.com/ 302
+	redir /trustworthy-dlc-link https://www.youtube.com/watch?v=dQw4w9WgXcQ 302
 
-	# Lobby redirect
-	redir /lobby? / 302
+	# Teams/replays shortlinks with ID
+	@teamsID path_regexp teams ^/t/([a-z0-9-]*)$
+	redir @teamsID https://teams.pokemonshowdown.com/view/{re.teams.1} 302
+	redir /t https://teams.pokemonshowdown.com/ 302
 
-	# Server redirects
-	redir /~~{serverid}:{port}/action.php /action.php?serverid={serverid} 302
-	redir /~~{host}/{roomid} /redirect-server.php?host={host}&roomid={roomid} 302
+	@replaysID path_regexp r ^/r/([a-z0-9-]*)$
+	redir @replaysID https://replay.pokemonshowdown.com/{re.r.1} 302
+	redir /r https://replay.pokemonshowdown.com/ 302
 
-	# Sprite rewrites (backward compatibility)
-	redir /sprites/xyani{path} /sprites/ani{path} 302
-	redir /sprites/xydex{path} /sprites/dex{path} 302
-	redir /sprites/smicons{path} /sprites/pokemonicons{path} 302
-	redir /sprites/trainers/latest? /sprites/trainers/?filter=recent 302
-	redir /sprites/trainers/credits? /sprites/trainers/?filter=credited 302
-	redir /sprites/rby{path} /sprites/gen1{path} 302
-	redir /sprites/gsc{path} /sprites/gen2{path} 302
-	redir /sprites/rse{path} /sprites/gen3{path} 302
-	redir /sprites/dpp{path} /sprites/gen4{path} 302
-	redir /sprites/bw{path} /sprites/gen5{path} 302
-	redir /sprites/xy{path} /sprites/gen6{path} 302
-	redir /sprites/sm{path} /sprites/gen7{path} 302
-	redir /sprites/gen1rg-back{path} /sprites/gen1-back{path} 302
-	redir /sprites/gen1rb-back{path} /sprites/gen1-back{path} 302
-	redir /sprites/gen2g-back{path} /sprites/gen2-back{path} 302
-	redir /sprites/gen2s-back{path} /sprites/gen2-back{path} 302
-	redir /sprites/gen3rs-back{path} /sprites/gen3-back{path} 302
-	redir /sprites/gen3frlg-back{path} /sprites/gen3-back{path} 302
-	redir /sprites/gen4dp-back{path} /sprites/gen4-back{path} 302
-	redir /sprites/gen4dp-2-back{path} /sprites/gen4-back{path} 302
+	# -------------------------------------------
+	# Sprite rewrites (internal path rewrites)
+	# -------------------------------------------
+	@xyani path_regexp xyani ^/sprites/xyani(.*)$
+	rewrite @xyani /sprites/ani{re.xyani.1}
 
-	# SPA routing - serve index.html for room IDs and special paths
-	@room_id path_regexp ^([A-Za-z0-9][A-Za-z0-9-]*)$
-	@special_paths path /preactalpha /preactbeta /beta /dev /development /login /users /dm-* /challenge-* /user-* /viewuser-* /ladder-*
+	@xydex path_regexp xydex ^/sprites/xydex(.*)$
+	rewrite @xydex /sprites/dex{re.xydex.1}
 
-	# Serve preactalpha.html for special paths or if preactalpha cookie is set
-	@preactalpha_cookie header Cookie *preactalpha=1*
-	handle @special_paths {
-		try_files /preactalpha.html
+	@smicons path_regexp smicons ^/sprites/smicons(.*)$
+	rewrite @smicons /sprites/pokemonicons{re.smicons.1}
+
+	# Trainers filters (redirects)
+	redir /sprites/trainers/latest/ /sprites/trainers/?filter=recent 302
+	redir /sprites/trainers/credits/ /sprites/trainers/?filter=credited 302
+
+	# Gen aliases
+	@gen1 path_regexp g1 ^/sprites/rby(.*)$
+	rewrite @gen1 /sprites/gen1{re.g1.1}
+	@gen2 path_regexp g2 ^/sprites/gsc(.*)$
+	rewrite @gen2 /sprites/gen2{re.g2.1}
+	@gen3 path_regexp g3 ^/sprites/rse(.*)$
+	rewrite @gen3 /sprites/gen3{re.g3.1}
+	@gen4 path_regexp g4 ^/sprites/dpp(.*)$
+	rewrite @gen4 /sprites/gen4{re.g4.1}
+	@gen5 path_regexp g5 ^/sprites/bw(.*)$
+	rewrite @gen5 /sprites/gen5{re.g5.1}
+	@gen6 path_regexp g6 ^/sprites/xy(.*)$
+	rewrite @gen6 /sprites/gen6{re.g6.1}
+	@gen7 path_regexp g7 ^/sprites/sm(.*)$
+	rewrite @gen7 /sprites/gen7{re.g7.1}
+
+	# Fill in missing backsprites (rewrites)
+	@b1 path_regexp b1 ^/sprites/gen1(rg|rb)-back(.*)$
+	rewrite @b1 /sprites/gen1-back{re.b1.2}
+	@b2 path_regexp b2 ^/sprites/gen2(g|s)-back(.*)$
+	rewrite @b2 /sprites/gen2-back{re.b2.2}
+	@b3 path_regexp b3 ^/sprites/gen3(rs|frlg)-back(.*)$
+	rewrite @b3 /sprites/gen3-back{re.b3.2}
+	@b4 path_regexp b4 ^/sprites/gen4(dp|dp-2)-back(.*)$
+	rewrite @b4 /sprites/gen4-back{re.b4.3}
+
+	# FRLG only added Kanto sprites: if not a real file, fallback to gen3
+	@frlg path_regexp frlg ^/sprites/gen3frlg(.*)$
+	route @frlg {
+		# Try actual request first; if not present, rewrite to gen3
+		rewrite * /sprites/gen3frlg{re.frlg.1}
+		try_files {path} /sprites/gen3{re.frlg.1}
+	}
+
+	# -------------------------------------------
+	# CORS for "safe resources"
+	# -------------------------------------------
+	@safeFonts path_regexp sfont ^/style/fonts?/.+\.(eot|svg|ttf|woff|woff2)$
+	@safeData  path_regexp sdata ^/data/.+\.(js|json)$
+	header @safeFonts Access-Control-Allow-Origin "*"
+	header @safeFonts Access-Control-Allow-Methods "GET,POST,OPTIONS"
+	header @safeFonts Access-Control-Allow-Headers "Content-Type, X-Requested-With"
+	header @safeData  Access-Control-Allow-Origin "*"
+	header @safeData  Access-Control-Allow-Methods "GET,POST,OPTIONS"
+	header @safeData  Access-Control-Allow-Headers "Content-Type, X-Requested-With"
+
+	# -------------------------------------------
+	# Old battle paths -> replay site
+	# -------------------------------------------
+	@battleDate8 host play.pokemonshowdown.com
+	@battleDate8 path_regexp b8 ^/battle-([a-z0-9]+-[0-9]{8})$
+	redir @battleDate8 https://replay.pokemonshowdown.com/{re.b8.1} 302
+
+	@battleAny host play.pokemonshowdown.com
+	@battleAny path_regexp bAny ^/battle-([a-z0-9]+)$
+	redir @battleAny https://replay.pokemonshowdown.com/{re.bAny.1} 302
+
+	# -------------------------------------------
+	# /lobby -> /
+	# -------------------------------------------
+	redir /lobby / 302
+
+	# -------------------------------------------------------------
+	# Roomid trailing slash -> strip (approx; ignores real dirs)
+	# -------------------------------------------------------------
+	@roomSlash path_regexp rslash ^/([A-Za-z0-9][A-Za-z0-9-]*)/$
+	redir @roomSlash /{re.rslash.1} 301
+
+	# -------------------------------------------------------------
+	# Index-page rewrites (preact alpha cookie + single-segment)
+	# -------------------------------------------------------------
+	# If cookie preactalpha=1 and path is "" or roomid-like -> preactalpha.html
+	@preactCookie expression `indexof({http.request.header.Cookie}, "preactalpha=1") >= 0`
+	@preactPaths path_regexp prepaths ^/$|^/([A-Za-z0-9][A-Za-z0-9-]*)$
+	route @preactCookie @preactPaths {
+		rewrite * /preactalpha.html
+		header * Cache-Control "no-cache, no-store, must-revalidate"
+		header * Pragma "no-cache"
+		header * Expires "0"
 		file_server
 	}
 
-	# Serve index.html for room IDs
-	handle @room_id {
-		try_files /index.html
+	# Explicit preact routes -> preactalpha.html
+	@preactExplicit path_regexp prex ^/(preactalpha|preactbeta|beta|dev|development|login|users|(dm|challenge|user|viewuser|ladder)-[a-z0-9-]*)$
+	route @preactExplicit {
+		rewrite * /preactalpha.html
+		header * Cache-Control "no-cache, no-store, must-revalidate"
+		header * Pragma "no-cache"
+		header * Expires "0"
 		file_server
 	}
 
-	# 404 error handling (from .htaccess ErrorDocument)
-	@not_found expression {http.error.status_code} == 404
-	handle @not_found {
-		try_files /dirindex/404.html
+	# Single-segment roomid -> serve root index (no-cache headers)
+	@roomid path_regexp rid ^/([A-Za-z0-9][A-Za-z0-9-]*)$
+	route @roomid {
+		rewrite * /
+		header * Cache-Control "no-cache, no-store, must-revalidate"
+		header * Pragma "no-cache"
+		header * Expires "0"
 		file_server
 	}
 
-	# Directory index fallback (from .htaccess DirectoryIndex)
-	@static {
-	file
-	path *.js *.css *.json *.png *.jpg *.jpeg *.gif *.svg *.ico *.webp *.avif *.woff *.woff2 *.ttf *.eot
+	# -------------------------------------------
+	# Replay helpers & ladder redirect
+	# -------------------------------------------
+	@replayBattle path_regexp rpb ^/replay/battle-([A-Za-z0-9-]+)$
+	redir @replayBattle https://replay.pokemonshowdown.com/{re.rpb.1} 302
+
+	@replayTurn path_regexp rpt ^/replay/turn_(.+)\.png$
+	rewrite @replayTurn /replay/turn-image.php?data={re.rpt.1}
+
+	# ladder.php -> external site unless ?output=html
+	@ladder path /ladder.php
+	@ladderNoHtml expression `!regexp_match("{query}", "(^|&)output=html($|&)")`
+	redir @ladder @ladderNoHtml https://pokemonshowdown.com/ladder/ 301
+
+	# -------------------------------------------
+	# ~~server routes -> PHP endpoints
+	# -------------------------------------------
+	@action path_regexp act ^/~~([^:/]*)(:[0-9]*)?/action\.php$
+	rewrite @action /action.php?serverid={re.act.1}
+
+	@redirSrv path_regexp rsv ^/~~([^/]*)(?:/(.*))?$
+	rewrite @redirSrv /redirect-server.php?host={re.rsv.1}&roomid={re.rsv.2}
+
+	# -------------------------------------------
+	# Denies / 403s
+	# -------------------------------------------
+	@forbid path_regexp fb ^/(backup/|\.git/|lib/|index\.template\.html$|preactalpha\.template\.html$|testclient\.html$|testclient-beta\.html$)
+	respond @forbid 403
+
+	# Apple touch icon: explicit 404 if requested path is that file and it's missing.
+	@apple path /apple-touch-icon-precomposed.png
+	route @apple {
+		try_files {path}
+		respond 404
 	}
-	handle @static {
+
+	# -------------------------------------------
+	# PHP handling (FrankenPHP)
+	# -------------------------------------------
+	# Adjust the socket/addr to your FrankenPHP setup
+	php_fastcgi unix//run/frankenphp.sock
+
+	# If no PHP matched and it's not a real file, try index.php then index.html
+	try_files {path} {path}/ /index.php /index.html
+
+	# -------------------------------------------
+	# Custom 404 page
+	# -------------------------------------------
+	handle_errors {
+		@nf expression `{http.error.status_code} == 404`
+		rewrite @nf /dirindex/404.html
 		file_server
 	}
-
-	# Directory index fallback (for client-side routes)
-	handle {
-		try_files {path} {path}/ /index.html
-	}
-
-  # Serve PHP files via FrankenPHP
-  php_server
-
-  # Serve static files (CSS, JS, etc.)
-  file_server
-  
-
 }
