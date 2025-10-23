@@ -217,7 +217,9 @@ function toId() {
 		 * domain in order to have access to the correct cookies.
 		 */
 		getActionPHP: function () {
-			var ret = '/~~' + Config.server.id + '/action.php';
+			let url = '/~~' + PS.server.id + '/action.php';
+			url = 'https://https://aslpokemonbattling-up-railway-app.psim.us' + url;
+			return url;
 			if (Config.testclient) {
 				ret = 'https://' + Config.routes.client + ret;
 			}

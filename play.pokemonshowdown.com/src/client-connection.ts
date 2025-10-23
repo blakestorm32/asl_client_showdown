@@ -395,12 +395,7 @@ export const PSLoginServer = new class {
 		// }
 		data.act = act;
 		let url = '/~~' + PS.server.id + '/action.php';
-		if (location.pathname.endsWith('.html')) {
-			url = 'https://' + Config.routes.client + url;
-			if (typeof POKEMON_SHOWDOWN_TESTCLIENT_KEY === 'string') {
-				data.sid = POKEMON_SHOWDOWN_TESTCLIENT_KEY.replace(/%2C/g, ',');
-			}
-		}
+		url = 'https://https://aslpokemonbattling-up-railway-app.psim.us' + url;
 		return PSStorage.request('POST', url, data) || Net(url).get({ method: 'POST', body: data }).then(
 			res => res ?? null
 		).catch(
