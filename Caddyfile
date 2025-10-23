@@ -32,6 +32,43 @@
 	@json5 path *.json5
 	header @json5 Content-Type "text/plain; charset=UTF-8"
 
+	  # --- 1) Redirect http->https for the canonical host
+	@redirHttp {
+		host play.pokemonshowdown.com
+		header X-Forwarded-Proto http
+	}
+	redir @redirHttp https://play.pokemonshowdown.com{uri} 307
+
+	# --- 2) If https AND query contains ?insecure, send to insecure.psim.us
+	@redirInsecure {
+		host play.pokemonshowdown.com
+		header X-Forwarded-Proto https
+		query insecure=*
+	}
+	redir @redirInsecure http://insecure.psim.us{uri}?{query} 307
+
+	# --- 3) Preact alpha: cookie gate + path is "/" or single segment
+	@preactCookiePaths {
+		header_regexp Cookie (?i)(^|;\s*)preactalpha=1(;|$)
+		path_regexp prepaths ^/$|^/([A-Za-z0-9][A-Za-z0-9-]*)$
+	}
+	route @preactCookiePaths {
+		rewrite * /preactalpha.html
+		header * Cache-Control "no-cache, no-store, must-revalidate"
+		header * Pragma "no-cache"
+		header * Expires "0"
+		file_server
+	}
+
+	# --- 4) ladder.php -> external site unless output=html
+	@ladderNoHtml {
+		path /ladder.php
+		not {
+		query output=html
+		}
+	}
+	redir @ladderNoHtml https://pokemonshowdown.com/ladder/ 301
+
 	# -------------------------------------------
 	# Cache headers for index.html / preactalpha
 	# -------------------------------------------
@@ -47,16 +84,6 @@
 	@colors path /config/colors.json
 	header @colors Access-Control-Allow-Origin "*"
 	header @colors Access-Control-Allow-Methods "GET,POST,OPTIONS"
-
-	# -----------------------------------------------------
-	# X-Forwarded-Proto + host-based redirects (Apache Ifs)
-	# -----------------------------------------------------
-	@redirHttp expression `{http.request.header.X-Forwarded-Proto}` == "http" && {host} == "play.pokemonshowdown.com"
-	redir @redirHttp https://play.pokemonshowdown.com{uri} 307
-
-	# If https + query contains insecure=... -> send to insecure.psim.us
-	@redirInsecure expression `{http.request.header.X-Forwarded-Proto}` == "https" && {host} == "play.pokemonshowdown.com" && regexp_match(`{query}`, `(?i)(^|&)insecure($|&)`)
-	redir @redirInsecure http://insecure.psim.us{uri}?{query} 307
 
 	# -------------------------------------------
 	# Canonical host redirect for www subdomain
@@ -204,16 +231,6 @@
 	# -------------------------------------------------------------
 	# Index-page rewrites (preact alpha cookie + single-segment)
 	# -------------------------------------------------------------
-	# If cookie preactalpha=1 and path is "" or roomid-like -> preactalpha.html
-	@preactCookie expression `indexof({http.request.header.Cookie}, "preactalpha=1") >= 0`
-	@preactPaths path_regexp prepaths ^/$|^/([A-Za-z0-9][A-Za-z0-9-]*)$
-	route @preactCookie @preactPaths {
-		rewrite * /preactalpha.html
-		header * Cache-Control "no-cache, no-store, must-revalidate"
-		header * Pragma "no-cache"
-		header * Expires "0"
-		file_server
-	}
 
 	# Explicit preact routes -> preactalpha.html
 	@preactExplicit path_regexp prex ^/(preactalpha|preactbeta|beta|dev|development|login|users|(dm|challenge|user|viewuser|ladder)-[a-z0-9-]*)$
@@ -244,11 +261,6 @@
 	@replayTurn path_regexp rpt ^/replay/turn_(.+)\.png$
 	rewrite @replayTurn /replay/turn-image.php?data={re.rpt.1}
 
-	# ladder.php -> external site unless ?output=html
-	@ladder path /ladder.php
-	@ladderNoHtml expression `!regexp_match("{query}", "(^|&)output=html($|&)")`
-	redir @ladder @ladderNoHtml https://pokemonshowdown.com/ladder/ 301
-
 	# -------------------------------------------
 	# ~~server routes -> PHP endpoints
 	# -------------------------------------------
@@ -274,10 +286,11 @@
 	# -------------------------------------------
 	# PHP handling (FrankenPHP)
 	# -------------------------------------------
-	# Directory
-	Index-like fallback try_files {path} {path}/ /index.php /index.html 
+	# Directory Index-like fallback 
+	try_files {path} {path}/ /index.php /index.html 
 	# Serve PHP files via FrankenPHP 
 	php_server 
+
 
 	# -------------------------------------------
 	# Custom 404 page
