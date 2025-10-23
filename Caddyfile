@@ -274,11 +274,10 @@
 	# -------------------------------------------
 	# PHP handling (FrankenPHP)
 	# -------------------------------------------
-	# Adjust the socket/addr to your FrankenPHP setup
-	php_fastcgi unix//run/frankenphp.sock
-
-	# If no PHP matched and it's not a real file, try index.php then index.html
-	try_files {path} {path}/ /index.php /index.html
+	# Directory
+	Index-like fallback try_files {path} {path}/ /index.php /index.html 
+	# Serve PHP files via FrankenPHP 
+	php_server 
 
 	# -------------------------------------------
 	# Custom 404 page
