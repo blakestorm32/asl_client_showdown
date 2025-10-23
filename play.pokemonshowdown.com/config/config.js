@@ -4,7 +4,6 @@ var Config = (typeof Config !== 'undefined' && Config) || {};
 /* Optional: serve assets (images/audio/etc.) from your UI host */
 Config.resourceprefix = 'play.pokemonshowdown.com';
 
-Config.testclient = true;
 
 Config.bannedHosts = ['cool.jit.su', 'pokeball-nixonserver.rhcloud.com', /\.glitch\.me/];
 // Config.afd = true;
