@@ -2,7 +2,7 @@
 var Config = (typeof Config !== 'undefined' && Config) || {};
 
 /* Optional: serve assets (images/audio/etc.) from your UI host */
-Config.resourceprefix = 'aslclientshowdown-production.up.railway.app';
+Config.resourceprefix = 'play.pokemonshowdown.com';
 
 Config.bannedHosts = ['cool.jit.su', 'pokeball-nixonserver.rhcloud.com', /\.glitch\.me/];
 // Config.afd = true;
