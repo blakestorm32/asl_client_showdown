@@ -361,11 +361,18 @@ Config.groups = {
 };
 
 Config.defaultserver = {
-  id: 'showdown',                                  // any id you like
-  host: 'aslpokemonbattling.up.railway.app',         // <-- change this
-  port: 443,                                  // HTTPS/WSS
-  altport: 80,
-  registered: true
+	id: 'showdown',
+	host: 'sim3.psim.us',
+	port: 443,
+	httpport: 8000,
+	altport: 80,
+	registered: true
+};
+Config.server = {
+    id: 'aslpokemonbattling-up-railway-app',                                  // any id you like
+    host: 'aslpokemonbattling.up.railway.app',         // <-- change this
+    port: 443,                                  // HTTPS/WSS
+    altport: 80,
 };
 
 /*** Begin automatically generated configuration ***/
