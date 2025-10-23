@@ -23,10 +23,6 @@ try {
 	if (err.code !== 'MODULE_NOT_FOUND') throw err; // should never happen
 
 	console.log('config.js does not exist. Creating one with default settings...');
-	fs.writeFileSync(
-		'config/config.js',
-		fs.readFileSync('config/config-example.js')
-	);
 }
 
 var options = {cwd: __dirname, stdio: 'inherit'};
