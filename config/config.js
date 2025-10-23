@@ -2,7 +2,7 @@
 var Config = (typeof Config !== 'undefined' && Config) || {};
 
 /* Optional: serve assets (images/audio/etc.) from your UI host */
-Config.resourceprefix = 'aslshowdownui-production.up.railway.app';
+Config.resourceprefix = 'aslclientshowdown-production.up.railway.app';
 
 Config.bannedHosts = ['cool.jit.su', 'pokeball-nixonserver.rhcloud.com', /\.glitch\.me/];
 // Config.afd = true;
@@ -369,16 +369,15 @@ Config.defaultserver = {
 };
 
 /*** Begin automatically generated configuration ***/
-Config.version = "0.11.2 (edfa2d17/cc96065d)";
+Config.version = "0.11.2";
 
-/* IMPORTANT: point these at your Railway services */
 Config.routes = {
-	root:    'pokemonshowdown.com',
-	client:  'aslshowdownui-production.up.railway.app',                 // this UI (no trailing /play)
-	dex:     'asl-pokemon-showdown-dex-production.up.railway.app',
-	replays: 'asl-pokemon-showdown-client-production.up.railway.app',  // your replays host
-	users:   'pokemonshowdown.com/users',
-	teams:   'teams.pokemonshowdown.com',
+	root: 'pokemonshowdown.com',
+	client: 'aslclientshowdown-production.up.railway.app',
+	dex: 'asl-pokemon-showdown-dex-production.up.railway.app',
+	replays: 'asl-pokemon-showdown-client-production.up.railway.app',
+	users: 'pokemonshowdown.com/users',
+	teams: 'teams.pokemonshowdown.com',
 };
 /*** End automatically generated configuration ***/
 
