@@ -178,13 +178,17 @@
 	# -------------------------------------------
 	# Old battle paths -> replay site
 	# -------------------------------------------
-	@battleDate8 host play.pokemonshowdown.com
-	@battleDate8 path_regexp b8 ^/battle-([a-z0-9]+-[0-9]{8})$
-	redir @battleDate8 https://replay.pokemonshowdown.com/{re.b8.1} 302
-
-	@battleAny host play.pokemonshowdown.com
-	@battleAny path_regexp bAny ^/battle-([a-z0-9]+)$
-	redir @battleAny https://replay.pokemonshowdown.com/{re.bAny.1} 302
+	@playBattleDate8 {
+		host play.pokemonshowdown.com
+		path_regexp b8 ^/battle-([a-z0-9]+-[0-9]{8})$
+	}
+	redir @playBattleDate8 https://replay.pokemonshowdown.com/{re.b8.1} 302
+	
+	@playBattleAny {
+		host play.pokemonshowdown.com
+		path_regexp bany ^/battle-([a-z0-9]+)$
+	}
+	redir @playBattleAny https://replay.pokemonshowdown.com/{re.bany.1} 302
 
 	# -------------------------------------------
 	# /lobby -> /
