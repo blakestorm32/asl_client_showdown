@@ -952,6 +952,8 @@ export const Dex = new class implements ModdedDex {
 export class ModdedDex {
 	readonly gen: number;
 	readonly modid: ID;
+
+	
 	readonly cache = {
 		Moves: {} as { [k: string]: Move },
 		Items: {} as { [k: string]: Item },
