@@ -395,7 +395,7 @@ export const PSLoginServer = new class {
 		// }
 		data.act = act;
 		let url = '/~~' + PS.server.id + '/action.php';
-		url = 'https://https://aslpokemonbattling-up-railway-app.psim.us' + url;
+		url = 'https://aslpokemonbattling-up-railway-app.psim.us' + url;
 		return PSStorage.request('POST', url, data) || Net(url).get({ method: 'POST', body: data }).then(
 			res => res ?? null
 		).catch(

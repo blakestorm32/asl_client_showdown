@@ -218,7 +218,7 @@ function toId() {
 		 */
 		getActionPHP: function () {
 			let url = '/~~' + Config.server.id + '/action.php';
-			url = 'https://https://aslpokemonbattling-up-railway-app.psim.us' + url;
+			url = 'https://aslpokemonbattling-up-railway-app.psim.us' + url;
 			return url;
 			if (Config.testclient) {
 				ret = 'https://' + Config.routes.client + ret;
