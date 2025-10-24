@@ -1599,6 +1599,7 @@
 			} });
 		},
 		changeFormat: function (format) {
+			console.log("change format", format)
 			this.curTeam.format = format;
 			this.curTeam.gen = this.getGen(this.curTeam.format);
 			this.curTeam.dex = Dex.forGen(this.curTeam.gen);
@@ -1607,6 +1608,12 @@
 			}
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
+			}
+			if (this.curTeam.format.includes('aslnatdexdraft')) {
+				this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
+			}
+			if (this.curTeam.format.includes('mysticnatdexdraft')) {
+				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');
