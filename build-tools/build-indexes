@@ -299,8 +299,8 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			if (isSSB) genStr += 'ssb';
 			if (isBW1) genStr += 'bw1';
 			if (isRS) genStr += 'rs';
-			if (isASL) 'aslnatdexdraft';
-			if (isMYSTIC) 'mysticnatdexdraft';
+			if (isASL) return 'aslnatdexdraft';
+			if (isMYSTIC) return 'mysticnatdexdraft';
 			return genStr;
 		})();
 		// process.stdout.write("" + gen + (isDoubles ? " doubles" : "") + "... ");
@@ -556,6 +556,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable[gen].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable[gen].learnsets = {};
 		}else if (isASL){
+			console.log("asl time")
 			BattleTeambuilderTable["gen9aslnatdexdraft"] = {};
 			BattleTeambuilderTable["gen9aslnatdexdraft"].overrideTier = overrideTier;
 			BattleTeambuilderTable["gen9aslnatdexdraft"].tiers = tiers;
@@ -563,7 +564,9 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable["gen9aslnatdexdraft"].formatSlices = formatSlices;
 			BattleTeambuilderTable["gen9aslnatdexdraft"].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable["gen9aslnatdexdraft"].learnsets = {};
+			BattleTeambuilderTable["gen9aslnatdexdraft"].testing = {};
 		}else if (isMYSTIC){
+			console.log("asl not time")
 			BattleTeambuilderTable["gen9mysticnatdexdraft"] = {};
 			BattleTeambuilderTable["gen9mysticnatdexdraft"].overrideTier = overrideTier;
 			BattleTeambuilderTable["gen9mysticnatdexdraft"].tiers = tiers;
