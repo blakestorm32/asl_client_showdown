@@ -75,6 +75,7 @@ class TeamEditorState extends PSModel {
 		super();
 		this.team = team;
 		this.updateTeam(false);
+		console.log("setting format team", team.format)
 		this.setFormat(team.format);
 		window.search = this.search;
 	}
@@ -86,6 +87,7 @@ class TeamEditorState extends PSModel {
 		this.readonly = readonly;
 	}
 	setFormat(format: string) {
+		console.log("setting format", format)
 		const team = this.team;
 		const formatid = toID(format);
 		this.format = formatid;
