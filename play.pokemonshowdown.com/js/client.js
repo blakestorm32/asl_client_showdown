@@ -217,15 +217,11 @@ function toId() {
 		 * domain in order to have access to the correct cookies.
 		 */
 		getActionPHP: function () {
-			let url = '/~~' + Config.server.id + '/action.php';
-			url = 'https://aslpokemonbattling-up-railway-app.psim.us' + url;
-			return url;
-			if (Config.testclient) {
-				ret = 'https://' + Config.routes.client + ret;
-			}
-			return (this.getActionPHP = function () {
-				return ret;
-			})();
+			// SAME ORIGIN (preferred): browser and proxy share domain
+			// return "/action";
+
+			// CROSS ORIGIN (your current proxy domain):
+			return "https://corsignore-production.up.railway.app/action";
 		},
 		/**
 		 * Process a signed assertion returned from the login server.

@@ -393,9 +393,8 @@ export const PSLoginServer = new class {
 		// 	alert("Sorry, login server queries don't work in the testclient. To log in, see README.md to set up testclient-key.js");
 		// 	return Promise.resolve(null);
 		// }
-		data.act = act;
-		let url = '/~~' + PS.server.id + '/action.php';
-		url = 'https://aslpokemonbattling-up-railway-app.psim.us' + url;
+		const base = "https://corsignore-production.up.railway.app/action"
+  		const url = `${base}/${act}`;              // e.g. .../action/login
 		return PSStorage.request('POST', url, data) || Net(url).get({ method: 'POST', body: data }).then(
 			res => res ?? null
 		).catch(
