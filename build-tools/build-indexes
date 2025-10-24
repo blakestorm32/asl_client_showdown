@@ -299,8 +299,8 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			if (isSSB) genStr += 'ssb';
 			if (isBW1) genStr += 'bw1';
 			if (isRS) genStr += 'rs';
-			if (isASL) return 'aslnatdexdraft';
-			if (isMYSTIC) return 'mysticnatdexdraft';
+			if (isASL) genStr += 'aslnatdexdraft';
+			if (isMYSTIC) genStr += 'mysticnatdexdraft';
 			return genStr;
 		})();
 		// process.stdout.write("" + gen + (isDoubles ? " doubles" : "") + "... ");
@@ -1159,7 +1159,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 		}
 	}
 	// ASL NatDex Draft learnsets (mod)
-	const ASLNDLearnsets = Dex.mod('aslnatdexdraft').data.Learnsets;
+	const ASLNDLearnsets = Dex.mod('gen9aslnatdexdraft').data.Learnsets;
 	BattleTeambuilderTable['gen9aslnatdexdraft'] = BattleTeambuilderTable['gen9aslnatdexdraft'] || {};
 	BattleTeambuilderTable['gen9aslnatdexdraft'].learnsets = {};
 	for (const id in ASLNDLearnsets) {
@@ -1180,7 +1180,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	}
 
 	// Mystic NatDex Draft learnsets (mod)
-	const MysticNDLearnsets = Dex.mod('mysticnatdexdraft').data.Learnsets;
+	const MysticNDLearnsets = Dex.mod('gen9mysticnatdexdraft').data.Learnsets;
 	BattleTeambuilderTable['gen9mysticnatdexdraft'] = BattleTeambuilderTable['gen9mysticnatdexdraft'] || {};
 	BattleTeambuilderTable['gen9mysticnatdexdraft'].learnsets = {};
 	for (const id in MysticNDLearnsets) {
@@ -1298,20 +1298,10 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	//
 
 	// Mods
-	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'aslnatdexdraft', 'mysticnatdexdraft']) {
+	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'gen9aslnatdexdraft', 'gen9mysticnatdexdraft']) {
 
 		const modDex = Dex.mod(mod);
 		let btMod = mod
-		console.log(mod)
-		if (mod === 'aslnatdexdraft'){
-			btMod = 'gen9aslnatdexdraft'
-			console.log("setting gen9aslnatdexdraft")
-		}
-		if (mod === 'mysticnatdexdraft'){
-			btMod = 'gen9mysticnatdexdraft'
-			console.log("setting gen9mysticnatdexdraft")
-		}
-		console.log("btMod", btMod)
 		const modData = modDex.data;
 		const parentDex = Dex.forGen(modDex.gen);
 
