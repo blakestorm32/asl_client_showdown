@@ -21,6 +21,7 @@
 		},
 		focus: function () {
 			if (this.curTeam) {
+				console.log("focus setting")
 				this.curTeam.iconCache = '!';
 				this.curTeam.gen = this.getGen(this.curTeam.format);
 				this.curTeam.dex = Dex.forGen(this.curTeam.gen);
@@ -29,6 +30,14 @@
 				}
 				if (this.curTeam.format.includes('bdsp')) {
 					this.curTeam.dex = Dex.mod('gen8bdsp');
+				}
+				if (this.curTeam.format.includes('aslnatdexdraft')) {
+					console.log("setting format to asl")
+					this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
+				}
+				if (this.curTeam.format.includes('mysticnatdexdraft')) {
+					console.log("setting format to mystic")
+					this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 				}
 				Storage.activeSetList = this.curSetList;
 			}
@@ -754,6 +763,14 @@
 			}
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
+			}
+			if (this.curTeam.format.includes('aslnatdexdraft')) {
+				console.log("setting format to asl")
+				this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
+			}
+			if (this.curTeam.format.includes('mysticnatdexdraft')) {
+				console.log("setting format to mystic")
+				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 			}
 			Storage.activeSetList = this.curSetList = Storage.unpackTeam(this.curTeam.team);
 			this.curTeamIndex = i;
@@ -1610,9 +1627,11 @@
 				this.curTeam.dex = Dex.mod('gen8bdsp');
 			}
 			if (this.curTeam.format.includes('aslnatdexdraft')) {
+				console.log("setting format to asl")
 				this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
 			}
 			if (this.curTeam.format.includes('mysticnatdexdraft')) {
+				console.log("setting format to mystic")
 				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 			}
 			this.save();
