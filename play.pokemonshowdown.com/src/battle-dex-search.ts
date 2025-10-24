@@ -704,6 +704,14 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			format = format.slice(0, -5) as ID;
 			if (!format) format = 'anythinggoes' as ID;
 		}
+		if (format.includes("aslnatdexdraft")){
+			console.log("setting dex to asl")
+			this.dex = Dex.mod('gen9aslnatdexdraft' as ID);
+		}
+		if (format.includes("mysticnatdexdraft")){
+			console.log("setting dex to mystic")
+			this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
+		}
 		this.format = format;
 
 		this.species = '' as ID;
