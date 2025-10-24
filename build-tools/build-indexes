@@ -1138,6 +1138,47 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			}
 		}
 	}
+	// ASL NatDex Draft learnsets (mod)
+	const ASLNDLearnsets = Dex.mod('aslnatdexdraft').data.Learnsets;
+	BattleTeambuilderTable['aslnatdexdraft'] = BattleTeambuilderTable['aslnatdexdraft'] || {};
+	BattleTeambuilderTable['aslnatdexdraft'].learnsets = {};
+	for (const id in ASLNDLearnsets) {
+	const learnset = ASLNDLearnsets[id].learnset;
+	if (!learnset) continue;
+	BattleTeambuilderTable['aslnatdexdraft'].learnsets[id] = {};
+	for (const moveid in learnset) {
+		const gens = learnset[moveid].map(x => Number(x[0]));
+		const minGen = Math.min(...gens);
+		// Same encoding convention as your main learnsets table
+		BattleTeambuilderTable['aslnatdexdraft'].learnsets[id][moveid] = '0123456789'.slice(minGen);
+		if (gens.indexOf(6) >= 0 && learnset[moveid].some(x => x[0] === '6')) BattleTeambuilderTable['aslnatdexdraft'].learnsets[id][moveid] += 'p';
+		if (gens.indexOf(7) >= 0 && learnset[moveid].some(x => x[0] === '7' && x !== '7V')) BattleTeambuilderTable['aslnatdexdraft'].learnsets[id][moveid] += 'q';
+		if (gens.indexOf(8) >= 0 && learnset[moveid].some(x => x[0] === '8' && x !== '8V')) BattleTeambuilderTable['aslnatdexdraft'].learnsets[id][moveid] += 'g';
+		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x[0] === '9' && x !== '9V')) BattleTeambuilderTable['aslnatdexdraft'].learnsets[id][moveid] += 'a';
+		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x === '9E')) BattleTeambuilderTable['aslnatdexdraft'].learnsets[id][moveid] += 'e';
+	}
+	}
+
+	// Mystic NatDex Draft learnsets (mod)
+	const MysticNDLearnsets = Dex.mod('mysticnatdexdraft').data.Learnsets;
+	BattleTeambuilderTable['mysticnatdexdraft'] = BattleTeambuilderTable['mysticnatdexdraft'] || {};
+	BattleTeambuilderTable['mysticnatdexdraft'].learnsets = {};
+	for (const id in MysticNDLearnsets) {
+	const learnset = MysticNDLearnsets[id].learnset;
+	if (!learnset) continue;
+	BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id] = {};
+	for (const moveid in learnset) {
+		const gens = learnset[moveid].map(x => Number(x[0]));
+		const minGen = Math.min(...gens);
+		BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id][moveid] = '0123456789'.slice(minGen);
+		if (gens.indexOf(6) >= 0 && learnset[moveid].some(x => x[0] === '6')) BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id][moveid] += 'p';
+		if (gens.indexOf(7) >= 0 && learnset[moveid].some(x => x[0] === '7' && x !== '7V')) BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id][moveid] += 'q';
+		if (gens.indexOf(8) >= 0 && learnset[moveid].some(x => x[0] === '8' && x !== '8V')) BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id][moveid] += 'g';
+		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x[0] === '9' && x !== '9V')) BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id][moveid] += 'a';
+		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x === '9E')) BattleTeambuilderTable['mysticnatdexdraft'].learnsets[id][moveid] += 'e';
+	}
+	}
+
 
 	// Client relevant data that should be overridden by past gens and mods
 	const overrideSpeciesKeys = [
@@ -1236,7 +1277,9 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	// Mods
 	//
 
-	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb']) {
+	// Mods
+	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'aslnatdexdraft', 'mysticnatdexdraft']) {
+
 		const modDex = Dex.mod(mod);
 		const modData = modDex.data;
 		const parentDex = Dex.forGen(modDex.gen);
