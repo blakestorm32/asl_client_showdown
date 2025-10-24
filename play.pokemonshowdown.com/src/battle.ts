@@ -3402,6 +3402,7 @@ export class Battle {
 		this.add(command);
 	}
 	runMajor(args: Args, kwArgs: KWArgs, preempt?: boolean) {
+		console.log("got args", args)
 		switch (args[0]) {
 		case 'start': {
 			this.nearSide.active[0] = null;
