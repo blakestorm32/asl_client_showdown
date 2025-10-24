@@ -3440,6 +3440,14 @@ export class Battle {
 			if (this.tier.includes('Super Staff Bros')) {
 				this.dex = Dex.mod('gen9ssb' as ID);
 			}
+			if (this.tier.includes('ASL NatDex Draft')){
+				this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
+				console.log("Setting dex mod to asl")
+			}
+			if (this.tier.includes('Mystic NatDex Draft')){
+				this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
+				console.log("Setting dex mod to mystic")
+			}
 			this.log(args);
 			break;
 		}
