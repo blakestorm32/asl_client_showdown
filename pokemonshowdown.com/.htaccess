@@ -109,7 +109,6 @@ RewriteRule ^user(/.*)?$ /users$1 [R=301,L]
 RewriteRule ^sprites(/.*)?$ https://play.pokemonshowdown.com/sprites$1 [R=301,L]
 RewriteRule ^audio(/.*)?$ https://play.pokemonshowdown.com/audio$1 [R=301,L]
 RewriteRule ^fx(/.*)?$ https://play.pokemonshowdown.com/fx$1 [R=301,L]
-RewriteRule ^pokemonshowdownbeta\.png$ https://play.pokemonshowdown.com/pokemonshowdownbeta.png [R=301,L]
 
 RewriteRule ^config/ - [F]
 RewriteRule ^\.git/ - [F]
