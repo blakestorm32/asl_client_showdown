@@ -1022,7 +1022,10 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 		const dex = this.dex;
 
 		let table = BattleTeambuilderTable;
-		if ((format.endsWith('cap') || format.endsWith('caplc')) && dex.gen < 9) {
+		if (format.includes("asl") || format.includes("mystic")){
+			table = table[`gen9${format}`];
+		}
+		else if ((format.endsWith('cap') || format.endsWith('caplc')) && dex.gen < 9) {
 			table = table[`gen${dex.gen}`];
 		} else if (isVGCOrBS) {
 			table = table[`gen${dex.gen}vgc`];
@@ -1138,7 +1141,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 			tierSet = tierSet.slice(0, slices.AG || slices.Uber).concat(tierSet.slice(slices.OU));
 		} else if (format === 'caplc') {
 			tierSet = tierSet.slice(slices['CAP LC'], slices.AG || slices.Uber).concat(tierSet.slice(slices.LC));
-		} else if (format === 'anythinggoes' || format.endsWith('ag') || format.startsWith('ag') || format.includes("asl") || format.includes("mystic")) {
+		} else if (format === 'anythinggoes' || format.endsWith('ag') || format.startsWith('ag')) {
 			tierSet = tierSet.slice(slices.AG);
 		} else if (isHackmons && (dex.gen < 9 || this.formatType === 'natdex')) {
 			tierSet = tierSet.slice(slices.AG || slices.Uber);
