@@ -708,11 +708,13 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			console.log("setting dex to asl")
 			this.dex = Dex.mod('gen9aslnatdexdraft' as ID);
 			format = "aslnatdexdraft" as ID
+			this.formatType = 'aslnatdexdraft'
 		}
 		else if (format.includes("mysticnatdexdraft")){
 			console.log("setting dex to mystic")
 			this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
 			format = 'mysticnatdexdraft' as ID
+			this.formatType = 'mysticnatdexdraft'
 		}
 		else if (format.endsWith('draft')) {
 			format = format.slice(0, -5) as ID;
