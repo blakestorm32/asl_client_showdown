@@ -1023,6 +1023,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 
 		let table = BattleTeambuilderTable;
 		if (format.includes("asl") || format.includes("mystic")){
+			console.log("setting asl or mystic getBaseRes")
 			table = table[`gen9${format}`];
 		}
 		else if ((format.endsWith('cap') || format.endsWith('caplc')) && dex.gen < 9) {
@@ -1045,6 +1046,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 			table = table[`gen${dex.gen}doubles`];
 			isDoublesOrBS = true;
 		} else if (dex.gen < 9 && !this.formatType) {
+			console.log("setting gen 9")
 			table = table[`gen${dex.gen}`];
 		} else if (this.formatType?.startsWith('bdsp')) {
 			table = table['gen8' + this.formatType];
