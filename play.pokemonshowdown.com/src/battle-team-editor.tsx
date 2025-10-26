@@ -2505,6 +2505,8 @@ class StatForm extends preact.Component<{
 			smogdexid += '/ag';
 		} else if (format === 'nationaldexag') {
 			smogdexid += '/national-dex-ag';
+		} else if (format.includes("natdexdraft")){
+			smogdexid += '/national-dex-ag';
 		}
 		return `http://smogon.com/dex/${generation}/pokemon/${smogdexid}/`;
 	}
