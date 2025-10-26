@@ -886,6 +886,8 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			if (this.formatType === 'letsgo') table = table['gen7letsgo'];
 			if (this.formatType === 'bw1') table = table['gen5bw1'];
 			if (this.formatType === 'rs') table = table['gen3rs'];
+			if (this.formatType === "mysticnatdexdraft") table = table['gen9mysticnatdexdraft'];
+			if (this.formatType === "aslnatdexdraft") table = table['gen9aslnatdexdraft'];
 			let learnset = table.learnsets[learnsetid];
 			const eggMovesOnly = this.eggMovesOnly(learnsetid, speciesid);
 			if (learnset && (moveid in learnset) && (!this.format.startsWith('tradebacks') ? learnset[moveid].includes(genChar) :
