@@ -867,7 +867,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.format.startsWith('battlespot') ||
 			this.format.startsWith('battlestadium') ||
 			this.format.startsWith('battlefestival') ||
-			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza')
+			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft')
 		) {
 			if (gen === 9) {
 				genChar = 'a';
