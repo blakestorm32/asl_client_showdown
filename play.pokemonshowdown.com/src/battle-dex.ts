@@ -804,6 +804,7 @@ export const Dex = new class implements ModdedDex {
 		}
 
 		let id = toID(pokemon);
+		console.log("Getting id", Dex.modid, id, pokemon)
 		if (!pokemon || typeof pokemon === 'string') pokemon = null;
 		// @ts-expect-error safe, but too lazy to cast
 		if (pokemon?.speciesForme) id = toID(pokemon.speciesForme);
