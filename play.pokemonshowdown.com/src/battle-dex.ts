@@ -766,6 +766,7 @@ export const Dex = new class implements ModdedDex {
 	}
 
 	getPokemonIconNum(id: ID, isFemale?: boolean, facingLeft?: boolean) {
+		console.log("getting icon num", id)
 		let num = 0;
 		if (window.BattlePokemonSprites?.[id]?.num) {
 			num = BattlePokemonSprites[id].num;
