@@ -1645,11 +1645,12 @@
 				return buf;
 			}
 			if (i < 0) {
-				return '<em>Select a team</em>';
+				return '<em>Select a teamxs</em>';
 			}
 			var team = Storage.teams[i];
 			if (!team) return 'Error: Corrupted team';
 			var buf = '<strong>' + BattleLog.escapeHTML(team.name) + '</strong><small>';
+			console.log("Getting team icons", team)
 			buf += Storage.getTeamIcons(team) + '</small>';
 			return buf;
 		}
