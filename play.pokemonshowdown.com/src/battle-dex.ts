@@ -788,12 +788,6 @@ export const Dex = new class implements ModdedDex {
 				num = BattlePokemonIconIndexes[id + 'f'];
 			}
 		}
-		if (facingLeft) {
-			if (BattlePokemonIconIndexesLeft[id]) {
-				console.log("using left")
-				num = BattlePokemonIconIndexesLeft[id];
-			}
-		}
 		return num;
 	}
 
