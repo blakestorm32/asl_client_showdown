@@ -244,6 +244,7 @@ export const Dex = new class implements ModdedDex {
 	afdMode?: boolean | 'sprites';
 
 	mod(modid: ID): ModdedDex {
+		console.log("battle-dex constructor with modid", modid)
 		if (modid === 'gen9') return this;
 		if (!window.BattleTeambuilderTable) return this;
 		if (modid in this.moddedDexes) {
