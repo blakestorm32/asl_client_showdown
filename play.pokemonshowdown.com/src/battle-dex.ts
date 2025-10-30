@@ -769,14 +769,17 @@ export const Dex = new class implements ModdedDex {
 		console.log("getting icon num", id)
 		let num = 0;
 		if (window.BattlePokemonSprites?.[id]?.num) {
+			console.log("using BattlePokemonSprites")
 			num = BattlePokemonSprites[id].num;
 		} else if (window.BattlePokedex?.[id]?.num) {
+			console.log("using BattlePokedex")
 			num = BattlePokedex[id].num;
 		}
 		if (num < 0) num = 0;
 		if (num > 1025) num = 0;
 
 		if (window.BattlePokemonIconIndexes?.[id]) {
+			console.log("using BattlePokemonIconIndexes")
 			num = BattlePokemonIconIndexes[id];
 		}
 
@@ -787,6 +790,7 @@ export const Dex = new class implements ModdedDex {
 		}
 		if (facingLeft) {
 			if (BattlePokemonIconIndexesLeft[id]) {
+				console.log("using left")
 				num = BattlePokemonIconIndexesLeft[id];
 			}
 		}
