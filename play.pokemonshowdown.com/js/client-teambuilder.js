@@ -33,7 +33,15 @@
 				}
 				if (this.curTeam.format.includes('aslnatdexdraft')) {
 					console.log("setting format to asl")
-					this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
+					this.curTeam.dex = Dex.mod('gen9aslnatdexdraft')
+						this.curTeam.dex.includeModData('gen8');
+		this.curTeam.dex.includeModData('gen7');
+		this.curTeam.dex.includeModData('gen6');
+		this.curTeam.dex.includeModData('gen5');
+		this.curTeam.dex.includeModData('gen4');
+		this.curTeam.dex.includeModData('gen3');
+		this.curTeam.dex.includeModData('gen2');
+		this.curTeam.dex.includeModData('gen1');
 				}
 				if (this.curTeam.format.includes('mysticnatdexdraft')) {
 					console.log("setting format to mystic")
