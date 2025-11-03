@@ -35,6 +35,20 @@
 					console.log("setting format to asl")
 					this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
 				}
+				// ✅ Merge older generation data for cut moves
+	try {
+		this.curTeam.dex.includeModData('gen8');
+		this.curTeam.dex.includeModData('gen7');
+		this.curTeam.dex.includeModData('gen6');
+		this.curTeam.dex.includeModData('gen5');
+		this.curTeam.dex.includeModData('gen4');
+		this.curTeam.dex.includeModData('gen3');
+		this.curTeam.dex.includeModData('gen2');
+		this.curTeam.dex.includeModData('gen1');
+		console.log("Included older gens for ASL NatDex Draft moves.");
+	} catch (e) {
+		console.error("Failed to merge older-gen data:", e);
+	}
 				if (this.curTeam.format.includes('mysticnatdexdraft')) {
 					console.log("setting format to mystic")
 					this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
