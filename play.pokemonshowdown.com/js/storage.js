@@ -68,7 +68,7 @@ Storage.bg = {
 		}
 		$(document.body).css({
 			background: background,
-			'background-size': 'cover'
+			'background-size': '65% auto'
 		});
 		var attrib = '';
 		this.changeCount++;
