@@ -1772,10 +1772,13 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('predlc')) lsetTable = lsetTable['gen9predlc'];
 		if (this.formatType?.startsWith('svdlc1')) lsetTable = lsetTable['gen9dlc1'];
 
+		const isDraftFmt = (ft?: string | null) => ft === 'aslnatdexdraft' || ft === 'mysticnatdexdraft';
+
 		console.log("lsertTable", this.formatType, this.format)
 
 		while (learnsetid) {
 			let learnset = lsetTable.learnsets[learnsetid];
+			
 			if (learnset) {
 				for (let moveid in learnset) {
 					let learnsetEntry = learnset[moveid];
@@ -1819,6 +1822,13 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					}
 					if (moves.includes(moveid)) continue;
 					moves.push(moveid);
+					const isBannedInDraft = (id: string) =>
+						id === 'hail' ||
+						id === 'pursuit' ||
+						id.startsWith('hiddenpower');
+					if(isBannedInDraft(moveid) && isDraftFmt(this.formatType)){
+						continue;
+					}
 					if (moveid === 'sketch') sketch = true;
 					if (moveid === 'hiddenpower') {
 						moves.push(
