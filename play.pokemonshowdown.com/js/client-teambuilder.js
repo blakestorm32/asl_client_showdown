@@ -33,6 +33,7 @@
 				}
 				if (this.curTeam.format.includes('aslnatdexdraft')) {
 					console.log("setting format to asl")
+					this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
 					this.curTeam.dex.includeModData('gen9');
 					this.curTeam.dex.includeModData('gen8');
 					this.curTeam.dex.includeModData('gen7');
