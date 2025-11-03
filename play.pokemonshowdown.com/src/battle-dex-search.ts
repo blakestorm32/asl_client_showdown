@@ -1773,6 +1773,10 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('svdlc1')) lsetTable = lsetTable['gen9dlc1'];
 
 		const isDraftFmt = (ft?: string | null) => ft === 'aslnatdexdraft' || ft === 'mysticnatdexdraft';
+		const isBannedInDraft = (id: string) =>
+			id === 'hail' ||
+			id === 'pursuit' ||
+			id.startsWith('hiddenpower');
 
 		console.log("lsertTable", this.formatType, this.format)
 
@@ -1822,10 +1826,6 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					}
 					if (moves.includes(moveid)) continue;
 					moves.push(moveid);
-					const isBannedInDraft = (id: string) =>
-						id === 'hail' ||
-						id === 'pursuit' ||
-						id.startsWith('hiddenpower');
 					if(isBannedInDraft(moveid) && isDraftFmt(this.formatType)){
 						continue;
 					}
