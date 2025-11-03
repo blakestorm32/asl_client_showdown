@@ -52,21 +52,7 @@ Storage.bg = {
 	 */
 	load: function (bgUrl, bgid, hues) {
 		this.id = bgid;
-		if (!bgid) {
-			if (location.host === 'smogtours.psim.us') {
-				bgid = 'shaymin';
-			} else if (location.host === Config.routes.client) {
-				bgid = ['horizon', 'ocean', 'waterfall', 'shaymin', 'charizards', 'psday'][Math.floor(Math.random() * 6)];
-			} else {
-				$(document.body).css({
-					background: '',
-					'background-size': ''
-				});
-				$('#mainmenubuttoncolors').remove();
-				return true;
-			}
-			bgUrl = Dex.resourcePrefix + 'fx/client-bg-' + bgid + '.jpg';
-		}
+		bgUrl = '../fx/asl_bg.png';
 
 		// April Fool's 2016 - Digimon theme
 		// bgid = 'digimon';
