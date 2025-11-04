@@ -1779,18 +1779,6 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 			id === 'shedtail' ||
 			id === 'revivalblessing' ||
 			id.startsWith('hiddenpower');
-			id === 'flash' ||
-			id === 'kinesis' ||
-			id === 'mudslap' ||
-			id === 'sandattack' ||
-			id === 'smokescreen' ||
-			id === 'acupressure' ||
-			id === 'doubleteam' ||
-			id === 'minimize' ||
-			id === 'fissure' ||
-			id === 'guillotine' ||
-			id === 'horndrill' ||
-			id === 'sheercold' ||
 
 		console.log("lsertTable", this.formatType, this.format)
 
