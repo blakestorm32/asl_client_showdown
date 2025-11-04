@@ -1830,6 +1830,49 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					if(isBannedInDraft(moveid) && isDraftFmt(this.formatType)){
 						continue;
 					}
+					// ASL COMPLEX BANS
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shiftgear' && species.id === 'genesect'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'rockpolish' && species.id === 'genesect'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'dragondance' && species.id === 'kyuremblack'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'agility' && species.id === 'magearna'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shiftgear' && species.id === 'magearna'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'nastyplot' && species.id === 'megagreninja'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'nastyplot' && species.id === 'greninja'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'nastyplot' && species.id === 'naganadel'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'lastrespects' && species.id === 'basculegion'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'lastrespects' && species.id === 'basculegionfemale'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'lastrespects' && species.id === 'basculin'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shellsmash' && species.id === 'megabarbaracle'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shellsmash' && species.id === 'megablastoise'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid ==== 'seismictoss' && species.id === 'megakangaskhan'){
+  						continue;
+					}
 					moves.push(moveid);
 					if (moveid === 'sketch') sketch = true;
 					if (moveid === 'hiddenpower') {
