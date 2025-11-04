@@ -229,8 +229,8 @@ export const Dex = new class implements ModdedDex {
 
 	pokeballs: string[] | null = null;
 
-	resourcePrefix = 'https://aslclientshowdown-production.up.railway.app/';
-	fxPrefix = 'https://aslclientshowdown-production.up.railway.app/fx/';
+	resourcePrefix = '../';
+	fxPrefix = '../fx/';
 
 	loadedSpriteData = { xy: 1, bw: 0 };
 	moddedDexes: { [mod: string]: ModdedDex } = {};
