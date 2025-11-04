@@ -1736,7 +1736,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		'acidarmor', 'agility', 'aromatherapy', 'auroraveil', 'autotomize', 'banefulbunker', 'batonpass', 'bellydrum', 'bulkup', 'burningbulwark', 'calmmind', 'chillyreception', 'clangoroussoul', 'coil', 'cottonguard', 'courtchange', 'curse', 'defog', 'destinybond', 'detect', 'disable', 'dragondance', 'encore', 'extremeevoboost', 'filletaway', 'geomancy', 'glare', 'haze', 'healbell', 'healingwish', 'healorder', 'heartswap', 'honeclaws', 'kingsshield', 'leechseed', 'lightscreen', 'lovelykiss', 'lunardance', 'magiccoat', 'maxguard', 'memento', 'milkdrink', 'moonlight', 'morningsun', 'nastyplot', 'naturesmadness', 'noretreat', 'obstruct', 'painsplit', 'partingshot', 'perishsong', 'protect', 'quiverdance', 'recover', 'reflect', 'reflecttype', 'rest', 'revivalblessing', 'roar', 'rockpolish', 'roost', 'shedtail', 'shellsmash', 'shiftgear', 'shoreup', 'silktrap', 'slackoff', 'sleeppowder', 'sleeptalk', 'softboiled', 'spikes', 'spikyshield', 'spore', 'stealthrock', 'stickyweb', 'strengthsap', 'substitute', 'switcheroo', 'swordsdance', 'synthesis', 'tailglow', 'tailwind', 'taunt', 'thunderwave', 'tidyup', 'toxic', 'transform', 'trick', 'victorydance', 'whirlwind', 'willowisp', 'wish', 'yawn',
 	] as ID[] as readonly ID[];
 	static readonly GOOD_WEAK_MOVES = [
-		'accelerock', 'acrobatics', 'aquacutter', 'avalanche', 'barbbarrage', 'bonemerang', 'bouncybubble', 'bulletpunch', 'buzzybuzz', 'ceaselessedge', 'circlethrow', 'clearsmog', 'doubleironbash', 'dragondarts', 'dragontail', 'drainingkiss', 'endeavor', 'facade', 'firefang', 'flipturn', 'flowertrick', 'freezedry', 'frustration', 'geargrind', 'gigadrain', 'grassknot', 'gyroball', 'icefang', 'iceshard', 'iciclespear', 'infernalparade', 'knockoff', 'lastrespects', 'lowkick', 'machpunch', 'mortalspin', 'mysticalpower', 'naturesmadness', 'nightshade', 'nuzzle', 'pikapapow', 'populationbomb', 'psychocut', 'psyshieldbash', 'pursuit', 'quickattack', 'ragefist', 'rapidspin', 'return', 'rockblast', 'ruination', 'saltcure', 'scorchingsands', 'seismictoss', 'shadowclaw', 'shadowsneak', 'sizzlyslide', 'stoneaxe', 'storedpower', 'stormthrow', 'suckerpunch', 'superfang', 'surgingstrikes', 'tachyoncutter', 'tailslap', 'thunderclap', 'tripleaxel', 'tripledive', 'twinbeam', 'uturn', 'vacuumwave', 'veeveevolley', 'voltswitch', 'watershuriken', 'weatherball',
+		'accelerock', 'acrobatics', 'aquacutter', 'avalanche', 'barbbarrage', 'bonemerang', 'bouncybubble', 'bulletpunch', 'buzzybuzz', 'ceaselessedge', 'circlethrow', 'clearsmog', 'doubleironbash', 'dragondarts', 'dragontail', 'drainingkiss', 'endeavor', 'facade', 'firefang', 'flipturn', 'flowertrick', 'freezedry', 'frustration', 'geargrind', 'gigadrain', 'grassknot', 'gyroball', 'icefang', 'iceshard', 'iciclespear', 'infernalparade', 'knockoff', '', 'lowkick', 'machpunch', 'mortalspin', 'mysticalpower', 'naturesmadness', 'nightshade', 'nuzzle', 'pikapapow', 'populationbomb', 'psychocut', 'psyshieldbash', 'pursuit', 'quickattack', 'ragefist', 'rapidspin', 'return', 'rockblast', 'ruination', 'saltcure', 'scorchingsands', 'seismictoss', 'shadowclaw', 'shadowsneak', 'sizzlyslide', 'stoneaxe', 'storedpower', 'stormthrow', 'suckerpunch', 'superfang', 'surgingstrikes', 'tachyoncutter', 'tailslap', 'thunderclap', 'tripleaxel', 'tripledive', 'twinbeam', 'uturn', 'vacuumwave', 'veeveevolley', 'voltswitch', 'watershuriken', 'weatherball',
 	] as ID[] as readonly ID[];
 	static readonly BAD_STRONG_MOVES = [
 		'belch', 'burnup', 'crushclaw', 'dragonrush', 'dreameater', 'eggbomb', 'firepledge', 'flyingpress', 'futuresight', 'grasspledge', 'hyperbeam', 'hyperfang', 'hyperspacehole', 'jawlock', 'landswrath', 'megakick', 'megapunch', 'mistyexplosion', 'muddywater', 'nightdaze', 'pollenpuff', 'rockclimb', 'selfdestruct', 'shelltrap', 'skyuppercut', 'slam', 'strength', 'submission', 'synchronoise', 'takedown', 'thrash', 'uproar', 'waterpledge',
@@ -1776,6 +1776,8 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		const isBannedInDraft = (id: string) =>
 			id === 'hail' ||
 			id === 'pursuit' ||
+			id === 'shedtail' ||
+			id === 'revivalblessing' ||
 			id.startsWith('hiddenpower');
 
 		console.log("lsertTable", this.formatType, this.format)
@@ -1827,6 +1829,152 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					if (moves.includes(moveid)) continue;
 					if(isBannedInDraft(moveid) && isDraftFmt(this.formatType)){
 						continue;
+					}
+					// ASL COMPLEX BANS
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesect'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesect'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectdouse'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectdouse'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectshock'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectshock'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectburn'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectburn'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectchill'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectchill'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'dragondance' && species.id === 'kyuremblack'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'agility' && species.id === 'magearna'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearna'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'agility' && species.id === 'magearnaoriginal'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearnaoriginal'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'greninjamega'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'greninja'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'naganadel'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegion'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegionf'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculin'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculinbluestriped'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculinwhitestriped'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shellsmash' && species.id === 'barbaraclemega'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shellsmash' && species.id === 'blastoisemega'){
+  						continue;
+					}
+					if(this.formatType === "aslnatdexdraft" && moveid === 'seismictoss' && species.id === 'kangaskhanmega'){
+  						continue;
+					}
+					// MYSTIC COMPLEX BANS
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesect'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesect'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectdouse'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectdouse'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectshock'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectshock'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectburn'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectburn'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectchill'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectchill'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'dragondance' && species.id === 'kyuremblack'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'agility' && species.id === 'magearna'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearna'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'agility' && species.id === 'magearnaoriginal'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearnaoriginal'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'nastyplot' && species.id === 'naganadel'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'shellsmash' && species.id === 'blastoisemega'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'seismictoss' && species.id === 'kangaskhanmega'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegion'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegionf'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'relicsong' && species.id === 'meloetta'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'relicsong' && species.id === 'meloettapirouette'){
+  						continue;
 					}
 					moves.push(moveid);
 					if (moveid === 'sketch') sketch = true;
