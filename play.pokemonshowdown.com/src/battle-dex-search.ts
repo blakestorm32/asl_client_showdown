@@ -1776,6 +1776,8 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		const isBannedInDraft = (id: string) =>
 			id === 'hail' ||
 			id === 'pursuit' ||
+			id === 'shedtail' ||
+			id === 'revivalblessing' ||
 			id.startsWith('hiddenpower');
 
 		console.log("lsertTable", this.formatType, this.format)
