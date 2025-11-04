@@ -1831,46 +1831,46 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 						continue;
 					}
 					// ASL COMPLEX BANS
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shiftgear' && species.id === 'genesect'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesect'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'rockpolish' && species.id === 'genesect'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesect'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'dragondance' && species.id === 'kyuremblack'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'dragondance' && species.id === 'kyuremblack'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'agility' && species.id === 'magearna'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'agility' && species.id === 'magearna'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shiftgear' && species.id === 'magearna'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearna'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'nastyplot' && species.id === 'megagreninja'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'megagreninja'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'nastyplot' && species.id === 'greninja'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'greninja'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'nastyplot' && species.id === 'naganadel'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'naganadel'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'lastrespects' && species.id === 'basculegion'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegion'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'lastrespects' && species.id === 'basculegionfemale'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegionfemale'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'lastrespects' && species.id === 'basculin'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculin'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shellsmash' && species.id === 'megabarbaracle'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shellsmash' && species.id === 'megabarbaracle'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'shellsmash' && species.id === 'megablastoise'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'shellsmash' && species.id === 'megablastoise'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid ==== 'seismictoss' && species.id === 'megakangaskhan'){
+					if(this.formatType === "aslnatdexdraft" && moveid === 'seismictoss' && species.id === 'megakangaskhan'){
   						continue;
 					}
 					moves.push(moveid);
