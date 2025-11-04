@@ -1774,11 +1774,27 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 
 		const isDraftFmt = (ft?: string | null) => ft === 'aslnatdexdraft' || ft === 'mysticnatdexdraft';
 		const isBannedInDraft = (id: string) =>
+			// General Banned Moves
 			id === 'hail' ||
 			id === 'pursuit' ||
 			id === 'shedtail' ||
 			id === 'revivalblessing' ||
 			id.startsWith('hiddenpower');
+			// Accuracy Moves
+			id === 'flash' ||
+			id === 'kinesis' ||
+			id === 'mudslap' ||
+			id === 'sandattack' ||
+			id === 'smokescreen' ||
+			// Evasion Moves
+			id === 'acupressure' ||
+			id === 'doubleteam' ||
+			id === 'minimize' ||
+			// OHKO Moves
+			id === 'fissure' ||
+			id === 'guillotine' ||
+			id === 'horndrill' ||
+			id === 'sheercold' ||
 
 		console.log("lsertTable", this.formatType, this.format)
 
