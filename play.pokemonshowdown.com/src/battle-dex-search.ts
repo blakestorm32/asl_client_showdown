@@ -1302,6 +1302,7 @@ class BattleAbilitySearch extends BattleTypedSearch<'ability'> {
 	getBaseResults(): SearchRow[] {
 		if (!this.species) return this.getDefaultResults();
 		const format = this.format;
+		console.log("Fomrat ability search", format)
 		const isHackmons = (format.includes('hackmons') || format.endsWith('bh'));
 		const isAAA = (format === 'almostanyability' || format.includes('aaa'));
 		const dex = this.dex;
