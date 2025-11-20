@@ -39,10 +39,6 @@
 					console.log("setting format to mystic")
 					this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 				}
-				if (this.curTeam.format.includes('zanatdexdraft')) {
-					console.log("setting format to za")
-					this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
-				}
 				Storage.activeSetList = this.curSetList;
 			}
 		},
@@ -775,10 +771,6 @@
 			if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")
 				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
-			}
-			if (this.curTeam.format.includes('zanatdexdraft')) {
-				console.log("setting format to za")
-				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 			}
 			Storage.activeSetList = this.curSetList = Storage.unpackTeam(this.curTeam.team);
 			this.curTeamIndex = i;
@@ -1641,10 +1633,6 @@
 			if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")
 				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
-			}
-			if (this.curTeam.format.includes('zanatdexdraft')) {
-				console.log("setting format to za")
-				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');
