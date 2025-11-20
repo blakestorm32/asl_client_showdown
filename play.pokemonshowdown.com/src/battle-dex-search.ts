@@ -1025,7 +1025,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 
 		let table = BattleTeambuilderTable;
 		if (format.includes("asl") || format.includes("mystic")){
-			console.log("setting asl, mystic, or za getBaseRes")
+			console.log("setting asl or mystic getBaseRes")
 			table = table[`gen9${format}`];
 		}
 		else if ((format.endsWith('cap') || format.endsWith('caplc')) && dex.gen < 9) {
