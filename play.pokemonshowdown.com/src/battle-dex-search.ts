@@ -1033,7 +1033,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 		const dex = this.dex;
 
 		let table = BattleTeambuilderTable;
-		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdex")){
+		if (format.includes("asl") || format.includes("mystic") || format.includes("za")){
 			console.log("setting asl, mystic, or za getBaseRes")
 			table = table[`gen9${format}`];
 		}
