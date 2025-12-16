@@ -31,15 +31,15 @@
 				if (this.curTeam.format.includes('bdsp')) {
 					this.curTeam.dex = Dex.mod('gen8bdsp');
 				}
-				if (this.curTeam.format.includes('aslnatdexdraft')) {
+				else if (this.curTeam.format.includes('aslnatdexdraft')) {
 					console.log("setting format to asl")
 					this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
 				}
-				if (this.curTeam.format.includes('mysticnatdexdraft')) {
+				else if (this.curTeam.format.includes('mysticnatdexdraft')) {
 					console.log("setting format to mystic")
 					this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 				}
-				if (this.curTeam.format.includes('zanatdexdraft')) {
+				else if (this.curTeam.format.includes('zanatdexdraft')) {
 					console.log("setting format to za")
 					this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 				}
@@ -768,15 +768,15 @@
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
 			}
-			if (this.curTeam.format.includes('aslnatdexdraft')) {
+			else if (this.curTeam.format.includes('aslnatdexdraft')) {
 				console.log("setting format to asl")
 				this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
 			}
-			if (this.curTeam.format.includes('mysticnatdexdraft')) {
+			else if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")
 				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 			}
-			if (this.curTeam.format.includes('zanatdexdraft')) {
+			else if (this.curTeam.format.includes('zanatdexdraft')) {
 				console.log("setting format to za")
 				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 			}
@@ -1634,15 +1634,15 @@
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
 			}
-			if (this.curTeam.format.includes('aslnatdexdraft')) {
+			else if (this.curTeam.format.includes('aslnatdexdraft')) {
 				console.log("setting format to asl")
 				this.curTeam.dex = Dex.mod('gen9aslnatdexdraft');
 			}
-			if (this.curTeam.format.includes('mysticnatdexdraft')) {
+			else if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")
 				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
 			}
-			if (this.curTeam.format.includes('zanatdexdraft')) {
+			else if (this.curTeam.format.includes('zanatdexdraft')) {
 				console.log("setting format to za")
 				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 			}
