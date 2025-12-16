@@ -574,7 +574,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 	protected formatType: 'doubles' | 'bdsp' | 'bdspdoubles' | 'rs' | 'bw1' | 'letsgo' | 'metronome' | 'natdex' | 'nfe' |
 		'ssdlc1' | 'ssdlc1doubles' | 'predlc' | 'predlcdoubles' | 'predlcnatdex' | 'svdlc1' | 'svdlc1doubles' |
-		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'aslnatdexdraft' | 'mysticnatdexdraft' |null = null;
+		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'aslnatdexdraft' | 'mysticnatdexdraft' | 'zanatdexdraft' |null = null;
 	isDoubles = false;
 
 	/**
@@ -600,7 +600,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		console.log("format constructor", format)
 
-		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft')) {
+		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') && !format.includes('zanatdexdraft')) {
 			const gen = (Number(format.charAt(3)) || 6);
 			format = (format.slice(4) || 'customgame') as ID;
 			this.dex = Dex.forGen(gen);
@@ -679,7 +679,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen7letsgo' as ID);
 		}
 		if (format.includes('nationaldex') || format.startsWith('nd') || format.includes('natdex')) {
-			if (!format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft')) {
+			if (!format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') && !format.includes('zanatdexdraft')) {
 				format = (format.startsWith('nd') ? format.slice(2) :
 					format.includes('natdex') ? format.slice(6) : format.slice(11)) as ID;
 				this.formatType = 'natdex';
@@ -715,6 +715,12 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
 			format = 'mysticnatdexdraft' as ID
 			this.formatType = 'mysticnatdexdraft'
+		}
+		else if (format.includes('zacnatdexdraft')){
+			console.log("setting dex to za")
+			this.dex = Dex.mod('gen9zanatdexdraft' as ID);
+			format = 'zanatdexdraft' as ID
+			this.formatType = 'zanatdexdraft'
 		}
 		else if (format.endsWith('draft')) {
 			format = format.slice(0, -5) as ID;
@@ -816,6 +822,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		if (this.formatType === 'letsgo') table = table['gen7letsgo'];
 		if (this.formatType === 'bw1') table = table['gen5bw1'];
 		if (this.formatType === 'rs') table = table['gen3rs'];
+		if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 		if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
 		if (this.formatType === 'aslnatdexdraft') table = table['gen9aslnatdexdraft'];
 		if (speciesid in table.learnsets) return speciesid;
@@ -869,7 +876,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.format.startsWith('battlespot') ||
 			this.format.startsWith('battlestadium') ||
 			this.format.startsWith('battlefestival') ||
-			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' )
+			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft')
 		) {
 			if (gen === 9) {
 				genChar = 'a';
@@ -888,6 +895,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			if (this.formatType === 'letsgo') table = table['gen7letsgo'];
 			if (this.formatType === 'bw1') table = table['gen5bw1'];
 			if (this.formatType === 'rs') table = table['gen3rs'];
+			if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 			if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
 			if (this.formatType === 'aslnatdexdraft') table = table['gen9aslnatdexdraft'];
 			let learnset = table.learnsets[learnsetid];
@@ -909,6 +917,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		let table = window.BattleTeambuilderTable;
 		const gen = this.dex.gen;
 		const tableKey = this.formatType === 'doubles' ? `gen${gen}doubles` :
+			this.formatType === 'zanatdexdraft' ? 'gen9zanatdexdraft':
 			this.formatType === 'mysticnatdexdraft' ? 'gen9mysticnatdexdraft':
 			this.formatType === 'aslnatdexdraft' ? 'gen9aslnatdexdraft':
 			this.formatType === 'letsgo' ? 'gen7letsgo' :
@@ -1024,8 +1033,8 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 		const dex = this.dex;
 
 		let table = BattleTeambuilderTable;
-		if (format.includes("asl") || format.includes("mystic")){
-			console.log("setting asl or mystic getBaseRes")
+		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdex")){
+			console.log("setting asl, mystic, or za getBaseRes")
 			table = table[`gen9${format}`];
 		}
 		else if ((format.endsWith('cap') || format.endsWith('caplc')) && dex.gen < 9) {
@@ -1755,7 +1764,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		const isTradebacks = format.includes('tradebacks');
 		const regionBornLegality = dex.gen >= 6 &&
 			(/^battle(spot|stadium|festival)/.test(format) || format.startsWith('bss') ||
-				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft'));
+				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft'));
 
 		let learnsetid = this.firstLearnsetid(species.id);
 		let moves: string[] = [];
@@ -1764,6 +1773,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		let gen = `${dex.gen}`;
 		let lsetTable = BattleTeambuilderTable;
 		if (this.formatType?.startsWith('bdsp')) lsetTable = lsetTable['gen8bdsp'];
+		if (this.formatType === 'zanatdexdraft') lsetTable = lsetTable['gen9zanatdexdraft'];
 		if (this.formatType === 'mysticnatdexdraft') lsetTable = lsetTable['gen9mysticnatdexdraft'];
 		if (this.formatType === 'aslnatdexdraft') lsetTable = lsetTable['gen9aslnatdexdraft'];
 		if (this.formatType === 'letsgo') lsetTable = lsetTable['gen7letsgo'];
@@ -1773,7 +1783,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('predlc')) lsetTable = lsetTable['gen9predlc'];
 		if (this.formatType?.startsWith('svdlc1')) lsetTable = lsetTable['gen9dlc1'];
 
-		const isDraftFmt = (ft?: string | null) => ft === 'aslnatdexdraft' || ft === 'mysticnatdexdraft';
+		const isDraftFmt = (ft?: string | null) => ft === 'aslnatdexdraft' || ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft';
 		const isBannedInDraft = (id: string) =>
 			id === 'hail' ||
 			id === 'pursuit' ||
@@ -1806,7 +1816,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					) {
 						continue;
 					}
-					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && move.isNonstandard === "Past") {
+					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && move.isNonstandard === "Past") {
 						continue;
 					}
 					if (
@@ -1997,13 +2007,13 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 				if (sketch) {
 					if (move.flags['nosketch'] || move.isMax || move.isZ) continue;
 					if (move.isNonstandard && move.isNonstandard !== 'Past') continue;
-					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft') continue;
+					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft') continue;
 					sketchMoves.push(move.id);
 				} else {
 					if (!(dex.gen < 8 || this.formatType === 'natdex') && move.isZ) continue;
 					if (typeof move.isMax === 'string') continue;
 					if (move.isMax && dex.gen > 8) continue;
-					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft') continue;
+					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft') continue;
 					if (move.isNonstandard === 'LGPE' && this.formatType !== 'letsgo') continue;
 					moves.push(move.id);
 				}
