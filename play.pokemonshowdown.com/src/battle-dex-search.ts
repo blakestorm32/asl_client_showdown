@@ -600,7 +600,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		console.log("format constructor", format)
 
-		if (format.startsWith('gen') && !format.includes("mysticnatdexdraft") && !format.includes("aslnatdexdraft") {
+		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') {
 			const gen = (Number(format.charAt(3)) || 6);
 			format = (format.slice(4) || 'customgame') as ID;
 			this.dex = Dex.forGen(gen);
@@ -679,7 +679,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen7letsgo' as ID);
 		}
 		if (format.includes('nationaldex') || format.startsWith('nd') || format.includes('natdex')) {
-			if (!format.includes("mysticnatdexdraft") && !format.includes("aslnatdexdraft") {
+			if (!format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') {
 				format = (format.startsWith('nd') ? format.slice(2) :
 					format.includes('natdex') ? format.slice(6) : format.slice(11)) as ID;
 				this.formatType = 'natdex';
@@ -704,13 +704,13 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.formatType = 'lc';
 			format = 'lc' as ID;
 		}
-		if (format.includes("aslnatdexdraft")){
+		if (format.includes('aslnatdexdraft')){
 			console.log("setting dex to asl")
 			this.dex = Dex.mod('gen9aslnatdexdraft' as ID);
-			format = "aslnatdexdraft" as ID
+			format = 'aslnatdexdraft' as ID
 			this.formatType = 'aslnatdexdraft'
 		}
-		else if (format.includes("mysticnatdexdraft")){
+		if (format.includes('mysticnatdexdraft')){
 			console.log("setting dex to mystic")
 			this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
 			format = 'mysticnatdexdraft' as ID
@@ -816,8 +816,8 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		if (this.formatType === 'letsgo') table = table['gen7letsgo'];
 		if (this.formatType === 'bw1') table = table['gen5bw1'];
 		if (this.formatType === 'rs') table = table['gen3rs'];
-		if (this.formatType === "mysticnatdexdraft") table = table['gen9mysticnatdexdraft'];
-		if (this.formatType === "aslnatdexdraft") table = table['gen9aslnatdexdraft'];
+		if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
+		if (this.formatType === 'aslnatdexdraft') table = table['gen9aslnatdexdraft'];
 		if (speciesid in table.learnsets) return speciesid;
 		const species = this.dex.species.get(speciesid);
 		if (!species.exists) return '' as ID;
@@ -888,8 +888,8 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			if (this.formatType === 'letsgo') table = table['gen7letsgo'];
 			if (this.formatType === 'bw1') table = table['gen5bw1'];
 			if (this.formatType === 'rs') table = table['gen3rs'];
-			if (this.formatType === "mysticnatdexdraft") table = table['gen9mysticnatdexdraft'];
-			if (this.formatType === "aslnatdexdraft") table = table['gen9aslnatdexdraft'];
+			if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
+			if (this.formatType === 'aslnatdexdraft') table = table['gen9aslnatdexdraft'];
 			let learnset = table.learnsets[learnsetid];
 			const eggMovesOnly = this.eggMovesOnly(learnsetid, speciesid);
 			if (learnset && (moveid in learnset) && (!this.format.startsWith('tradebacks') ? learnset[moveid].includes(genChar) :
@@ -910,7 +910,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		const gen = this.dex.gen;
 		const tableKey = this.formatType === 'doubles' ? `gen${gen}doubles` :
 			this.formatType === 'mysticnatdexdraft' ? 'gen9mysticnatdexdraft':
-			this.formatType === "aslnatdexdraft" ? 'gen9aslnatdexdraft':
+			this.formatType === 'aslnatdexdraft' ? 'gen9aslnatdexdraft':
 			this.formatType === 'letsgo' ? 'gen7letsgo' :
 			this.formatType === 'bdsp' ? 'gen8bdsp' :
 			this.formatType === 'bdspdoubles' ? 'gen8bdspdoubles' :
@@ -1764,8 +1764,8 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		let gen = `${dex.gen}`;
 		let lsetTable = BattleTeambuilderTable;
 		if (this.formatType?.startsWith('bdsp')) lsetTable = lsetTable['gen8bdsp'];
-		if (this.formatType === "mysticnatdexdraft") lsetTable = lsetTable['gen9mysticnatdexdraft'];
-		if (this.formatType === "aslnatdexdraft") lsetTable = lsetTable['gen9aslnatdexdraft'];
+		if (this.formatType === 'mysticnatdexdraft') lsetTable = lsetTable['gen9mysticnatdexdraft'];
+		if (this.formatType === 'aslnatdexdraft') lsetTable = lsetTable['gen9aslnatdexdraft'];
 		if (this.formatType === 'letsgo') lsetTable = lsetTable['gen7letsgo'];
 		if (this.formatType === 'bw1') lsetTable = lsetTable['gen5bw1'];
 		if (this.formatType === 'rs') lsetTable = lsetTable['gen3rs'];
