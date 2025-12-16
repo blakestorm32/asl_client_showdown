@@ -600,7 +600,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		console.log("format constructor", format)
 
-		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') {
+		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft')) {
 			const gen = (Number(format.charAt(3)) || 6);
 			format = (format.slice(4) || 'customgame') as ID;
 			this.dex = Dex.forGen(gen);
