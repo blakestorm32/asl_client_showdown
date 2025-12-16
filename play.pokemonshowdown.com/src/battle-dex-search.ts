@@ -710,7 +710,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			format = 'aslnatdexdraft' as ID
 			this.formatType = 'aslnatdexdraft'
 		}
-		if (format.includes('mysticnatdexdraft')){
+		else if (format.includes('mysticnatdexdraft')){
 			console.log("setting dex to mystic")
 			this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
 			format = 'mysticnatdexdraft' as ID
