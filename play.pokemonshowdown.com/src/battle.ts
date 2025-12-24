@@ -3441,7 +3441,7 @@ export class Battle {
 				this.dex = Dex.mod('gen9ssb' as ID);
 			}
 			if (this.tier.includes('ASL NatDex Draft')){
-				this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
+				this.dex = Dex.mod('gen9aslnatdexdraft' as ID);
 				console.log("Setting dex mod to asl")
 			}
 			if (this.tier.includes('Mystic NatDex Draft')){
