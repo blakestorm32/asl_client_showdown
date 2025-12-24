@@ -3448,6 +3448,10 @@ export class Battle {
 				this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
 				console.log("Setting dex mod to mystic")
 			}
+			if (this.tier.includes('ZA NatDex Draft')){
+				this.dex = Dex.mod('gen9zanatdexdraft' as ID);
+				console.log("Setting dex mod to za")
+			}
 			this.log(args);
 			break;
 		}
