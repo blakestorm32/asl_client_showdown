@@ -272,7 +272,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 		const isLetsGo = (genIdent === 7.1);
 		const isASL = (genIdent === 9.999);
 		const isMYSTIC = (genIdent === 9.9999);
-		const isZA = (genIdent === 9.9999);
 		const isBDSP = (genIdent === 8.6 || genIdent === -8.6);
 		const isMetBattle = ('' + genIdent).endsWith('.2');
 		const isNFE = ('' + genIdent).endsWith('.3');
