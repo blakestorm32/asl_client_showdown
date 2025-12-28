@@ -229,8 +229,8 @@ export const Dex = new class implements ModdedDex {
 
 	pokeballs: string[] | null = null;
 
-	resourcePrefix = '../';
-	fxPrefix = '../fx/';
+	resourcePrefix = 'https://play.pokemonshowdown.com/';
+	fxPrefix = 'https://play.pokemonshowdown.com/fx/';
 
 	loadedSpriteData = { xy: 1, bw: 0 };
 	moddedDexes: { [mod: string]: ModdedDex } = {};
