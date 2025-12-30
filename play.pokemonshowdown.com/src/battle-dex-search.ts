@@ -1987,6 +1987,46 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					if(this.formatType === "mysticnatdexdraft" && moveid === 'relicsong' && species.id === 'meloettapirouette'){
   						continue;
 					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'bodypress' && species.id === 'cherrimsunshine'){
+  						continue;
+					}
+					if(this.formatType === "mysticnatdexdraft" && moveid === 'fierydance' && species.id === 'cherrim'){
+  						continue;
+					}
+					// ZA NATDEX DRAFT VISUAL TERA BLAST BAN
+					if(this.formatType === "zanatdexdraft" && moveid === 'terablast' && (species.id === 'caterpie' || species.id === 'metapod' || species.id === 'butterfree' || species.id === 'weedle' || species.id === 'kakuna' || species.id === 'beedrill'
+						|| species.id === 'pidgey' || species.id === 'pidgeotto' || species.id === 'pidgeot' || species.id === 'rattata' || species.id === 'raticate' || species.id === 'spearow' || species.id === 'fearow' || species.id === 'nidoranf' || species.id === 'nidorina' ||
+						species.id === 'nidoqueen' || species.id === 'nidoranm' || species.id === 'nidorino' || species.id === 'nidoking' || species.id === 'zubat' || species.id === 'golbat' || species.id === 'paras' || species.id === 'parasect' || species.id === 'abra' || 
+						species.id === 'kadabra' || species.id === 'alakazam' || species.id === 'machop' || species.id === 'machoke' || species.id === 'machamp' || species.id === 'ponyta' || species.id === 'rapidash' || species.id === 'farfetchd' || species.id === 'onix' || 
+						species.id === 'krabby' || species.id === 'kingler' || species.id === 'cubone' || species.id === 'marowak' || species.id === 'lickitung' || species.id === 'tangela' || species.id === 'kangaskhan' || species.id === 'goldeen' || species.id === 'seaking' || 
+						species.id === 'staryu' || species.id === 'starmie' || species.id === 'mrmime' || species.id === 'jynx' || species.id === 'pinsir' || species.id === 'omanyte' || species.id === 'omastar' || species.id === 'kabuto' || species.id === 'kabutops' || species.id === 'aerodactyl' || 
+						species.id === 'ledyba' || species.id === 'ledian' || species.id === 'crobat' || species.id === 'togepi' || species.id === 'togetic' || species.id === 'natu' || species.id === 'xatu' || species.id === 'unown' || species.id === 'wobbuffet' || species.id === 'steelix' || 
+						species.id === 'shuckle' || species.id === 'corsola' || species.id === 'remoraid' || species.id === 'octillery' || species.id === 'mantine' || species.id === 'smoochum' || species.id === 'miltank' || species.id === 'celebi' || 
+						species.id === 'zigzagoon' || species.id === 'linoone' || species.id === 'wurmple' || species.id === 'silcoon' || species.id === 'beautifly' || species.id === 'cascoon' || species.id === 'dustox' || species.id === 'taillow' || species.id === 'swellow' || species.id === 'nincada' || 
+						species.id === 'ninjask' || species.id === 'shedinja' || species.id === 'whismur' || species.id === 'loudred' || species.id === 'exploud' || species.id === 'skitty' || species.id === 'delcatty' || species.id === 'mawile' || species.id === 'aron' || species.id === 'lairon' || 
+						species.id === 'aggron' || species.id === 'electrike' || species.id === 'manectric' || species.id === 'roselia' || species.id === 'carvanha' || species.id === 'sharpedo' || species.id === 'wailmer' || species.id === 'wailord' || species.id === 'spinda' || species.id === 'lunatone' || 
+						species.id === 'solrock' || species.id === 'baltoy' || species.id === 'claydol' || species.id === 'lileep' || species.id === 'cradily' || species.id === 'anorith' || species.id === 'armaldo' || species.id === 'castform' || species.id === 'kecleon' || species.id === 'absol' || 
+						species.id === 'wynaut' || species.id === 'spheal' || species.id === 'sealeo' || species.id === 'walrein' || species.id === 'clamperl' || species.id === 'huntail' || species.id === 'gorebyss' || species.id === 'relicanth' || species.id === 'bidoof' || species.id === 'bibarel' || 
+						species.id === 'budew' || species.id === 'roserade' || species.id === 'burmy' || species.id === 'wormadam' || species.id === 'mothim' || species.id === 'cherubi' || species.id === 'cherrim' || species.id === 'buneary' || species.id === 'lopunny' || species.id === 'glameow' || 
+						species.id === 'purugly' || species.id === 'mimejr' || species.id === 'chatot' || species.id === 'skorupi' || species.id === 'drapion' || species.id === 'carnivine' || species.id === 'mantyke' || species.id === 'lickilicky' || species.id === 'tangrowth' || 
+						species.id === 'togekiss' || species.id === 'victini' || species.id === 'patrot' || species.id === 'watchog' || species.id === 'lillipup' || species.id === 'herdier' || species.id === 'stoutland' || species.id === 'purrloin' || species.id === 'liepard' || species.id === 'pansage' || 
+						species.id === 'simisage' || species.id === 'pansear' || species.id === 'simisear' || species.id === 'panpour' || species.id === 'simipour' || species.id === 'munna' || species.id === 'musharna' || species.id === 'pidove' || species.id === 'tranquill' || species.id === 'unfezant' || 
+						species.id === 'roggenrola' || species.id === 'boldore' || species.id === 'gigalith' || species.id === 'woobat' || species.id === 'swoobat' || species.id === 'audino' || species.id === 'tympole' || species.id === 'palpitoad' || species.id === 'seismitoad' || species.id === 'throh' || 
+						species.id === 'sawk' || species.id === 'venipede' || species.id === 'whirlipede' || species.id === 'scolipede' || species.id === 'darumaka' || species.id === 'darmanitan' || species.id === 'maractus' || species.id === 'dwebble' || species.id === 'crustle' || species.id === 'sigilyph' || 
+						species.id === 'yamask' || species.id === 'cofagrigus' || species.id === 'tirtouga' || species.id === 'carracosta' || species.id === 'archen' || species.id === 'archeops' || species.id === 'trubbish' || species.id === 'garbodor' || species.id === 'vanillite' || 
+						species.id === 'vanillish' || species.id === 'vanilluxe' || species.id === 'emolga' || species.id === 'karrablast' || species.id === 'escavalier' || species.id === 'frillish' || species.id === 'jellicent' || species.id === 'ferroseed' || species.id === 'ferrothorn' || 
+						species.id === 'klink' || species.id === 'klang' || species.id === 'klinklang' || species.id === 'elgyem' || species.id === 'beheeyem' || species.id === 'shelmet' || species.id === 'accelgor' || species.id === 'stunfisk' || species.id === 'druddigon' || species.id === 'bouffalant' || 
+						species.id === 'heatmor' || species.id === 'durant' || species.id === 'genesect' || species.id === 'bunnelby' || species.id === 'diggersby' || species.id === 'pancham' || species.id === 'pangoro' || species.id === 'furfrou' || species.id === 'honedge' || species.id === 'doublade' || 
+						species.id === 'aegislash' || species.id === 'spritzee' || species.id === 'aromatisse' || species.id === 'swirlix' || species.id === 'slurpuff' || species.id === 'binacle' || species.id === 'barbaracle' || species.id === 'helioptile' || species.id === 'heliolisk' || 
+						species.id === 'tyrunt' || species.id === 'tyrantrum' || species.id === 'amaura' || species.id === 'aurorus' || species.id === 'pumpkaboo' || species.id === 'gourgeist' || species.id === 'xerneas' || species.id === 'yveltal' || species.id === 'zygarde' || species.id === 'wishiwashi' || 
+						species.id === 'morelull' || species.id === 'shiinotic' || species.id === 'stufful' || species.id === 'bewear' || species.id === 'wimpod' || species.id === 'golisopod' || species.id === 'pyukumuku' || species.id === 'typenull' || species.id === 'silvally' || species.id === 'turtonator' || 
+						species.id === 'togedemaru' || species.id === 'drampa' || species.id === 'dhelmise' || species.id === 'tapukoko' || species.id === 'tapulele' || species.id === 'tapubulu' || species.id === 'tapufini' || species.id === 'nihilego' || species.id === 'buzzwole' || species.id === 'pheromosa' || 
+						species.id === 'xurkitree' || species.id === 'celesteela' || species.id === 'kartana' || species.id === 'guzzlord' || species.id === 'marshadow' || species.id === 'poipole' || species.id === 'naganadel' || species.id === 'stakataka' || species.id === 'blacephalon' || 
+						species.id === 'zeraora' || species.id === 'meltan' || species.id === 'melmetal' || species.id === 'blipbug' || species.id === 'dottler' || species.id === 'orbeetle' || species.id === 'nickit' || species.id === 'thievul' || species.id === 'gossifleur' || species.id === 'eldegoss' || 
+						species.id === 'wooloo' || species.id === 'dubwool' || species.id === 'yamper' || species.id === 'boltund' || species.id === 'sizzlipede' || species.id === 'centiskorch' || species.id === 'clobbopus' || species.id === 'grapploct' || species.id === 'obstagoon' || species.id === 'cursola' || 
+						species.id === 'sirfetchd' || species.id === 'mrrime' || species.id === 'runerigus' || species.id === 'dracozolt' || species.id === 'arctozolt' || species.id === 'dracovish' || species.id === 'arctovish')) {
+  						continue;
+					}
 					moves.push(moveid);
 					if (moveid === 'sketch') sketch = true;
 					if (moveid === 'hiddenpower') {
