@@ -2024,7 +2024,9 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 						species.id === 'xurkitree' || species.id === 'celesteela' || species.id === 'kartana' || species.id === 'guzzlord' || species.id === 'marshadow' || species.id === 'poipole' || species.id === 'naganadel' || species.id === 'stakataka' || species.id === 'blacephalon' || 
 						species.id === 'zeraora' || species.id === 'meltan' || species.id === 'melmetal' || species.id === 'blipbug' || species.id === 'dottler' || species.id === 'orbeetle' || species.id === 'nickit' || species.id === 'thievul' || species.id === 'gossifleur' || species.id === 'eldegoss' || 
 						species.id === 'wooloo' || species.id === 'dubwool' || species.id === 'yamper' || species.id === 'boltund' || species.id === 'sizzlipede' || species.id === 'centiskorch' || species.id === 'clobbopus' || species.id === 'grapploct' || species.id === 'obstagoon' || species.id === 'cursola' || 
-						species.id === 'sirfetchd' || species.id === 'mrrime' || species.id === 'runerigus' || species.id === 'dracozolt' || species.id === 'arctozolt' || species.id === 'dracovish' || species.id === 'arctovish')) {
+						species.id === 'sirfetchd' || species.id === 'mrrime' || species.id === 'runerigus' || species.id === 'dracozolt' || species.id === 'arctozolt' || species.id === 'dracovish' || species.id === 'arctovish' || species.id === 'rattataalola' || species.id === 'raticatealola' || 
+						species.id === 'marowakalola' || species.id === 'corsolagalar' || species.id === 'darumakagalar' || species.id === 'darmanitangalar' || species.id === 'farfetchdgalar' || species.id === 'zigzagoongalar' || species.id === 'linoonegalar' || species.id === 'mrmimegalar' || 
+						species.id === 'ponytagalar' || species.id === 'rapidashgalar' || species.id === 'stunfiskgalar' || species.id === 'yamaskgalar')) {
   						continue;
 					}
 					moves.push(moveid);
