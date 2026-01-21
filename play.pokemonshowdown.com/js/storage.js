@@ -52,7 +52,7 @@ Storage.bg = {
 	 */
 	load: function (bgUrl, bgid, hues) {
 		this.id = bgid;
-		bgUrl = '../fx/asl_bg.png';
+		bgUrl = '../fx/asl_bg-1.png';
 
 		// April Fool's 2016 - Digimon theme
 		// bgid = 'digimon';
