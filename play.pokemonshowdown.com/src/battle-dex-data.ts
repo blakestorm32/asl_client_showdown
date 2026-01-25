@@ -1612,7 +1612,7 @@ export class Species implements Effect {
 		this.tier = data.tier || '';
 
 		this.isTotem = false;
-		this.isMega = !!(this.forme && ['-mega', '-megax', '-megay'].includes(this.formeid));
+		this.isMega = !!(this.forme && ['-mega', '-megax', '-megay', '-megaz', '-fmega', '-mmega', '-curlymega', '-droopymega', '-stretchymega'].includes(this.formeid));
 		this.isPrimal = !!(this.forme && this.formeid === '-primal');
 		this.canGigantamax = !!data.canGigantamax;
 		this.cannotDynamax = !!data.cannotDynamax;
