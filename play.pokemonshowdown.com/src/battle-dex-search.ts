@@ -574,7 +574,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 	protected formatType: 'doubles' | 'bdsp' | 'bdspdoubles' | 'rs' | 'bw1' | 'letsgo' | 'metronome' | 'natdex' | 'nfe' |
 		'ssdlc1' | 'ssdlc1doubles' | 'predlc' | 'predlcdoubles' | 'predlcnatdex' | 'svdlc1' | 'svdlc1doubles' |
-		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'aslnatdexdraft' | 'mysticnatdexdraft' | 'zanatdexdraft' |null = null;
+		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'predlczanatdexdraft' | 'mysticnatdexdraft' | 'zanatdexdraft' |null = null;
 	isDoubles = false;
 
 	/**
@@ -600,7 +600,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		console.log("format constructor", format)
 
-		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') && !format.includes('zanatdexdraft')) {
+		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('predlczanatdexdraft') && !format.includes('zanatdexdraft')) {
 			const gen = (Number(format.charAt(3)) || 6);
 			format = (format.slice(4) || 'customgame') as ID;
 			this.dex = Dex.forGen(gen);
@@ -679,7 +679,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen7letsgo' as ID);
 		}
 		if (format.includes('nationaldex') || format.startsWith('nd') || format.includes('natdex')) {
-			if (!format.includes('mysticnatdexdraft') && !format.includes('aslnatdexdraft') && !format.includes('zanatdexdraft')) {
+			if (!format.includes('mysticnatdexdraft') && !format.includes('predlczanatdexdraft') && !format.includes('zanatdexdraft')) {
 				format = (format.startsWith('nd') ? format.slice(2) :
 					format.includes('natdex') ? format.slice(6) : format.slice(11)) as ID;
 				this.formatType = 'natdex';
@@ -704,11 +704,11 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.formatType = 'lc';
 			format = 'lc' as ID;
 		}
-		if (format.includes('aslnatdexdraft')){
-			console.log("setting dex to asl")
-			this.dex = Dex.mod('gen9aslnatdexdraft' as ID);
-			format = 'aslnatdexdraft' as ID
-			this.formatType = 'aslnatdexdraft'
+		if (format.includes('predlczanatdexdraft')){
+			console.log("setting dex to pre dlc za")
+			this.dex = Dex.mod('gen9predlczanatdexdraft' as ID);
+			format = 'predlczanatdexdraft' as ID
+			this.formatType = 'predlczanatdexdraft'
 		}
 		else if (format.includes('mysticnatdexdraft')){
 			console.log("setting dex to mystic")
@@ -824,7 +824,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		if (this.formatType === 'rs') table = table['gen3rs'];
 		if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 		if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
-		if (this.formatType === 'aslnatdexdraft') table = table['gen9aslnatdexdraft'];
+		if (this.formatType === 'predlczanatdexdraft') table = table['gen9predlczanatdexdraft'];
 		if (speciesid in table.learnsets) return speciesid;
 		const species = this.dex.species.get(speciesid);
 		if (!species.exists) return '' as ID;
@@ -876,7 +876,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.format.startsWith('battlespot') ||
 			this.format.startsWith('battlestadium') ||
 			this.format.startsWith('battlefestival') ||
-			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft')
+			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft')
 		) {
 			if (gen === 9) {
 				genChar = 'a';
@@ -897,7 +897,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			if (this.formatType === 'rs') table = table['gen3rs'];
 			if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 			if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
-			if (this.formatType === 'aslnatdexdraft') table = table['gen9aslnatdexdraft'];
+			if (this.formatType === 'predlczanatdexdraft') table = table['gen9predlczanatdexdraft'];
 			let learnset = table.learnsets[learnsetid];
 			const eggMovesOnly = this.eggMovesOnly(learnsetid, speciesid);
 			if (learnset && (moveid in learnset) && (!this.format.startsWith('tradebacks') ? learnset[moveid].includes(genChar) :
@@ -919,7 +919,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		const tableKey = this.formatType === 'doubles' ? `gen${gen}doubles` :
 			this.formatType === 'zanatdexdraft' ? 'gen9zanatdexdraft':
 			this.formatType === 'mysticnatdexdraft' ? 'gen9mysticnatdexdraft':
-			this.formatType === 'aslnatdexdraft' ? 'gen9aslnatdexdraft':
+			this.formatType === 'predlczanatdexdraft' ? 'gen9predlczanatdexdraft':
 			this.formatType === 'letsgo' ? 'gen7letsgo' :
 			this.formatType === 'bdsp' ? 'gen8bdsp' :
 			this.formatType === 'bdspdoubles' ? 'gen8bdspdoubles' :
@@ -1034,7 +1034,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 
 		let table = BattleTeambuilderTable;
 		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdexdraft")){
-			console.log("setting asl, mystic, or za getBaseRes")
+			console.log("setting pre dlc za, mystic, or za getBaseRes")
 			table = table[`gen9${format}`];
 		}
 		else if ((format.endsWith('cap') || format.endsWith('caplc')) && dex.gen < 9) {
@@ -1764,7 +1764,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		const isTradebacks = format.includes('tradebacks');
 		const regionBornLegality = dex.gen >= 6 &&
 			(/^battle(spot|stadium|festival)/.test(format) || format.startsWith('bss') ||
-				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft'));
+				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft'));
 
 		let learnsetid = this.firstLearnsetid(species.id);
 		let moves: string[] = [];
@@ -1775,7 +1775,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('bdsp')) lsetTable = lsetTable['gen8bdsp'];
 		if (this.formatType === 'zanatdexdraft') lsetTable = lsetTable['gen9zanatdexdraft'];
 		if (this.formatType === 'mysticnatdexdraft') lsetTable = lsetTable['gen9mysticnatdexdraft'];
-		if (this.formatType === 'aslnatdexdraft') lsetTable = lsetTable['gen9aslnatdexdraft'];
+		if (this.formatType === 'predlczanatdexdraft') lsetTable = lsetTable['gen9predlczanatdexdraft'];
 		if (this.formatType === 'letsgo') lsetTable = lsetTable['gen7letsgo'];
 		if (this.formatType === 'bw1') lsetTable = lsetTable['gen5bw1'];
 		if (this.formatType === 'rs') lsetTable = lsetTable['gen3rs'];
@@ -1783,7 +1783,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('predlc')) lsetTable = lsetTable['gen9predlc'];
 		if (this.formatType?.startsWith('svdlc1')) lsetTable = lsetTable['gen9dlc1'];
 
-		const isDraftFmt = (ft?: string | null) => ft === 'aslnatdexdraft' || ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft';
+		const isDraftFmt = (ft?: string | null) => ft === 'predlczanatdexdraft' || ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft';
 		const isBannedInDraft = (id: string) =>
 			id === 'hail' ||
 			id === 'pursuit' ||
@@ -1816,7 +1816,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					) {
 						continue;
 					}
-					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && move.isNonstandard === "Past") {
+					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && move.isNonstandard === "Past") {
 						continue;
 					}
 					if (
@@ -1841,83 +1841,83 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					if(isBannedInDraft(moveid) && isDraftFmt(this.formatType)){
 						continue;
 					}
-					// ASL COMPLEX BANS
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesect'){
+					// PRE DLC ZA COMPLEX BANS
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'genesect'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesect'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'rockpolish' && species.id === 'genesect'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectdouse'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectdouse'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectdouse'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectdouse'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectshock'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectshock'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectshock'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectshock'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectburn'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectburn'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectburn'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectburn'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectchill'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'genesectchill'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectchill'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'rockpolish' && species.id === 'genesectchill'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'dragondance' && species.id === 'kyuremblack'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'dragondance' && species.id === 'kyuremblack'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'agility' && species.id === 'magearna'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'agility' && species.id === 'magearna'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearna'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'magearna'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'agility' && species.id === 'magearnaoriginal'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'agility' && species.id === 'magearnaoriginal'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shiftgear' && species.id === 'magearnaoriginal'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shiftgear' && species.id === 'magearnaoriginal'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'greninjamega'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'nastyplot' && species.id === 'greninjamega'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'greninja'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'nastyplot' && species.id === 'greninja'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'nastyplot' && species.id === 'naganadel'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'nastyplot' && species.id === 'naganadel'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegion'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegion'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegionf'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegionf'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculin'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'lastrespects' && species.id === 'basculin'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculinbluestriped'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'lastrespects' && species.id === 'basculinbluestriped'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculinwhitestriped'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'lastrespects' && species.id === 'basculinwhitestriped'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shellsmash' && species.id === 'barbaraclemega'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shellsmash' && species.id === 'barbaraclemega'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'shellsmash' && species.id === 'blastoisemega'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'shellsmash' && species.id === 'blastoisemega'){
   						continue;
 					}
-					if(this.formatType === "aslnatdexdraft" && moveid === 'seismictoss' && species.id === 'kangaskhanmega'){
+					if(this.formatType === "predlczanatdexdraft" && moveid === 'seismictoss' && species.id === 'kangaskhanmega'){
   						continue;
 					}
 					// MYSTIC COMPLEX BANS
@@ -2049,13 +2049,13 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 				if (sketch) {
 					if (move.flags['nosketch'] || move.isMax || move.isZ) continue;
 					if (move.isNonstandard && move.isNonstandard !== 'Past') continue;
-					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft') continue;
+					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft') continue;
 					sketchMoves.push(move.id);
 				} else {
 					if (!(dex.gen < 8 || this.formatType === 'natdex') && move.isZ) continue;
 					if (typeof move.isMax === 'string') continue;
 					if (move.isMax && dex.gen > 8) continue;
-					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'aslnatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft') continue;
+					if (move.isNonstandard === 'Past' && this.formatType !== 'natdex' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft') continue;
 					if (move.isNonstandard === 'LGPE' && this.formatType !== 'letsgo') continue;
 					moves.push(move.id);
 				}
