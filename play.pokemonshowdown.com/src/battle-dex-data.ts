@@ -595,8 +595,16 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	baxcaliburmega: 998,
 	tatsugiridroopymega: 1032 + 231,
 	tatsugiristretchymega: 1032 + 232,
-	dudunsparcemega: 1546,
-	dudunsparcethreesegmentmega: 1546,
+	dudunsparcemega: 982,
+	dudunsparcethreesegmentmega: 982,
+	delibirdmega: 225,
+	sirfetchdmega: 865,
+	ariadosmega: 168,
+	rapidashmega: 78,
+	rapidashgalarmega: 1032 + 168,
+	luvdiscmega: 370,
+	electrodemega: 101,
+	lickilickymega: 463,
 
 	// CAP
 	syclant: 1512 + 0,
