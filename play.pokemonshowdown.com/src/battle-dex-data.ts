@@ -605,6 +605,8 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	luvdiscmega: 370,
 	electrodemega: 101,
 	lickilickymega: 463,
+	carnivinemega: 455,
+	typhlosionmega: 157,
 
 	// CAP
 	syclant: 1512 + 0,
