@@ -587,7 +587,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable["gen9zanatdexdraft"].formatSlices = formatSlices;
 			BattleTeambuilderTable["gen9zanatdexdraft"].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable["gen9zanatdexdraft"].learnsets = {};
-		}
 		}else if (isRELICANTH){
 			console.log("asl not time")
 			BattleTeambuilderTable["gen9aslrelicanthdraft"] = {};
