@@ -1242,22 +1242,22 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	}
 
 	// Relicanth  Draft learnsets (mod)
-	const RELICANTHLearnsets = Dex.mod('gen9relicanthdraft').data.Learnsets;
-	BattleTeambuilderTable['gen9relicanthdraft'] = BattleTeambuilderTable['gen9relicanthdraft'] || {};
-	BattleTeambuilderTable['gen9relicanthdraft'].learnsets = {};
+	const RELICANTHLearnsets = Dex.mod('gen9aslrelicanthdraft').data.Learnsets;
+	BattleTeambuilderTable['gen9aslrelicanthdraft'] = BattleTeambuilderTable['gen9aslrelicanthdraft'] || {};
+	BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets = {};
 	for (const id in RELICANTHLearnsets) {
 	const learnset = RELICANTHLearnsets[id].learnset;
 	if (!learnset) continue;
-	BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id] = {};
+	BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id] = {};
 	for (const moveid in learnset) {
 		const gens = learnset[moveid].map(x => Number(x[0]));
 		const minGen = Math.min(...gens);
-		BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id][moveid] = '0123456789'.slice(minGen);
-		if (gens.indexOf(6) >= 0 && learnset[moveid].some(x => x[0] === '6')) BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id][moveid] += 'p';
-		if (gens.indexOf(7) >= 0 && learnset[moveid].some(x => x[0] === '7' && x !== '7V')) BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id][moveid] += 'q';
-		if (gens.indexOf(8) >= 0 && learnset[moveid].some(x => x[0] === '8' && x !== '8V')) BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id][moveid] += 'g';
-		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x[0] === '9' && x !== '9V')) BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id][moveid] += 'a';
-		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x === '9E')) BattleTeambuilderTable['gen9relicanthdraft'].learnsets[id][moveid] += 'e';
+		BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id][moveid] = '0123456789'.slice(minGen);
+		if (gens.indexOf(6) >= 0 && learnset[moveid].some(x => x[0] === '6')) BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id][moveid] += 'p';
+		if (gens.indexOf(7) >= 0 && learnset[moveid].some(x => x[0] === '7' && x !== '7V')) BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id][moveid] += 'q';
+		if (gens.indexOf(8) >= 0 && learnset[moveid].some(x => x[0] === '8' && x !== '8V')) BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id][moveid] += 'g';
+		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x[0] === '9' && x !== '9V')) BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id][moveid] += 'a';
+		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x === '9E')) BattleTeambuilderTable['gen9aslrelicanthdraft'].learnsets[id][moveid] += 'e';
 	}
 	}
 
