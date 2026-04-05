@@ -2280,7 +2280,6 @@
 				case 'Minior':
 				case 'Pikachu':
 				case 'Polteageist':
-				case 'Sawsbuck':
 				case 'Shellos':
 				case 'Sinistea':
 				case 'Tatsugiri':
