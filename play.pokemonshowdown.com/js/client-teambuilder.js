@@ -784,10 +784,6 @@
 				console.log("setting format to za")
 				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 			}
-			if (this.curTeam.format.includes('zanatdexdraft')) {
-				console.log("setting format to za")
-				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
-			}
 			if (this.curTeam.format.includes('aslrelicanthdraft')) {
 				console.log("setting format to relicanth")
 				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
@@ -1653,10 +1649,6 @@
 			if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")
 				this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
-			}
-			if (this.curTeam.format.includes('zanatdexdraft')) {
-				console.log("setting format to za")
-				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 			}
 			if (this.curTeam.format.includes('zanatdexdraft')) {
 				console.log("setting format to za")
