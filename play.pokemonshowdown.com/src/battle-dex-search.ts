@@ -574,7 +574,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 	protected formatType: 'doubles' | 'bdsp' | 'bdspdoubles' | 'rs' | 'bw1' | 'letsgo' | 'metronome' | 'natdex' | 'nfe' |
 		'ssdlc1' | 'ssdlc1doubles' | 'predlc' | 'predlcdoubles' | 'predlcnatdex' | 'svdlc1' | 'svdlc1doubles' |
-		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'predlczanatdexdraft' | 'mysticnatdexdraft' | 'zanatdexdraft' |null = null;
+		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'predlczanatdexdraft' | 'mysticnatdexdraft' | 'zanatdexdraft' | 'aslrelicanthdraft' |null = null;
 	isDoubles = false;
 
 	/**
@@ -600,7 +600,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		console.log("format constructor", format)
 
-		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('predlczanatdexdraft') && !format.includes('zanatdexdraft')) {
+		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('predlczanatdexdraft') && !format.includes('zanatdexdraft') && !format.includes('aslrelicanthdraft')) {
 			const gen = (Number(format.charAt(3)) || 6);
 			format = (format.slice(4) || 'customgame') as ID;
 			this.dex = Dex.forGen(gen);
@@ -679,7 +679,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen7letsgo' as ID);
 		}
 		if (format.includes('nationaldex') || format.startsWith('nd') || format.includes('natdex')) {
-			if (!format.includes('mysticnatdexdraft') && !format.includes('predlczanatdexdraft') && !format.includes('zanatdexdraft')) {
+			if (!format.includes('mysticnatdexdraft') && !format.includes('predlczanatdexdraft') && !format.includes('zanatdexdraft') && !format.includes('aslrelicanthdraft')) {
 				format = (format.startsWith('nd') ? format.slice(2) :
 					format.includes('natdex') ? format.slice(6) : format.slice(11)) as ID;
 				this.formatType = 'natdex';
@@ -721,6 +721,12 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen9zanatdexdraft' as ID);
 			format = 'zanatdexdraft' as ID
 			this.formatType = 'zanatdexdraft'
+		}
+		else if (format.includes('aslrelicanthdraft')){
+			console.log("setting dex to relicanth")
+			this.dex = Dex.mod('gen9aslrelicanthdraft' as ID);
+			format = 'aslrelicanthdraft' as ID
+			this.formatType = 'aslrelicanthdraft'
 		}
 		else if (format.endsWith('draft')) {
 			format = format.slice(0, -5) as ID;
@@ -825,6 +831,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 		if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
 		if (this.formatType === 'predlczanatdexdraft') table = table['gen9predlczanatdexdraft'];
+		if (this.formatType === 'aslrelicanthdraft') table = table['gen9aslrelicanthdraft'];
 		if (speciesid in table.learnsets) return speciesid;
 		const species = this.dex.species.get(speciesid);
 		if (!species.exists) return '' as ID;
@@ -876,7 +883,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.format.startsWith('battlespot') ||
 			this.format.startsWith('battlestadium') ||
 			this.format.startsWith('battlefestival') ||
-			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft')
+			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft')
 		) {
 			if (gen === 9) {
 				genChar = 'a';
@@ -898,6 +905,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 			if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
 			if (this.formatType === 'predlczanatdexdraft') table = table['gen9predlczanatdexdraft'];
+			if (this.formatType === 'aslrelicanthdraft') table = table['gen9aslrelicanthdraft'];
 			let learnset = table.learnsets[learnsetid];
 			const eggMovesOnly = this.eggMovesOnly(learnsetid, speciesid);
 			if (learnset && (moveid in learnset) && (!this.format.startsWith('tradebacks') ? learnset[moveid].includes(genChar) :
@@ -920,6 +928,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.formatType === 'zanatdexdraft' ? 'gen9zanatdexdraft':
 			this.formatType === 'mysticnatdexdraft' ? 'gen9mysticnatdexdraft':
 			this.formatType === 'predlczanatdexdraft' ? 'gen9predlczanatdexdraft':
+			this.formatType === 'aslrelicanthdraft' ? 'gen9aslrelicanthdraft':
 			this.formatType === 'letsgo' ? 'gen7letsgo' :
 			this.formatType === 'bdsp' ? 'gen8bdsp' :
 			this.formatType === 'bdspdoubles' ? 'gen8bdspdoubles' :
@@ -1033,7 +1042,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 		const dex = this.dex;
 
 		let table = BattleTeambuilderTable;
-		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdexdraft")){
+		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdexdraft") || format.includes("aslrelicanthdraft") ){
 			console.log("setting pre dlc za, mystic, or za getBaseRes")
 			table = table[`gen9${format}`];
 		}
@@ -1764,7 +1773,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		const isTradebacks = format.includes('tradebacks');
 		const regionBornLegality = dex.gen >= 6 &&
 			(/^battle(spot|stadium|festival)/.test(format) || format.startsWith('bss') ||
-				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft'));
+				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft'));
 
 		let learnsetid = this.firstLearnsetid(species.id);
 		let moves: string[] = [];
@@ -1774,6 +1783,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		let lsetTable = BattleTeambuilderTable;
 		if (this.formatType?.startsWith('bdsp')) lsetTable = lsetTable['gen8bdsp'];
 		if (this.formatType === 'zanatdexdraft') lsetTable = lsetTable['gen9zanatdexdraft'];
+		if (this.formatType === 'aslrelicanthdraft') lsetTable = lsetTable['gen9aslrelicanthdraft'];
 		if (this.formatType === 'mysticnatdexdraft') lsetTable = lsetTable['gen9mysticnatdexdraft'];
 		if (this.formatType === 'predlczanatdexdraft') lsetTable = lsetTable['gen9predlczanatdexdraft'];
 		if (this.formatType === 'letsgo') lsetTable = lsetTable['gen7letsgo'];
@@ -1783,7 +1793,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('predlc')) lsetTable = lsetTable['gen9predlc'];
 		if (this.formatType?.startsWith('svdlc1')) lsetTable = lsetTable['gen9dlc1'];
 
-		const isDraftFmt = (ft?: string | null) => ft === 'predlczanatdexdraft' || ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft';
+		const isDraftFmt = (ft?: string | null) => ft === 'predlczanatdexdraft' || ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft' || ft === 'aslrelicanthdraft';
 		const isBannedInDraft = (id: string) =>
 			id === 'hail' ||
 			id === 'pursuit' ||
@@ -1816,7 +1826,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					) {
 						continue;
 					}
-					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && move.isNonstandard === "Past") {
+					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'predlczanatdexdraft' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && move.isNonstandard === "Past") {
 						continue;
 					}
 					if (
@@ -1995,6 +2005,41 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					}
 					// ZA NATDEX DRAFT VISUAL TERA BLAST BAN
 					if(this.formatType === "zanatdexdraft" && moveid === 'terablast' && (species.id === 'caterpie' || species.id === 'metapod' || species.id === 'butterfree' || species.id === 'weedle' || species.id === 'kakuna' || species.id === 'beedrill'
+						|| species.id === 'pidgey' || species.id === 'pidgeotto' || species.id === 'pidgeot' || species.id === 'rattata' || species.id === 'raticate' || species.id === 'spearow' || species.id === 'fearow' || species.id === 'nidoranf' || species.id === 'nidorina' ||
+						species.id === 'nidoqueen' || species.id === 'nidoranm' || species.id === 'nidorino' || species.id === 'nidoking' || species.id === 'zubat' || species.id === 'golbat' || species.id === 'paras' || species.id === 'parasect' || species.id === 'abra' || 
+						species.id === 'kadabra' || species.id === 'alakazam' || species.id === 'machop' || species.id === 'machoke' || species.id === 'machamp' || species.id === 'ponyta' || species.id === 'rapidash' || species.id === 'farfetchd' || species.id === 'onix' || 
+						species.id === 'krabby' || species.id === 'kingler' || species.id === 'cubone' || species.id === 'marowak' || species.id === 'lickitung' || species.id === 'tangela' || species.id === 'kangaskhan' || species.id === 'goldeen' || species.id === 'seaking' || 
+						species.id === 'staryu' || species.id === 'starmie' || species.id === 'mrmime' || species.id === 'jynx' || species.id === 'pinsir' || species.id === 'omanyte' || species.id === 'omastar' || species.id === 'kabuto' || species.id === 'kabutops' || species.id === 'aerodactyl' || 
+						species.id === 'ledyba' || species.id === 'ledian' || species.id === 'crobat' || species.id === 'togepi' || species.id === 'togetic' || species.id === 'natu' || species.id === 'xatu' || species.id === 'unown' || species.id === 'wobbuffet' || species.id === 'steelix' || 
+						species.id === 'shuckle' || species.id === 'corsola' || species.id === 'remoraid' || species.id === 'octillery' || species.id === 'mantine' || species.id === 'smoochum' || species.id === 'miltank' || species.id === 'celebi' || 
+						species.id === 'zigzagoon' || species.id === 'linoone' || species.id === 'wurmple' || species.id === 'silcoon' || species.id === 'beautifly' || species.id === 'cascoon' || species.id === 'dustox' || species.id === 'taillow' || species.id === 'swellow' || species.id === 'nincada' || 
+						species.id === 'ninjask' || species.id === 'shedinja' || species.id === 'whismur' || species.id === 'loudred' || species.id === 'exploud' || species.id === 'skitty' || species.id === 'delcatty' || species.id === 'mawile' || species.id === 'aron' || species.id === 'lairon' || 
+						species.id === 'aggron' || species.id === 'electrike' || species.id === 'manectric' || species.id === 'roselia' || species.id === 'carvanha' || species.id === 'sharpedo' || species.id === 'wailmer' || species.id === 'wailord' || species.id === 'spinda' || species.id === 'lunatone' || 
+						species.id === 'solrock' || species.id === 'baltoy' || species.id === 'claydol' || species.id === 'lileep' || species.id === 'cradily' || species.id === 'anorith' || species.id === 'armaldo' || species.id === 'castform' || species.id === 'kecleon' || species.id === 'absol' || 
+						species.id === 'wynaut' || species.id === 'spheal' || species.id === 'sealeo' || species.id === 'walrein' || species.id === 'clamperl' || species.id === 'huntail' || species.id === 'gorebyss' || species.id === 'relicanth' || species.id === 'bidoof' || species.id === 'bibarel' || 
+						species.id === 'budew' || species.id === 'roserade' || species.id === 'burmy' || species.id === 'wormadam' || species.id === 'mothim' || species.id === 'cherubi' || species.id === 'cherrim' || species.id === 'buneary' || species.id === 'lopunny' || species.id === 'glameow' || 
+						species.id === 'purugly' || species.id === 'mimejr' || species.id === 'chatot' || species.id === 'skorupi' || species.id === 'drapion' || species.id === 'carnivine' || species.id === 'mantyke' || species.id === 'lickilicky' || species.id === 'tangrowth' || 
+						species.id === 'togekiss' || species.id === 'victini' || species.id === 'patrot' || species.id === 'watchog' || species.id === 'lillipup' || species.id === 'herdier' || species.id === 'stoutland' || species.id === 'purrloin' || species.id === 'liepard' || species.id === 'pansage' || 
+						species.id === 'simisage' || species.id === 'pansear' || species.id === 'simisear' || species.id === 'panpour' || species.id === 'simipour' || species.id === 'munna' || species.id === 'musharna' || species.id === 'pidove' || species.id === 'tranquill' || species.id === 'unfezant' || 
+						species.id === 'roggenrola' || species.id === 'boldore' || species.id === 'gigalith' || species.id === 'woobat' || species.id === 'swoobat' || species.id === 'audino' || species.id === 'tympole' || species.id === 'palpitoad' || species.id === 'seismitoad' || species.id === 'throh' || 
+						species.id === 'sawk' || species.id === 'venipede' || species.id === 'whirlipede' || species.id === 'scolipede' || species.id === 'darumaka' || species.id === 'darmanitan' || species.id === 'maractus' || species.id === 'dwebble' || species.id === 'crustle' || species.id === 'sigilyph' || 
+						species.id === 'yamask' || species.id === 'cofagrigus' || species.id === 'tirtouga' || species.id === 'carracosta' || species.id === 'archen' || species.id === 'archeops' || species.id === 'trubbish' || species.id === 'garbodor' || species.id === 'vanillite' || 
+						species.id === 'vanillish' || species.id === 'vanilluxe' || species.id === 'emolga' || species.id === 'karrablast' || species.id === 'escavalier' || species.id === 'frillish' || species.id === 'jellicent' || species.id === 'ferroseed' || species.id === 'ferrothorn' || 
+						species.id === 'klink' || species.id === 'klang' || species.id === 'klinklang' || species.id === 'elgyem' || species.id === 'beheeyem' || species.id === 'shelmet' || species.id === 'accelgor' || species.id === 'stunfisk' || species.id === 'druddigon' || species.id === 'bouffalant' || 
+						species.id === 'heatmor' || species.id === 'durant' || species.id === 'genesect' || species.id === 'bunnelby' || species.id === 'diggersby' || species.id === 'pancham' || species.id === 'pangoro' || species.id === 'furfrou' || species.id === 'honedge' || species.id === 'doublade' || 
+						species.id === 'aegislash' || species.id === 'spritzee' || species.id === 'aromatisse' || species.id === 'swirlix' || species.id === 'slurpuff' || species.id === 'binacle' || species.id === 'barbaracle' || species.id === 'helioptile' || species.id === 'heliolisk' || 
+						species.id === 'tyrunt' || species.id === 'tyrantrum' || species.id === 'amaura' || species.id === 'aurorus' || species.id === 'pumpkaboo' || species.id === 'gourgeist' || species.id === 'xerneas' || species.id === 'yveltal' || species.id === 'zygarde' || species.id === 'wishiwashi' || 
+						species.id === 'morelull' || species.id === 'shiinotic' || species.id === 'stufful' || species.id === 'bewear' || species.id === 'wimpod' || species.id === 'golisopod' || species.id === 'pyukumuku' || species.id === 'typenull' || species.id === 'silvally' || species.id === 'turtonator' || 
+						species.id === 'togedemaru' || species.id === 'drampa' || species.id === 'dhelmise' || species.id === 'tapukoko' || species.id === 'tapulele' || species.id === 'tapubulu' || species.id === 'tapufini' || species.id === 'nihilego' || species.id === 'buzzwole' || species.id === 'pheromosa' || 
+						species.id === 'xurkitree' || species.id === 'celesteela' || species.id === 'kartana' || species.id === 'guzzlord' || species.id === 'marshadow' || species.id === 'poipole' || species.id === 'naganadel' || species.id === 'stakataka' || species.id === 'blacephalon' || 
+						species.id === 'zeraora' || species.id === 'meltan' || species.id === 'melmetal' || species.id === 'blipbug' || species.id === 'dottler' || species.id === 'orbeetle' || species.id === 'nickit' || species.id === 'thievul' || species.id === 'gossifleur' || species.id === 'eldegoss' || 
+						species.id === 'wooloo' || species.id === 'dubwool' || species.id === 'yamper' || species.id === 'boltund' || species.id === 'sizzlipede' || species.id === 'centiskorch' || species.id === 'clobbopus' || species.id === 'grapploct' || species.id === 'obstagoon' || species.id === 'cursola' || 
+						species.id === 'sirfetchd' || species.id === 'mrrime' || species.id === 'runerigus' || species.id === 'dracozolt' || species.id === 'arctozolt' || species.id === 'dracovish' || species.id === 'arctovish' || species.id === 'rattataalola' || species.id === 'raticatealola' || 
+						species.id === 'marowakalola' || species.id === 'corsolagalar' || species.id === 'darumakagalar' || species.id === 'darmanitangalar' || species.id === 'farfetchdgalar' || species.id === 'zigzagoongalar' || species.id === 'linoonegalar' || species.id === 'mrmimegalar' || 
+						species.id === 'ponytagalar' || species.id === 'rapidashgalar' || species.id === 'stunfiskgalar' || species.id === 'yamaskgalar')) {
+  						continue;
+					}
+					if(this.formatType === "aslrelicanthdraft" && moveid === 'terablast' && (species.id === 'caterpie' || species.id === 'metapod' || species.id === 'butterfree' || species.id === 'weedle' || species.id === 'kakuna' || species.id === 'beedrill'
 						|| species.id === 'pidgey' || species.id === 'pidgeotto' || species.id === 'pidgeot' || species.id === 'rattata' || species.id === 'raticate' || species.id === 'spearow' || species.id === 'fearow' || species.id === 'nidoranf' || species.id === 'nidorina' ||
 						species.id === 'nidoqueen' || species.id === 'nidoranm' || species.id === 'nidorino' || species.id === 'nidoking' || species.id === 'zubat' || species.id === 'golbat' || species.id === 'paras' || species.id === 'parasect' || species.id === 'abra' || 
 						species.id === 'kadabra' || species.id === 'alakazam' || species.id === 'machop' || species.id === 'machoke' || species.id === 'machamp' || species.id === 'ponyta' || species.id === 'rapidash' || species.id === 'farfetchd' || species.id === 'onix' || 

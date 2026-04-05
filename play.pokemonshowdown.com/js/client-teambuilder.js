@@ -43,6 +43,10 @@
 					console.log("setting format to za")
 					this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
 				}
+				if (this.curTeam.format.includes('aslrelicanthdraft')) {
+					console.log("setting format to relicanth")
+					this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
+				}
 				Storage.activeSetList = this.curSetList;
 			}
 		},
@@ -779,6 +783,14 @@
 			if (this.curTeam.format.includes('zanatdexdraft')) {
 				console.log("setting format to za")
 				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
+			}
+			if (this.curTeam.format.includes('zanatdexdraft')) {
+				console.log("setting format to za")
+				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
+			}
+			if (this.curTeam.format.includes('aslrelicanthdraft')) {
+				console.log("setting format to relicanth")
+				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
 			}
 			Storage.activeSetList = this.curSetList = Storage.unpackTeam(this.curTeam.team);
 			this.curTeamIndex = i;
@@ -1645,6 +1657,14 @@
 			if (this.curTeam.format.includes('zanatdexdraft')) {
 				console.log("setting format to za")
 				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
+			}
+			if (this.curTeam.format.includes('zanatdexdraft')) {
+				console.log("setting format to za")
+				this.curTeam.dex = Dex.mod('gen9zanatdexdraft');
+			}
+			if (this.curTeam.format.includes('aslrelicanthdraft')) {
+				console.log("setting format to relicanth")
+				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
 			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');

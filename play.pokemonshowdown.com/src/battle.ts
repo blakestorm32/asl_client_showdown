@@ -3452,6 +3452,10 @@ export class Battle {
 				this.dex = Dex.mod('gen9zanatdexdraft' as ID);
 				console.log("Setting dex mod to za")
 			}
+			if (this.tier.includes('ASL Relicanth Draft')){
+				this.dex = Dex.mod('gen9aslrelicanthdraft' as ID);
+				console.log("Setting dex mod to asl relicanth")
+			}
 			this.log(args);
 			break;
 		}
