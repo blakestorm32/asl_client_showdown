@@ -47,6 +47,10 @@
 					console.log("setting format to relicanth")
 					this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
 				}
+				if (this.curTeam.format.includes('championsnatdexdraft')) {
+					console.log("setting format to champions")
+					this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
+				}
 				Storage.activeSetList = this.curSetList;
 			}
 		},
@@ -787,6 +791,10 @@
 			if (this.curTeam.format.includes('aslrelicanthdraft')) {
 				console.log("setting format to relicanth")
 				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
+			}
+			if (this.curTeam.format.includes('championsnatdexdraft')) {
+				console.log("setting format to champions")
+				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 			}
 			Storage.activeSetList = this.curSetList = Storage.unpackTeam(this.curTeam.team);
 			this.curTeamIndex = i;
@@ -1657,6 +1665,10 @@
 			if (this.curTeam.format.includes('aslrelicanthdraft')) {
 				console.log("setting format to relicanth")
 				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
+			}
+			if (this.curTeam.format.includes('championsnatdexdraft')) {
+				console.log("setting format to champions")
+				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');
