@@ -564,7 +564,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable[gen].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable[gen].learnsets = {};
 		}else if (isASL){
-			console.log("asl time")
+			console.log("pre dlc za time")
 			BattleTeambuilderTable["gen9predlczanatdexdraft"] = {};
 			BattleTeambuilderTable["gen9predlczanatdexdraft"].overrideTier = overrideTier;
 			BattleTeambuilderTable["gen9predlczanatdexdraft"].tiers = tiers;
@@ -592,7 +592,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable["gen9zanatdexdraft"].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable["gen9zanatdexdraft"].learnsets = {};
 		}else if (isRELICANTH){
-			console.log("relicanth time")
+			console.log("asl relicanth time")
 			BattleTeambuilderTable["gen9aslrelicanthdraft"] = {};
 			BattleTeambuilderTable["gen9aslrelicanthdraft"].overrideTier = overrideTier;
 			BattleTeambuilderTable["gen9aslrelicanthdraft"].tiers = tiers;
