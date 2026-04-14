@@ -51,6 +51,10 @@
 					console.log("setting format to champions")
 					this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 				}
+				if (this.curTeam.format.includes('zachampsnatdexdraft')) {
+					console.log("setting format to za champions")
+					this.curTeam.dex = Dex.mod('gen9zachampsnatdexdraft');
+				}
 				Storage.activeSetList = this.curSetList;
 			}
 		},
@@ -795,6 +799,10 @@
 			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
 				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
+			}
+			if (this.curTeam.format.includes('zachampsnatdexdraft')) {
+				console.log("setting format to za champions")
+				this.curTeam.dex = Dex.mod('gen9zachampsnatdexdraft');
 			}
 			Storage.activeSetList = this.curSetList = Storage.unpackTeam(this.curTeam.team);
 			this.curTeamIndex = i;
@@ -1669,6 +1677,10 @@
 			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
 				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
+			}	
+			if (this.curTeam.format.includes('zachampsnatdexdraft')) {
+				console.log("setting format to za champions")
+				this.curTeam.dex = Dex.mod('gen9zachampsnatdexdraft');
 			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');
