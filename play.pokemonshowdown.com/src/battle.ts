@@ -1136,7 +1136,6 @@ export class Battle {
 	 * paused, not just waiting for the opponent to make a move.
 	 */
 	paused: boolean;
-	formatid: ID;
 
 	constructor(options: {
 		$frame?: JQuery,
