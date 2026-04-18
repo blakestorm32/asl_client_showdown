@@ -356,47 +356,47 @@ export const Dex = new class implements ModdedDex {
 	}
 
 	moves = {
-		get: (nameOrMove: string | Move | null | undefined): Move => {
-			if (nameOrMove && typeof nameOrMove !== 'string') {
-				// TODO: don't accept Moves here
-				return nameOrMove;
-			}
-			let name = nameOrMove || '';
-			let id = toID(nameOrMove);
-			if (window.BattleAliases && id in BattleAliases) {
-				name = BattleAliases[id];
-				id = toID(name);
-			}
-			if (!window.BattleMovedex) window.BattleMovedex = {};
-			let data = window.BattleMovedex[id];
-			if (data && typeof data.exists === 'boolean') return data;
+        get: (nameOrMove: string | Move | null | undefined): Move => {
+            if (nameOrMove && typeof nameOrMove !== 'string') {
+                // TODO: don't accept Moves here
+                return nameOrMove;
+            }
+            let name = nameOrMove || '';
+            let id = toID(nameOrMove);
+            if (window.BattleAliases && id in BattleAliases) {
+                name = BattleAliases[id];
+                id = toID(name);
+            }
+            if (!window.BattleMovedex) window.BattleMovedex = {};
+            let data = window.BattleMovedex[id];
+            if (data && typeof data.exists === 'boolean') return data;
 
-			if (!data && id.substr(0, 11) === 'hiddenpower' && id.length > 11) {
-				let [, hpWithType, hpPower] = /([a-z]*)([0-9]*)/.exec(id)!;
-				data = {
-					...(window.BattleMovedex[hpWithType] || {}),
-					basePower: Number(hpPower) || 60,
-				};
-			}
-			if (!data && id.substr(0, 6) === 'return' && id.length > 6) {
-				data = {
-					...(window.BattleMovedex['return'] || {}),
-					basePower: Number(id.slice(6)),
-				};
-			}
-			if (!data && id.substr(0, 11) === 'frustration' && id.length > 11) {
-				data = {
-					...(window.BattleMovedex['frustration'] || {}),
-					basePower: Number(id.slice(11)),
-				};
-			}
+            if (!data && id.substr(0, 11) === 'hiddenpower' && id.length > 11) {
+                let [, hpWithType, hpPower] = /([a-z]*)([0-9]*)/.exec(id)!;
+                data = {
+                    ...(window.BattleMovedex[hpWithType] || {}),
+                    basePower: Number(hpPower) || 60,
+                };
+            }
+            if (!data && id.substr(0, 6) === 'return' && id.length > 6) {
+                data = {
+                    ...(window.BattleMovedex['return'] || {}),
+                    basePower: Number(id.slice(6)),
+                };
+            }
+            if (!data && id.substr(0, 11) === 'frustration' && id.length > 11) {
+                data = {
+                    ...(window.BattleMovedex['frustration'] || {}),
+                    basePower: Number(id.slice(11)),
+                };
+            }
 
-			if (!data) data = { exists: false };
-			let move = new Move(id, name, data);
-			window.BattleMovedex[id] = move;
-			return move;
-		},
-	};
+            if (!data) data = { exists: false };
+            let move = new Move(id, name, data);
+            window.BattleMovedex[id] = move;
+            return move;
+        },
+    };
 
 	getGen3Category(type: string) {
 		return [
@@ -991,37 +991,37 @@ export class ModdedDex {
 		this.gen = gen;
 	}
 	moves = {
-		get: (name: string): Move => {
-			let id = toID(name);
-			if (window.BattleAliases && id in BattleAliases) {
-				name = BattleAliases[id];
-				id = toID(name);
-			}
-			if (this.cache.Moves.hasOwnProperty(id)) return this.cache.Moves[id];
+        get: (name: string): Move => {
+            let id = toID(name);
+            if (window.BattleAliases && id in BattleAliases) {
+                name = BattleAliases[id];
+                id = toID(name);
+            }
+            if (this.cache.Moves.hasOwnProperty(id)) return this.cache.Moves[id];
 
-			let data = { ...Dex.moves.get(name) };
+            let data = { ...Dex.moves.get(name) };
 
-			for (let i = Dex.gen - 1; i >= this.gen; i--) {
-				const table = window.BattleTeambuilderTable[`gen${i}`];
-				if (id in table.overrideMoveData) {
-					Object.assign(data, table.overrideMoveData[id]);
-				}
-			}
-			if (this.modid !== `gen${this.gen}`) {
-				const table = window.BattleTeambuilderTable[this.modid];
-				if (id in table.overrideMoveData) {
-					Object.assign(data, table.overrideMoveData[id]);
-				}
-			}
-			if (this.gen <= 3 && data.category !== 'Status') {
-				data.category = Dex.getGen3Category(data.type);
-			}
+            for (let i = Dex.gen - 1; i >= this.gen; i--) {
+                const table = window.BattleTeambuilderTable[gen${i}];
+                if (id in table.overrideMoveData) {
+                    Object.assign(data, table.overrideMoveData[id]);
+                }
+            }
+            if (this.modid !== gen${this.gen}) {
+                const table = window.BattleTeambuilderTable[this.modid];
+                if (id in table.overrideMoveData) {
+                    Object.assign(data, table.overrideMoveData[id]);
+                }
+            }
+            if (this.gen <= 3 && data.category !== 'Status') {
+                data.category = Dex.getGen3Category(data.type);
+            }
 
-			const move = new Move(id, name, data);
-			this.cache.Moves[id] = move;
-			return move;
-		},
-	};
+            const move = new Move(id, name, data);
+            this.cache.Moves[id] = move;
+            return move;
+        },
+    };
 
 	items = {
 		get: (name: string): Item => {
