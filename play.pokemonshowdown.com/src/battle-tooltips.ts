@@ -148,9 +148,11 @@ export class ModifiableValue {
 
 export class BattleTooltips {
 	battle: Battle;
+	formatid: ID;
 
 	constructor(battle: Battle) {
 		this.battle = battle;
+		this.formatid = battle.formatid;
 	}
 
 	// tooltips
@@ -2622,6 +2624,9 @@ export class BattleTooltips {
 					value.abilityModify(1 + 0.05 * i, "The Eminence in the Shadow");
 				}
 			}
+			if (move.id === 'tropkick' && this.formatid.includes('zachampsnatdexdraft')) {
+			value.set(85);
+		}
 		}
 
 		return value;
