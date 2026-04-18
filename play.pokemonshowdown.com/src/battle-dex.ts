@@ -1007,11 +1007,9 @@ export class ModdedDex {
 					Object.assign(data, table.overrideMoveData[id]);
 				}
 			}
-			if (this.modid !== `gen${this.gen}`) {
-				const table = window.BattleTeambuilderTable[this.modid];
-				if (id in table.overrideMoveData) {
-					Object.assign(data, table.overrideMoveData[id]);
-				}
+			const table = window.BattleTeambuilderTable[this.modid];
+			if (id in table.overrideMoveData) {
+				Object.assign(data, table.overrideMoveData[id]);
 			}
 			if (this.gen <= 3 && data.category !== 'Status') {
 				data.category = Dex.getGen3Category(data.type);
