@@ -1011,6 +1011,11 @@ export class ModdedDex {
 			if (id in table.overrideMoveData) {
 				Object.assign(data, table.overrideMoveData[id]);
 			}
+			const override = table?.overrideMoveData?.[id];
+			if (override) {
+    			Object.assign(data, override);
+			}
+			
 			if (this.gen <= 3 && data.category !== 'Status') {
 				data.category = Dex.getGen3Category(data.type);
 			}
