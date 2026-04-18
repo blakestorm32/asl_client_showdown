@@ -1557,7 +1557,7 @@ export class BattleTooltips {
 	 */
 	getMoveType(
 		move: Dex.Move, value: ModifiableValue, forMaxMove?: boolean | Dex.Move
-	): [Dex.TypeName, 'Physical' | 'Special' | 'Status'] {
+	): [Dex.TypeName, Dex.CategoryName] {
 		const pokemon = value.pokemon;
 		const serverPokemon = value.serverPokemon;
 
@@ -1571,6 +1571,9 @@ export class BattleTooltips {
 		value.reset();
 		if (move.id === 'revelationdance') {
 			moveType = pokemonTypes[0];
+			if (pokemonTypes[0] === '???' || pokemonTypes[0] === 'Bird' as any) {
+				moveType = pokemonTypes[1] || pokemonTypes[0];
+			}
 		}
 		// Moves that require an item to change their type.
 		let item = this.battle.dex.items.get(value.itemName);
@@ -1587,25 +1590,29 @@ export class BattleTooltips {
 			if (value.itemModify(0)) moveType = item.naturalGift.type;
 		}
 		// Weather and pseudo-weather type changes.
-		if (move.id === 'weatherball' && value.weatherModify(0)) {
-			switch (this.battle.weather) {
-			case 'sunnyday':
-			case 'desolateland':
-				if (item.id === 'utilityumbrella') break;
+		if (move.id === 'weatherball') {
+			if (value.abilityModify(0, 'Mega Sol')) {
 				moveType = 'Fire';
-				break;
-			case 'raindance':
-			case 'primordialsea':
-				if (item.id === 'utilityumbrella') break;
-				moveType = 'Water';
-				break;
-			case 'sandstorm':
-				moveType = 'Rock';
-				break;
-			case 'hail':
-			case 'snowscape':
-				moveType = 'Ice';
-				break;
+			} else if (value.weatherModify(0)) {
+				switch (this.battle.weather) {
+				case 'sunnyday':
+				case 'desolateland':
+					if (item.id === 'utilityumbrella') break;
+					moveType = 'Fire';
+					break;
+				case 'raindance':
+				case 'primordialsea':
+					if (item.id === 'utilityumbrella') break;
+					moveType = 'Water';
+					break;
+				case 'sandstorm':
+					moveType = 'Rock';
+					break;
+				case 'hail':
+				case 'snowscape':
+					moveType = 'Ice';
+					break;
+				}
 			}
 		}
 		if (move.id === 'terrainpulse' && pokemon.isGrounded(serverPokemon)) {
@@ -1677,6 +1684,7 @@ export class BattleTooltips {
 			if (category !== 'Status' && !move.isZ && !move.id.startsWith('hiddenpower')) {
 				if (moveType === 'Normal') {
 					if (value.abilityModify(0, 'Aerilate')) moveType = 'Flying';
+					if (value.abilityModify(0, 'Dragonize')) moveType = 'Dragon';
 					if (value.abilityModify(0, 'Galvanize')) moveType = 'Electric';
 					if (value.abilityModify(0, 'Pixilate')) moveType = 'Fairy';
 					if (value.abilityModify(0, 'Refrigerate')) moveType = 'Ice';
@@ -1749,6 +1757,33 @@ export class BattleTooltips {
 			}
 		}
 		return [moveType, category];
+	}
+	static getTypeAbilityWeakness(attackType: Dex.TypeName, abilityid: ID, dex: ModdedDex = Dex, strict?: boolean) {
+		if (attackType === 'Ground' && abilityid === 'levitate') return 0;
+		if (attackType === 'Water' && abilityid === 'dryskin') return 0;
+		if (attackType === 'Fire' && abilityid === 'flashfire') return 0;
+		if (attackType === 'Electric' && abilityid === 'lightningrod' && dex.gen >= 5) return 0;
+		if (attackType === 'Grass' && abilityid === 'sapsipper') return 0;
+		if (attackType === 'Electric' && abilityid === 'motordrive') return 0;
+		if (attackType === 'Water' && abilityid === 'stormdrain' && dex.gen >= 5) return 0;
+		if (attackType === 'Electric' && abilityid === 'voltabsorb') return 0;
+		if (attackType === 'Water' && abilityid === 'waterabsorb') return 0;
+		if (attackType === 'Ground' && abilityid === 'eartheater') return 0;
+		if (attackType === 'Fire' && abilityid === 'wellbakedbody') return 0;
+
+		if (attackType === 'Fire' && abilityid === 'primordialsea' && !strict) return 0;
+		if (attackType === 'Water' && abilityid === 'desolateland' && !strict) return 0;
+
+		let factor = 1;
+		if ((attackType === 'Fire' || attackType === 'Ice') && abilityid === 'thickfat') factor *= 0.5;
+		if (attackType === 'Fire' && abilityid === 'waterbubble') factor *= 0.5;
+		if (attackType === 'Fire' && abilityid === 'heatproof') factor *= 0.5;
+		if (attackType === 'Ghost' && abilityid === 'purifyingsalt') factor *= 0.5;
+		if (attackType === 'Fire' && abilityid === 'fluffy') factor *= 2;
+		if ((attackType === 'Electric' || attackType === 'Rock' || attackType === 'Ice') && abilityid === 'deltastream') {
+			factor *= 0.5;
+		}
+		return factor;
 	}
 
 	// Gets the current accuracy for a move.
