@@ -274,6 +274,24 @@ export const Dex = new class implements ModdedDex {
 		if (dex.gen === 8 && formatid.includes('bdsp')) {
 			dex = Dex.mod('gen8bdsp' as ID);
 		}
+		if (dex.gen === 9 && formatid.includes('aslrelicanthdraft')) {
+			dex = Dex.mod('gen9aslrelicanthdraft' as ID);
+		}
+		if (dex.gen === 9 && formatid.includes('championsnatdexdraft')) {
+			dex = Dex.mod('gen9championsnatdexdraft' as ID);
+		}
+		if (dex.gen === 9 && formatid.includes('mysticnatdexdraft')) {
+			dex = Dex.mod('gen9mysticnatdexdraft' as ID);
+		}
+		if (dex.gen === 9 && formatid.includes('predlczanatdexdraft')) {
+			dex = Dex.mod('gen9predlczanatdexdraft' as ID);
+		}
+		if (dex.gen === 9 && formatid.includes('zachampsnatdexdraft')) {
+			dex = Dex.mod('gen9zachampsnatdexdraft' as ID);
+		}
+		if (dex.gen === 9 && formatid.includes('zanatdexdraft')) {
+			dex = Dex.mod('gen9zanatdexdraft' as ID);
+		}
 		return dex;
 	}
 
