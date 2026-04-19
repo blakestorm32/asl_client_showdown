@@ -1101,7 +1101,7 @@ export class BattleTooltips {
 		if (pokemon.status) {
 			if (this.battle.gen > 2 && ability === 'guts') {
 				stats.atk = Math.floor(stats.atk * 1.5);
-				
+			}
 			// Mystic Frostbite, freeze acts as special attack burn
 			if (this.battle.tier === "Mystic NatDex Draft" && pokemon.status === 'frz') {
 				stats.atk = Math.floor(stats.spa * 0.5);
