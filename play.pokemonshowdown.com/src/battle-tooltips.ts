@@ -1101,6 +1101,11 @@ export class BattleTooltips {
 		if (pokemon.status) {
 			if (this.battle.gen > 2 && ability === 'guts') {
 				stats.atk = Math.floor(stats.atk * 1.5);
+				
+			// Mystic Frostbite, freeze acts as special attack burn
+			if (this.battle.tier === "Mystic NatDex Draft" && pokemon.status === 'frz') {
+				stats.atk = Math.floor(stats.spa * 0.5);
+
 			} else if (this.battle.gen < 2 && pokemon.status === 'brn') {
 				stats.atk = Math.floor(stats.atk * 0.5);
 			}
@@ -2230,7 +2235,10 @@ export class BattleTooltips {
 		if (['hex', 'infernalparade'].includes(move.id) && target?.status) {
 			value.modify(2, move.name + ' + status');
 		}
-		if (move.id === 'lastrespects') {
+		if (this.battle.tier === "Mystic NatDex Draft" && move.id === 'lastrespects') {
+			value.set(Math.min(50 + 20 * pokemon.side.faintCounter));
+		}
+		if (this.battle.tier !== "Mystic NatDex Draft" && move.id === 'lastrespects') {
 			value.set(Math.min(50 + 50 * pokemon.side.faintCounter));
 		}
 		if (move.id === 'punishment' && target) {
