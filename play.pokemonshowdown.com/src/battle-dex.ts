@@ -991,37 +991,37 @@ export class ModdedDex {
 		this.gen = gen;
 	}
 	moves = {
-        get: (name: string): Move => {
-            let id = toID(name);
-            if (window.BattleAliases && id in BattleAliases) {
-                name = BattleAliases[id];
-                id = toID(name);
-            }
-            if (this.cache.Moves.hasOwnProperty(id)) return this.cache.Moves[id];
+		get: (name: string): Move => {
+			let id = toID(name);
+			if (window.BattleAliases && id in BattleAliases) {
+				name = BattleAliases[id];
+				id = toID(name);
+			}
+			if (this.cache.Moves.hasOwnProperty(id)) return this.cache.Moves[id];
 
-            let data = { ...Dex.moves.get(name) };
+			let data = { ...Dex.moves.get(name) };
 
-            for (let i = Dex.gen - 1; i >= this.gen; i--) {
-                const table = window.BattleTeambuilderTable['gen${i}'];
-                if (id in table.overrideMoveData) {
-                    Object.assign(data, table.overrideMoveData[id]);
-                }
-            }
-            if (this.modid !== 'gen${this.gen}') {
-                const table = window.BattleTeambuilderTable[this.modid];
-                if (id in table.overrideMoveData) {
-                    Object.assign(data, table.overrideMoveData[id]);
-                }
-            }
-            if (this.gen <= 3 && data.category !== 'Status') {
-                data.category = Dex.getGen3Category(data.type);
-            }
+			for (let i = Dex.gen - 1; i >= this.gen; i--) {
+				const table = window.BattleTeambuilderTable[`gen${i}`];
+				if (id in table.overrideMoveData) {
+					Object.assign(data, table.overrideMoveData[id]);
+				}
+			}
+			if (this.modid !== `gen${this.gen}`) {
+				const table = window.BattleTeambuilderTable[this.modid];
+				if (id in table.overrideMoveData) {
+					Object.assign(data, table.overrideMoveData[id]);
+				}
+			}
+			if (this.gen <= 3 && data.category !== 'Status') {
+				data.category = Dex.getGen3Category(data.type);
+			}
 
-            const move = new Move(id, name, data);
-            this.cache.Moves[id] = move;
-            return move;
-        },
-    };
+			const move = new Move(id, name, data);
+			this.cache.Moves[id] = move;
+			return move;
+		},
+	};
 
 	items = {
 		get: (name: string): Item => {
