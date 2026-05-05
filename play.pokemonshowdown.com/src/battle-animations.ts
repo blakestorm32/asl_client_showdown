@@ -11,7 +11,7 @@
  * @license MIT
  */
 
-import type { Battle, Pokemon, Side, WeatherState } from './battle';
+import type { Battle, HPColor, Pokemon, Side, WeatherState } from './battle';
 import type { BattleSceneStub } from './battle-scene-stub';
 import { BattleMoveAnims } from './battle-animations-moves';
 import { BattleLog } from './battle-log';
@@ -704,11 +704,9 @@ export class BattleScene implements BattleSceneStub {
 				// in VGC (bring 6 pick 4) and other pick-less-than-you-bring formats, this is
 				// a pokemon that's been brought but not necessarily picked
 				const details = this.getDetailsText(poke);
-				console.log("getting img for poke", poke);
 				pokemonhtml += `<span${tooltipCode} style="${Dex.getPokemonIcon(poke, !side.isFar)};opacity:0.6" aria-label="${details}"></span>`;
 			} else {
 				const details = this.getDetailsText(poke);
-				console.log("getting img for poke", poke);
 				pokemonhtml += `<span${tooltipCode} style="${Dex.getPokemonIcon(poke, !side.isFar)}" aria-label="${details}"></span>`;
 			}
 			if (i % 3 === 2) pokemonhtml += `</div><div class="teamicons">`;
@@ -1707,7 +1705,8 @@ export class BattleScene implements BattleSceneStub {
 		}
 		this.battle = null!;
 	}
-	static getHPColor(pokemon: { hp: number, maxhp: number }) {
+	static getHPColor(pokemon: { hp: number, maxhp: number, hpcolor: HPColor | '' }) {
+		if (pokemon.hpcolor) return pokemon.hpcolor;
 		let ratio = pokemon.hp / pokemon.maxhp;
 		if (ratio > 0.5) return 'g';
 		if (ratio > 0.2) return 'y';
