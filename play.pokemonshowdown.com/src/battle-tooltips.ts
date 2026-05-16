@@ -1513,10 +1513,6 @@ export class BattleTooltips {
 			move = this.battle.dex.moves.get(moveName);
 			maxpp = (move.pp === 1 || move.noPPBoosts ? move.pp : move.pp * 8 / 5);
 			if (this.battle.gen < 3) maxpp = Math.min(61, maxpp);
-			if (this.battle.tier.includes('Champions')) {
-				let pp = move.pp > 20 ? 20 : move.pp;
-				maxpp = (pp === 1 || move.noPPBoosts) ? pp : (pp / 5 + 1) * 4;
-			}
 		}
 		const bullet = moveName.startsWith('*') || move.isZ ? '<span style="color:#888">&#8226;</span>' : '&#8226;';
 		if (ppUsed === Infinity) {
@@ -1591,9 +1587,6 @@ export class BattleTooltips {
 			max = tr(tr(tr((2 * baseSpe + maxIv) * level / 100 + 5) * maxNature) * tr((70 / 255 / 10 + 1) * 100) / 100);
 			if (tier.includes('No Restrictions')) max += 200;
 			else if (tier.includes('Random')) max += 20;
-		} else if (tier.includes('Champions')) {
-			min = tr(minNature * (baseSpe + 20));
-			max = tr(maxNature * (baseSpe + 32 + 20));
 		} else {
 			let maxIvEvOffset = maxIv + ((isRandomBattle && gen >= 3) ? 21 : 63);
 			max = tr(tr((2 * baseSpe + maxIvEvOffset) * level / 100 + 5) * maxNature);
@@ -2862,7 +2855,7 @@ export class BattleStatGuesser {
 			this.formatid.includes('metronomebattle') ||
 			this.formatid.endsWith('norestrictions')
 		);
-		this.useStatPoints = this.formatid.includes('champions');
+		this.useStatPoints = this.formatid.includes('STANDARDchampions');
 		this.supportsEVs = !this.formatid.includes('letsgo') && !this.useStatPoints;
 		this.supportsAVs = !this.supportsEVs && this.formatid.endsWith('norestrictions');
 	}
