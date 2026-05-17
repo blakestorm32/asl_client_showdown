@@ -141,16 +141,16 @@ var ReplayPanel = Panels.StaticPanel.extend({
 		var self = this;
 		const logLines = log.split('\n');
 
-		// extract tier safely from raw log
+		// extract tier safely
 		let tier = 'Battle';
-		for (let i = 0; i < logLines.length; i++) {
-			if (logLines[i].startsWith('|tier|')) {
-				tier = logLines[i].split('|')[2] || 'Battle';
+		for (const line of logLines) {
+			if (line.startsWith('|tier|')) {
+				tier = line.split('|')[2] || 'Battle';
 				break;
 			}
 		}
 
-		this.battle = new Battle({
+		const battle = new Battle({
 			id: replayid,
 			$frame: $battle,
 			$logFrame: this.$('.battle-log'),
@@ -159,8 +159,12 @@ var ReplayPanel = Panels.StaticPanel.extend({
 			paused: true
 		});
 
-		// 🔥 FORCE FIX: ensure tier is always defined
-		this.battle.tier = tier;
+		// attach manually in multiple places (belt + suspenders)
+		battle.tier = tier;
+		battle.format = tier;
+		battle.formatid = tier;
+
+		this.battle = battle;
 
 		this.$('.urlbox').css('margin-right', 120).before('<a class="button replayDownloadButton" style="float:right;margin-top:7px;margin-right:7px" href="#"><i class="fa fa-download"></i> Download</a>');
 
