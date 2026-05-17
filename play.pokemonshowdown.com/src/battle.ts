@@ -2463,33 +2463,59 @@ export class Battle {
 
 			let newSpeciesForme = args[2];
 			let commaIndex = newSpeciesForme.indexOf(',');
+
 			if (commaIndex !== -1) {
 				let level = newSpeciesForme.substr(commaIndex + 1).trim();
+
 				if (level.startsWith('L')) {
 					poke.level = parseInt(level.substr(1), 10);
 				}
+
 				newSpeciesForme = args[2].substr(0, commaIndex);
 			}
+
 			let species = this.dex.species.get(newSpeciesForme);
+
 			if (nextArgs) {
 				if (nextArgs[0] === '-mega') {
 					const item = this.dex.items.get(nextArgs[3]);
-					const megaStone = item && (item as any).megaStone;
+					const megaStone = item?.megaStone;
+
 					if (typeof megaStone === 'string') {
+						// Standard PS behavior:
+						// megaStone: "Charizard-Mega-X"
 						species = this.dex.species.get(megaStone);
+
 					} else if (megaStone && typeof megaStone === 'object') {
-						// megaStone can be a mapping from base species name to mega form;
-						// prefer the mapping keyed by the current species name, then by its id,
-						// otherwise fall back to the first mapped value.
-						const mapped = (megaStone as any)[species.name] || (megaStone as any)[toID(species.name)] ||
-							(Object.values(megaStone) as string[])[0];
-						species = this.dex.species.get(mapped);
+						// Custom multi-mega-stone behavior:
+						// megaStone: {
+						//   Charizard: "Charizard-Mega-X",
+						//   Typhlosion: "Typhlosion-Mega"
+						// }
+
+						const baseSpecies =
+							species.baseSpecies ||
+							species.name;
+
+						const mappedMega =
+							megaStone[baseSpecies] ||
+							megaStone[toID(baseSpecies)];
+
+						if (mappedMega) {
+							species = this.dex.species.get(mappedMega);
+						}
 					}
-				} else if (nextArgs[0] === '-primal' && nextArgs.length > 2) {
-					if (nextArgs[2] === 'Red Orb') species = this.dex.species.get('Groudon-Primal');
-					if (nextArgs[2] === 'Blue Orb') species = this.dex.species.get('Kyogre-Primal');
-				}
+
+		} else if (nextArgs[0] === '-primal' && nextArgs.length > 2) {
+			if (nextArgs[2] === 'Red Orb') {
+				species = this.dex.species.get('Groudon-Primal');
 			}
+
+			if (nextArgs[2] === 'Blue Orb') {
+				species = this.dex.species.get('Kyogre-Primal');
+			}
+		}
+	}
 
 			poke.speciesForme = newSpeciesForme;
 			poke.ability = poke.baseAbility = (species.abilities ? species.abilities['0'] : '');
