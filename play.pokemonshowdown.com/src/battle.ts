@@ -2473,7 +2473,18 @@ export class Battle {
 			let species = this.dex.species.get(newSpeciesForme);
 			if (nextArgs) {
 				if (nextArgs[0] === '-mega') {
-					species = this.dex.species.get(this.dex.items.get(nextArgs[3]).megaStone);
+					const item = this.dex.items.get(nextArgs[3]);
+					const megaStone = item && (item as any).megaStone;
+					if (typeof megaStone === 'string') {
+						species = this.dex.species.get(megaStone);
+					} else if (megaStone && typeof megaStone === 'object') {
+						// megaStone can be a mapping from base species name to mega form;
+						// prefer the mapping keyed by the current species name, then by its id,
+						// otherwise fall back to the first mapped value.
+						const mapped = (megaStone as any)[species.name] || (megaStone as any)[toID(species.name)] ||
+							(Object.values(megaStone) as string[])[0];
+						species = this.dex.species.get(mapped);
+					}
 				} else if (nextArgs[0] === '-primal' && nextArgs.length > 2) {
 					if (nextArgs[2] === 'Red Orb') species = this.dex.species.get('Groudon-Primal');
 					if (nextArgs[2] === 'Blue Orb') species = this.dex.species.get('Kyogre-Primal');
