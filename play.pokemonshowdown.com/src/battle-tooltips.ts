@@ -2228,11 +2228,16 @@ export class BattleTooltips {
 		if (['hex', 'infernalparade'].includes(move.id) && target?.status) {
 			value.modify(2, move.name + ' + status');
 		}
-		if (this.battle.tier === "Mystic NatDex Draft" && move.id === 'lastrespects') {
-			value.set(Math.min(50 + 20 * pokemon.side.faintCounter));
-		}
-		if (this.battle.tier !== "Mystic NatDex Draft" && move.id === 'lastrespects') {
-			value.set(Math.min(50 + 50 * pokemon.side.faintCounter));
+		const modFormatId = 'gen9mysticnatdexdraft';
+
+		if (move.id === 'lastrespects') {
+			const tier = toID(this.battle.tier);
+
+			if (tier === 'gen9mysticnatdexdraft') {
+				value.set(50 + 20 * pokemon.side.faintCounter);
+			} else {
+				value.set(50 + 50 * pokemon.side.faintCounter);
+			}
 		}
 		if (move.id === 'punishment' && target) {
 			let boostCount = 0;

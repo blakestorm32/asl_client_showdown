@@ -2005,12 +2005,6 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					if(this.formatType === "mysticnatdexdraft" && moveid === 'seismictoss' && species.id === 'kangaskhanmega'){
   						continue;
 					}
-					if(this.formatType === "mysticnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegion'){
-  						continue;
-					}
-					if(this.formatType === "mysticnatdexdraft" && moveid === 'lastrespects' && species.id === 'basculegionf'){
-  						continue;
-					}
 					if(this.formatType === "mysticnatdexdraft" && moveid === 'relicsong' && species.id === 'meloetta'){
   						continue;
 					}
