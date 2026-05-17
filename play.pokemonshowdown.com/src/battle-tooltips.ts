@@ -1104,9 +1104,9 @@ export class BattleTooltips {
 			}
 			// Mystic Frostbite, freeze acts as special attack burn
 			if (this.battle.tier === "Mystic NatDex Draft" && pokemon.status === 'frz') {
-				stats.atk = Math.floor(stats.spa * 0.5);
-
-			} else if (this.battle.gen < 2 && pokemon.status === 'brn') {
+				stats.spa = Math.floor(stats.spa * 0.5);
+			}				
+			if (this.battle.gen < 2 && pokemon.status === 'brn') {
 				stats.atk = Math.floor(stats.atk * 0.5);
 			}
 
