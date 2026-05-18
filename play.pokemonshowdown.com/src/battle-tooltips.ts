@@ -2388,7 +2388,7 @@ export class BattleTooltips {
 			const tier = toID(this.battle.tier);
 
 			if (tier === 'gen9mysticnatdexdraft') {
-				value.modify(0.5, 'Mystic Frostbite + freeze');
+				value.modify(0.5, 'Frostbite');
 			} 
 		}
 
