@@ -1103,15 +1103,6 @@ export class BattleTooltips {
 				stats.atk = Math.floor(stats.atk * 1.5);
 			}
 
-			// Mystic Frostbite, freeze acts as special attack burn
-			if (pokemon.status === 'frz') {
-				const tier = toID(this.battle.tier);
-
-				if (tier === 'gen9mysticnatdexdraft') {
-					stats.spa = Math.floor(stats.spa * 0.5);
-				} 
-			}
-
 			if (this.battle.gen < 2 && pokemon.status === 'brn') {
 				stats.atk = Math.floor(stats.atk * 0.5);
 			}
@@ -2391,6 +2382,15 @@ export class BattleTooltips {
 					undefined);
 		}
 		if (!value.value) return value;
+
+		// Mystic Frostbite, freeze acts as special attack burn
+		if (pokemon.status === 'frz' && move.category === 'Special') {
+			const tier = toID(this.battle.tier);
+
+			if (tier === 'gen9mysticnatdexdraft') {
+				value.modify(0.5, 'Mystic Frostbite + freeze');
+			} 
+		}
 
 		// Other ability boosts
 		if (pokemon.status === 'brn' && move.category === 'Special') {
