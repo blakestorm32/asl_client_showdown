@@ -44,6 +44,13 @@ function renderNews() {
 	$buf .= '<p><a href="https://aslrelicanth-damage-calc.up.railway.app/" target="_blank">';
 	$buf .= 'ASL Relicanth Calculator</a></p>';
 
+	// Custom prep doc news box
+	$buf .= '<div class="newsentry broadcast-blue" data-newsid="9999">';
+	$buf .= '<h4>Prep Document</h4>';
+
+	$buf .= '<p><a href="https://docs.google.com/spreadsheets/d/1AhfvcVsoI2k94zZ3PU0-2HNQ09-lbZtuYX2HbCYCXRw/edit?usp=sharing" target="_blank">';
+	$buf .= 'Custom Format Prep Document</a></p>';
+
 	$buf .= '</div>';
 
 	return $buf;
