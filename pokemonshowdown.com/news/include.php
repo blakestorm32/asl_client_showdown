@@ -36,20 +36,16 @@ function renderNews() {
 
 	// Custom calculator news box
 	$buf .= '<div class="newsentry broadcast-blue" data-newsid="9999">';
-	$buf .= '<h4>Damage Calculators</h4>';
+	$buf .= '<h4>Custom Format Resources</h4>';
 
 	$buf .= '<p><a href="https://aslchampions-damage-calc.up.railway.app/" target="_blank">';
 	$buf .= 'Champions/Mystic Damage Calculator</a></p>';
 
 	$buf .= '<p><a href="https://aslrelicanth-damage-calc.up.railway.app/" target="_blank">';
-	$buf .= 'ASL Relicanth Calculator</a></p>';
-
-	// Custom prep doc news box
-	$buf .= '<div class="newsentry broadcast-blue" data-newsid="9999">';
-	$buf .= '<h4>Prep Document</h4>';
+	$buf .= 'ASL Relicanth Damage Calculator</a></p>';
 
 	$buf .= '<p><a href="https://docs.google.com/spreadsheets/d/1AhfvcVsoI2k94zZ3PU0-2HNQ09-lbZtuYX2HbCYCXRw/edit?usp=sharing" target="_blank">';
-	$buf .= 'Custom Format Prep Document</a></p>';
+	$buf .= 'All Formats Prep Document</a></p>';
 
 	$buf .= '</div>';
 
