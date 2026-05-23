@@ -617,7 +617,7 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
     shucklemega: 213,
     dhelmisemega: 781,
     flygonmega: 330,
-    victinimega: 494,
+    victinimega: 1560,
 
 	// CAP
 	syclant: 1560 + 0,
