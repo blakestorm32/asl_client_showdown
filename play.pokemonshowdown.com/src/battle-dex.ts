@@ -839,10 +839,55 @@ export const Dex = new class implements ModdedDex {
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		console.log("ID for", num, left, top)
-		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ?
-			`;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
-		return `background:transparent url(https://aslclientshowdown-production.up.railway.app/sprites/pokemonicons-sheet.png) no-repeat scroll -${left}px -${top}px${fainted}`;
+		const fainted = (pokemon as Pokemon | ServerPokemon)?.fainted ?
+		`;opacity:.3;filter:grayscale(100%) brightness(.5)` :
+		``;
+
+		// =========================
+		// Mega overlay species list
+		// =========================
+
+		const megaMons = new Set([
+			'dudunsparcemega',
+			'dudunsparcethreesegmentmega',
+			'delibirdmega',
+			'sirfetchdmega',
+			'ariadosmega',
+			'rapidashmega',
+			'rapidashgalarmega',
+			'luvdiscmega',
+			'electrodemega',
+			'lickilickymega',
+			'carnivinemega',
+			'typhlosionmega',
+			'tropiusmega',
+			'cursolamega',
+			'helioliskmega',
+			'pluslemega',
+			'minunmega',
+			'shucklemega',
+			'dhelmisemega',
+			'flygonmega',
+			'victinimega',
+		]);
+
+		let overlay = ``;
+
+		if (megaMons.has(id)) {
+			overlay = `
+				url(https://aslclientshowdown-production.up.railway.app/sprites/megastone.png)
+				no-repeat 0 0,
+		`;
 	}
+
+	return `
+		background:
+			${overlay}
+			transparent url(https://aslclientshowdown-production.up.railway.app/sprites/pokemonicons-sheet.png)
+			no-repeat scroll -${left}px -${top}px
+		${fainted}
+	`;
+}
 
 	getTeambuilderSpriteData(pokemon: any, dex: ModdedDex = Dex): TeambuilderSpriteData {
 		let gen = dex.gen;
