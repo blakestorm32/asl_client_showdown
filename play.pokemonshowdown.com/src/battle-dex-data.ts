@@ -597,8 +597,8 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	baxcaliburmega: 1320 + 131,
 
 	// Mystic Megas
-	dudunsparcemega: 982,
-    dudunsparcethreesegmentmega: 982,
+	dudunsparcemega: 1560 + 0,
+    dudunsparcethreesegmentmega: 1560 + 0,
     delibirdmega: 225,
     sirfetchdmega: 865,
     ariadosmega: 168,

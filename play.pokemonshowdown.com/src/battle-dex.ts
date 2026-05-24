@@ -848,8 +848,6 @@ export const Dex = new class implements ModdedDex {
 		// =========================
 
 		const megaMons = new Set([
-			'dudunsparcemega',
-			'dudunsparcethreesegmentmega',
 			'delibirdmega',
 			'sirfetchdmega',
 			'ariadosmega',
