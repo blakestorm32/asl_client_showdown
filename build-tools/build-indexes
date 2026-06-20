@@ -270,7 +270,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	// process.stdout.write("\n  ");
 	for (const genIdent of [...GENS, ...DOUBLES, ...VGC, ...NFE, ...STADIUM, ...OTHER, ...NATDEX, ...LC]) {
 		const isLetsGo = (genIdent === 7.1);
-		const isASL = (genIdent === 9.91);
+		const isASL = (genIdent === 9.91); // currently empty
 		const isMYSTIC = (genIdent === 9.92);
 		const isZA = (genIdent === 9.93);
 		const isRELICANTH = (genIdent === 9.94);
@@ -303,7 +303,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			if (isSSB) genStr += 'ssb';
 			if (isBW1) genStr += 'bw1';
 			if (isRS) genStr += 'rs';
-			if (isASL) genStr += 'predlczanatdexdraft';
 			if (isMYSTIC) genStr += 'mysticnatdexdraft';
 			if (isZA) genStr += 'zanatdexdraft';
 			if (isRELICANTH) genStr += 'aslrelicanthdraft';
@@ -421,7 +420,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 				if (isDoubles && genNum > 4) {
 					return species.doublesTier;
 				}
-				if (isNatDex || (isPreDLC && genNum === 9.41) || (isSVDLC1 && genNum === 9.411) || isASL || isMYSTIC || isZA || isRELICANTH || isCHAMPIONS || isZACHAMPS) {
+				if (isNatDex || (isPreDLC && genNum === 9.41) || (isSVDLC1 && genNum === 9.411) || isMYSTIC || isZA || isRELICANTH || isCHAMPIONS || isZACHAMPS) {
 					return species.natDexTier;
 				}
 				return species.tier;
@@ -563,16 +562,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable[gen].formatSlices = formatSlices;
 			BattleTeambuilderTable[gen].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable[gen].learnsets = {};
-		}else if (isASL){
-			console.log("pre-dlc za time")
-			BattleTeambuilderTable["gen9predlczanatdexdraft"] = {};
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].overrideTier = overrideTier;
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].tiers = tiers;
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].items = items;
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].formatSlices = formatSlices;
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].nonstandardMoves = nonstandardMoves;
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].learnsets = {};
-			BattleTeambuilderTable["gen9predlczanatdexdraft"].testing = {};
 		}else if (isMYSTIC){
 			console.log("mystic time")
 			BattleTeambuilderTable["gen9mysticnatdexdraft"] = {};
@@ -707,7 +696,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 				continue;
 			}
 			if (item.isNonstandard && !isMetBattle) {
-				if (isNatDex || isASL || isMYSTIC || isZA || isRELICANTH || isCHAMPIONS || isZACHAMPS) {
+				if (isNatDex || isMYSTIC || isZA || isRELICANTH || isCHAMPIONS || isZACHAMPS) {
 					let curItem = item;
 					let curGen = genNum;
 					while (curItem.isNonstandard && curGen >= 7) {
@@ -1202,26 +1191,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			}
 		}
 	}
-	// Pre DLC ZA Natdex Draft learnsets (mod)
-	const PREDLCNDLearnsets = Dex.mod('gen9predlczanatdexdraft').data.Learnsets;
-	BattleTeambuilderTable['gen9predlczanatdexdraft'] = BattleTeambuilderTable['gen9predlczanatdexdraft'] || {};
-	BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets = {};
-	for (const id in PREDLCNDLearnsets) {
-	const learnset = PREDLCNDLearnsets[id].learnset;
-	if (!learnset) continue;
-	BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id] = {};
-	for (const moveid in learnset) {
-		const gens = learnset[moveid].map(x => Number(x[0]));
-		const minGen = Math.min(...gens);
-		// Same encoding convention as your main learnsets table
-		BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id][moveid] = '0123456789'.slice(minGen);
-		if (gens.indexOf(6) >= 0 && learnset[moveid].some(x => x[0] === '6')) BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id][moveid] += 'p';
-		if (gens.indexOf(7) >= 0 && learnset[moveid].some(x => x[0] === '7' && x !== '7V')) BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id][moveid] += 'q';
-		if (gens.indexOf(8) >= 0 && learnset[moveid].some(x => x[0] === '8' && x !== '8V')) BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id][moveid] += 'g';
-		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x[0] === '9' && x !== '9V')) BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id][moveid] += 'a';
-		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x === '9E')) BattleTeambuilderTable['gen9predlczanatdexdraft'].learnsets[id][moveid] += 'e';
-	}
-	}
 
 	// Mystic NatDex Draft learnsets (mod)
 	const MysticNDLearnsets = Dex.mod('gen9mysticnatdexdraft').data.Learnsets;
@@ -1421,7 +1390,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	//
 
 	// Mods
-	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'gen9predlczanatdexdraft', 'gen9mysticnatdexdraft', 'gen9zanatdexdraft', 'gen9aslrelicanthdraft', 'gen9championsnatdexdraft', 'gen9zachampsnatdexdraft']) {
+	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'gen9mysticnatdexdraft', 'gen9zanatdexdraft', 'gen9aslrelicanthdraft', 'gen9championsnatdexdraft', 'gen9zachampsnatdexdraft']) {
 
 		const modDex = Dex.mod(mod);
 		let btMod = mod

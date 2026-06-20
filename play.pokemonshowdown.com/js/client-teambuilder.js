@@ -31,10 +31,6 @@
 				if (this.curTeam.format.includes('bdsp')) {
 					this.curTeam.dex = Dex.mod('gen8bdsp');
 				}
-				if (this.curTeam.format.includes('predlczanatdexdraft')) {
-					console.log("setting format to pre dlc za")
-					this.curTeam.dex = Dex.mod('gen9predlczanatdexdraft');
-				}
 				if (this.curTeam.format.includes('mysticnatdexdraft')) {
 					console.log("setting format to mystic")
 					this.curTeam.dex = Dex.mod('gen9mysticnatdexdraft');
@@ -779,10 +775,6 @@
 			}
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
-			}
-			if (this.curTeam.format.includes('predlczanatdexdraft')) {
-				console.log("setting format to pre dlc za")
-				this.curTeam.dex = Dex.mod('gen9predlczanatdexdraft');
 			}
 			if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")
@@ -1657,10 +1649,6 @@
 			}
 			if (this.curTeam.format.includes('bdsp')) {
 				this.curTeam.dex = Dex.mod('gen8bdsp');
-			}
-			if (this.curTeam.format.includes('predlczanatdexdraft')) {
-				console.log("setting format to asl")
-				this.curTeam.dex = Dex.mod('gen9predlczanatdexdraft');
 			}
 			if (this.curTeam.format.includes('mysticnatdexdraft')) {
 				console.log("setting format to mystic")

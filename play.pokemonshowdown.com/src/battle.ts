@@ -515,7 +515,7 @@ export class Pokemon implements PokemonDetails, PokemonHealth {
 		if (item === 'ironball') {
 			return true;
 		}
-		if (ability === 'levitate') {
+		if (ability === 'levitate' || ability === 'eelevate') {
 			return false;
 		}
 		if (this.volatiles['magnetrise'] || this.volatiles['telekinesis']) {
@@ -913,6 +913,9 @@ export class Side {
 		}
 		pokemon.statusData.toxicTurns = 0;
 		if (this.battle.gen === 5) pokemon.statusData.sleepTurns = 0;
+		if (this.battle.tier.includes('Mystic')) {
+			pokemon.timesAttacked = 0;
+		}
 		this.lastPokemon = pokemon;
 		this.active[slot] = null;
 
@@ -3476,10 +3479,6 @@ export class Battle {
 			}
 			if (this.tier.includes('Super Staff Bros')) {
 				this.dex = Dex.mod('gen9ssb' as ID);
-			}
-			if (this.tier.includes('Pre DLC ZA NatDex Draft')) {
-				this.dex = Dex.mod('gen9predlczanatdexdraft' as ID);
-				console.log("Setting dex mod to pre dlc za")
 			}
 			if (this.tier.includes('Mystic NatDex Draft')){
 				this.dex = Dex.mod('gen9mysticnatdexdraft' as ID);
