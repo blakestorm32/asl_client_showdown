@@ -615,7 +615,7 @@ class TeamEditorState extends PSModel {
 		return 1;
 	}
 	getWeakness(types: readonly Dex.TypeName[], abilityid: ID, attackType: Dex.TypeName): number {
-		if (attackType === 'Ground' && abilityid === 'levitate') return 0;
+		if (attackType === 'Ground' && ['levitate', 'eelevate'].includes(abilityid)) return 0;
 		if (attackType === 'Water' && abilityid === 'dryskin') return 0;
 		if (attackType === 'Fire' && abilityid === 'flashfire') return 0;
 		if (attackType === 'Electric' && abilityid === 'lightningrod' && this.gen >= 5) return 0;
