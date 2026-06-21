@@ -2408,6 +2408,9 @@ export class BattleTooltips {
 		if (value.value <= 60) {
 			value.abilityModify(1.5, "Technician");
 		}
+		if (moveType === 'Fire') {
+			value.abilityModify(1.5, "Fire Mane");
+		}
 		if (['psn', 'tox'].includes(pokemon.status) && move.category === 'Physical') {
 			value.abilityModify(1.5, "Toxic Boost");
 		}
