@@ -572,7 +572,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable["gen9mysticnatdexdraft"].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable["gen9mysticnatdexdraft"].learnsets = {};
 		}else if (isZA){
-			console.log("za time")
+			console.log("za natdex time")
 			BattleTeambuilderTable["gen9zanatdexdraft"] = {};
 			BattleTeambuilderTable["gen9zanatdexdraft"].overrideTier = overrideTier;
 			BattleTeambuilderTable["gen9zanatdexdraft"].tiers = tiers;
