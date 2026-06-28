@@ -43,9 +43,9 @@
 					console.log("setting format to relicanth")
 					this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
 				}
-				if (this.curTeam.format.includes('v10championsnatdexdraft')) {
+				if (this.curTeam.format.includes('championsnatdexdraft')) {
 					console.log("setting format to champions")
-					this.curTeam.dex = Dex.mod('gen9v10championsnatdexdraft');
+					this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 				}
 				if (this.curTeam.format.includes('v11championsnatdexdraft')) {
 					console.log("setting format to v11 champions")
@@ -792,9 +792,9 @@
 				console.log("setting format to relicanth")
 				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
 			}
-			if (this.curTeam.format.includes('v10championsnatdexdraft')) {
+			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
-				this.curTeam.dex = Dex.mod('gen9v10championsnatdexdraft');
+				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 			}
 			if (this.curTeam.format.includes('v11championsnatdexdraft')) {
 				console.log("setting format to new champions")
@@ -1670,9 +1670,9 @@
 				console.log("setting format to relicanth")
 				this.curTeam.dex = Dex.mod('gen9aslrelicanthdraft');
 			}
-			if (this.curTeam.format.includes('v10championsnatdexdraft')) {
+			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
-				this.curTeam.dex = Dex.mod('gen9v10championsnatdexdraft');
+				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 			}
 			if (this.curTeam.format.includes('v11championsnatdexdraft')) {
 				console.log("setting format to new champions")
