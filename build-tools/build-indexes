@@ -270,7 +270,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	// process.stdout.write("\n  ");
 	for (const genIdent of [...GENS, ...DOUBLES, ...VGC, ...NFE, ...STADIUM, ...OTHER, ...NATDEX, ...LC]) {
 		const isLetsGo = (genIdent === 7.1);
-		const isNEWCHAMPS = (genIdent === 9.91); // experimental
+		const isV11CHAMPIONS = (genIdent === 9.91); // experimental
 		const isMYSTIC = (genIdent === 9.92);
 		const isZA = (genIdent === 9.93);
 		const isRELICANTH = (genIdent === 9.94);
