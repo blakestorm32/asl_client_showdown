@@ -47,6 +47,10 @@
 					console.log("setting format to champions")
 					this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 				}
+				if (this.curTeam.format.includes('v11championsnatdexdraft')) {
+					console.log("setting format to new champions")
+					this.curTeam.dex = Dex.mod('gen9v11championsnatdexdraft');
+				}
 				if (this.curTeam.format.includes('zachampsnatdexdraft')) {
 					console.log("setting format to za champions")
 					this.curTeam.dex = Dex.mod('gen9zachampsnatdexdraft');
@@ -791,6 +795,10 @@
 			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
 				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
+			}
+			if (this.curTeam.format.includes('v11championsnatdexdraft')) {
+				console.log("setting format to new champions")
+				this.curTeam.dex = Dex.mod('gen9v11championsnatdexdraft');
 			}
 			if (this.curTeam.format.includes('zachampsnatdexdraft')) {
 				console.log("setting format to za champions")
@@ -1665,7 +1673,11 @@
 			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
 				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
-			}	
+			}
+			if (this.curTeam.format.includes('v11championsnatdexdraft')) {
+				console.log("setting format to new champions")
+				this.curTeam.dex = Dex.mod('gen9v11championsnatdexdraft');
+			}
 			if (this.curTeam.format.includes('zachampsnatdexdraft')) {
 				console.log("setting format to za champions")
 				this.curTeam.dex = Dex.mod('gen9zachampsnatdexdraft');
