@@ -48,7 +48,7 @@
 					this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
 				}
 				if (this.curTeam.format.includes('v11championsnatdexdraft')) {
-					console.log("setting format to new champions")
+					console.log("setting format to v11 champions")
 					this.curTeam.dex = Dex.mod('gen9v11championsnatdexdraft');
 				}
 				if (this.curTeam.format.includes('zachampsnatdexdraft')) {
