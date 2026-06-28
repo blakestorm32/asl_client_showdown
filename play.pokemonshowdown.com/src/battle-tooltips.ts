@@ -3474,7 +3474,7 @@ export function BattleStatOptimizer(set: Dex.PokemonSet, formatid: ID) {
 		((formatid.endsWith('hackmons') || formatid.endsWith('bh')) && dex.gen !== 6) ||
 		formatid.includes('metronomebattle') || formatid.endsWith('norestrictions')
 	);
-	const useStatPoints = formatid.includes('champions');
+	const useStatPoints = formatid.includes('championsNOT');
 	const supportsEVs = !formatid.includes('letsgo') && !useStatPoints;
 	if (!(useStatPoints || supportsEVs) || ignoreEVLimits) return null;
 
