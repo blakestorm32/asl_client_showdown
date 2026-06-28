@@ -574,7 +574,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 	protected formatType: 'doubles' | 'bdsp' | 'bdspdoubles' | 'rs' | 'bw1' | 'letsgo' | 'metronome' | 'natdex' | 'nfe' |
 		'ssdlc1' | 'ssdlc1doubles' | 'predlc' | 'predlcdoubles' | 'predlcnatdex' | 'svdlc1' | 'svdlc1doubles' |
-		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'mysticnatdexdraft' | 'zanatdexdraft' | 'aslrelicanthdraft' | 'championsnatdexdraft' | 'v11championsnatdexdraft' | 'zachampsnatdexdraft' |null = null;
+		'svdlc1natdex' | 'stadium' | 'lc' | 'legendsza' | 'mysticnatdexdraft' | 'zanatdexdraft' | 'aslrelicanthdraft' | 'v10championsnatdexdraft' | 'v11championsnatdexdraft' | 'zachampsnatdexdraft' |null = null;
 	isDoubles = false;
 
 	/**
@@ -600,7 +600,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		console.log("format constructor", format)
 
-		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('zanatdexdraft') && !format.includes('aslrelicanthdraft') && !format.includes('championsnatdexdraft') && !format.includes('v11championsnatdexdraft') && !format.includes('zachampsnatdexdraft')) {
+		if (format.startsWith('gen') && !format.includes('mysticnatdexdraft') && !format.includes('zanatdexdraft') && !format.includes('aslrelicanthdraft') && !format.includes('v10championsnatdexdraft') && !format.includes('v11championsnatdexdraft') && !format.includes('zachampsnatdexdraft')) {
 			const gen = (Number(format.charAt(3)) || 6);
 			format = (format.slice(4) || 'customgame') as ID;
 			this.dex = Dex.forGen(gen);
@@ -679,7 +679,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.dex = Dex.mod('gen7letsgo' as ID);
 		}
 		if (format.includes('nationaldex') || format.startsWith('nd') || format.includes('natdex')) {
-			if (!format.includes('mysticnatdexdraft') && !format.includes('zanatdexdraft') && !format.includes('aslrelicanthdraft') && !format.includes('championsnatdexdraft') && !format.includes('v11championsnatdexdraft') && !format.includes('zachampsnatdexdraft')) {
+			if (!format.includes('mysticnatdexdraft') && !format.includes('zanatdexdraft') && !format.includes('aslrelicanthdraft') && !format.includes('v10championsnatdexdraft') && !format.includes('v11championsnatdexdraft') && !format.includes('zachampsnatdexdraft')) {
 				format = (format.startsWith('nd') ? format.slice(2) :
 					format.includes('natdex') ? format.slice(6) : format.slice(11)) as ID;
 				this.formatType = 'natdex';
@@ -722,11 +722,11 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			format = 'aslrelicanthdraft' as ID
 			this.formatType = 'aslrelicanthdraft'
 		}
-		else if (format.includes('championsnatdexdraft')){
+		else if (format.includes('v10championsnatdexdraft')){
 			console.log("setting dex to champions")
-			this.dex = Dex.mod('gen9championsnatdexdraft' as ID);
-			format = 'championsnatdexdraft' as ID
-			this.formatType = 'championsnatdexdraft'
+			this.dex = Dex.mod('gen9v10championsnatdexdraft' as ID);
+			format = 'v10championsnatdexdraft' as ID
+			this.formatType = 'v10championsnatdexdraft'
 		}
 		else if (format.includes('v11championsnatdexdraft')){
 			console.log("setting dex to new champions")
@@ -843,7 +843,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 		if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 		if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
 		if (this.formatType === 'aslrelicanthdraft') table = table['gen9aslrelicanthdraft'];
-		if (this.formatType === 'championsnatdexdraft') table = table['gen9championsnatdexdraft'];
+		if (this.formatType === 'v10championsnatdexdraft') table = table['gen9v10championsnatdexdraft'];
 		if (this.formatType === 'v11championsnatdexdraft') table = table['gen9v11championsnatdexdraft'];
 		if (this.formatType === 'zachampsnatdexdraft') table = table['gen9zachampsnatdexdraft'];
 		if (speciesid in table.learnsets) return speciesid;
@@ -897,7 +897,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.format.startsWith('battlespot') ||
 			this.format.startsWith('battlestadium') ||
 			this.format.startsWith('battlefestival') ||
-			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && this.formatType !== 'championsnatdexdraft' && this.formatType !== 'v11championsnatdexdraft' && this.formatType !== 'zachampsnatdexdraft')
+			(this.dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && this.formatType !== 'v10championsnatdexdraft' && this.formatType !== 'v11championsnatdexdraft' && this.formatType !== 'zachampsnatdexdraft')
 		) {
 			if (gen === 9) {
 				genChar = 'a';
@@ -919,7 +919,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			if (this.formatType === 'zanatdexdraft') table = table['gen9zanatdexdraft'];
 			if (this.formatType === 'mysticnatdexdraft') table = table['gen9mysticnatdexdraft'];
 			if (this.formatType === 'aslrelicanthdraft') table = table['gen9aslrelicanthdraft'];
-			if (this.formatType === 'championsnatdexdraft') table = table['gen9championsnatdexdraft'];
+			if (this.formatType === 'v10championsnatdexdraft') table = table['gen9v10championsnatdexdraft'];
 			if (this.formatType === 'v11championsnatdexdraft') table = table['gen9v11championsnatdexdraft'];
 			if (this.formatType === 'zachampsnatdexdraft') table = table['gen9zachampsnatdexdraft'];
 			let learnset = table.learnsets[learnsetid];
@@ -944,7 +944,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			this.formatType === 'zanatdexdraft' ? 'gen9zanatdexdraft':
 			this.formatType === 'mysticnatdexdraft' ? 'gen9mysticnatdexdraft':
 			this.formatType === 'aslrelicanthdraft' ? 'gen9aslrelicanthdraft':
-			this.formatType === 'championsnatdexdraft' ? 'gen9championsnatdexdraft' :
+			this.formatType === 'v10championsnatdexdraft' ? 'gen9v10championsnatdexdraft' :
 			this.formatType === 'v11championsnatdexdraft' ? 'gen9v11championsnatdexdraft' :
 			this.formatType === 'zachampsnatdexdraft' ? 'gen9zachampsnatdexdraft' :
 			this.formatType === 'letsgo' ? 'gen7letsgo' :
@@ -1060,7 +1060,7 @@ class BattlePokemonSearch extends BattleTypedSearch<'pokemon'> {
 		const dex = this.dex;
 
 		let table = BattleTeambuilderTable;
-		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdexdraft") || format.includes("aslrelicanthdraft") || format.includes("championsnatdexdraft") || format.includes("v11championsnatdexdraft") || format.includes("zachampsnatdexdraft")) {
+		if (format.includes("asl") || format.includes("mystic") || format.includes("zanatdexdraft") || format.includes("aslrelicanthdraft") || format.includes("v10championsnatdexdraft") || format.includes("v11championsnatdexdraft") || format.includes("zachampsnatdexdraft")) {
 			console.log("setting pre dlc za, mystic, or za getBaseRes")
 			table = table[`gen9${format}`];
 		}
@@ -1791,7 +1791,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		const isTradebacks = format.includes('tradebacks');
 		const regionBornLegality = dex.gen >= 6 &&
 			(/^battle(spot|stadium|festival)/.test(format) || format.startsWith('bss') ||
-				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && this.formatType !== 'championsnatdexdraft' && this.formatType !== 'v11championsnatdexdraft' && this.formatType !== 'zachampsnatdexdraft'));
+				format.startsWith('vgc') || (dex.gen === 9 && this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && this.formatType !== 'v10championsnatdexdraft' && this.formatType !== 'v11championsnatdexdraft' && this.formatType !== 'zachampsnatdexdraft'));
 
 		let learnsetid = this.firstLearnsetid(species.id);
 		let moves: string[] = [];
@@ -1803,7 +1803,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType === 'zanatdexdraft') lsetTable = lsetTable['gen9zanatdexdraft'];
 		if (this.formatType === 'aslrelicanthdraft') lsetTable = lsetTable['gen9aslrelicanthdraft'];
 		if (this.formatType === 'mysticnatdexdraft') lsetTable = lsetTable['gen9mysticnatdexdraft'];
-		if (this.formatType === 'championsnatdexdraft') lsetTable = lsetTable['gen9championsnatdexdraft'];
+		if (this.formatType === 'v10championsnatdexdraft') lsetTable = lsetTable['gen9v10championsnatdexdraft'];
 		if (this.formatType === 'v11championsnatdexdraft') lsetTable = lsetTable['gen9v11championsnatdexdraft'];
 		if (this.formatType === 'zachampsnatdexdraft') lsetTable = lsetTable['gen9zachampsnatdexdraft'];
 		if (this.formatType === 'letsgo') lsetTable = lsetTable['gen7letsgo'];
@@ -1813,7 +1813,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 		if (this.formatType?.startsWith('predlc')) lsetTable = lsetTable['gen9predlc'];
 		if (this.formatType?.startsWith('svdlc1')) lsetTable = lsetTable['gen9dlc1'];
 
-		const isDraftFmt = (ft?: string | null) => ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft' || ft === 'aslrelicanthdraft' || ft === 'championsnatdexdraft' || ft === 'v11championsnatdexdraft' || ft === 'zachampsnatdexdraft';
+		const isDraftFmt = (ft?: string | null) => ft === 'mysticnatdexdraft' || ft === 'zanatdexdraft' || ft === 'aslrelicanthdraft' || ft === 'v10championsnatdexdraft' || ft === 'v11championsnatdexdraft' || ft === 'zachampsnatdexdraft';
 		const isBannedInDraft = (id: string) =>
 			id === 'hail' ||
 			id === 'pursuit' ||
@@ -1846,7 +1846,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 					) {
 						continue;
 					}
-					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && this.formatType !== 'championsnatdexdraft' &&  this.formatType !== 'v11championsnatdexdraft' &&  this.formatType !== 'zachampsnatdexdraft' &&  move.isNonstandard === "Past") {
+					if (this.formatType !== 'natdex' && this.formatType !== 'legendsza' && this.formatType !== 'mysticnatdexdraft' && this.formatType !== 'zanatdexdraft' && this.formatType !== 'aslrelicanthdraft' && this.formatType !== 'v10championsnatdexdraft' &&  this.formatType !== 'v11championsnatdexdraft' &&  this.formatType !== 'zachampsnatdexdraft' &&  move.isNonstandard === "Past") {
 						continue;
 					}
 					if (
@@ -2009,7 +2009,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 						species.id === 'ponytagalar' || species.id === 'rapidashgalar' || species.id === 'stunfiskgalar' || species.id === 'yamaskgalar')) {
   						continue;
 					}
-					if(this.formatType === "championsnatdexdraft" && moveid === 'terablast' && (species.id === 'caterpie' || species.id === 'metapod' || species.id === 'butterfree' || species.id === 'weedle' || species.id === 'kakuna' || species.id === 'beedrill'
+					if(this.formatType === "v10championsnatdexdraft" && moveid === 'terablast' && (species.id === 'caterpie' || species.id === 'metapod' || species.id === 'butterfree' || species.id === 'weedle' || species.id === 'kakuna' || species.id === 'beedrill'
 						|| species.id === 'pidgey' || species.id === 'pidgeotto' || species.id === 'pidgeot' || species.id === 'rattata' || species.id === 'raticate' || species.id === 'spearow' || species.id === 'fearow' || species.id === 'nidoranf' || species.id === 'nidorina' ||
 						species.id === 'nidoqueen' || species.id === 'nidoranm' || species.id === 'nidorino' || species.id === 'nidoking' || species.id === 'zubat' || species.id === 'golbat' || species.id === 'paras' || species.id === 'parasect' || species.id === 'abra' || 
 						species.id === 'kadabra' || species.id === 'alakazam' || species.id === 'machop' || species.id === 'machoke' || species.id === 'machamp' || species.id === 'ponyta' || species.id === 'rapidash' || species.id === 'farfetchd' || species.id === 'onix' || 
