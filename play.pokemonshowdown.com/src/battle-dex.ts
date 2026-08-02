@@ -280,9 +280,6 @@ export const Dex = new class implements ModdedDex {
 		if (dex.gen === 9 && formatid.includes('championsnatdexdraft')) {
 			dex = Dex.mod('gen9championsnatdexdraft' as ID);
 		}
-		if (dex.gen === 9 && formatid.includes('v11championsnatdexdraft')) {
-			dex = Dex.mod('gen9v11championsnatdexdraft' as ID);
-		}
 		if (dex.gen === 9 && formatid.includes('mysticnatdexdraft')) {
 			dex = Dex.mod('gen9mysticnatdexdraft' as ID);
 		}

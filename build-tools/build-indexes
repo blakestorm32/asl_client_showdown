@@ -270,7 +270,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	// process.stdout.write("\n  ");
 	for (const genIdent of [...GENS, ...DOUBLES, ...VGC, ...NFE, ...STADIUM, ...OTHER, ...NATDEX, ...LC]) {
 		const isLetsGo = (genIdent === 7.1);
-		const isV11CHAMPIONS = (genIdent === 9.91); // experimental
 		const isMYSTIC = (genIdent === 9.92);
 		const isZA = (genIdent === 9.93);
 		const isRELICANTH = (genIdent === 9.94);
@@ -307,7 +306,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			if (isZA) genStr += 'zanatdexdraft';
 			if (isRELICANTH) genStr += 'aslrelicanthdraft';
 			if (isCHAMPIONS) genStr += 'championsnatdexdraft';
-			if (isV11CHAMPIONS) genStr += 'v11championsnatdexdraft';
 			if (isZACHAMPS) genStr += 'zachampsnatdexdraft';
 			return genStr;
 		})();
@@ -599,15 +597,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable["gen9championsnatdexdraft"].formatSlices = formatSlices;
 			BattleTeambuilderTable["gen9championsnatdexdraft"].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable["gen9championsnatdexdraft"].learnsets = {};
-		}else if (isV11CHAMPIONS){
-			console.log("new champions time")
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"] = {};
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"].overrideTier = overrideTier;
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"].tiers = tiers;
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"].items = items;
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"].formatSlices = formatSlices;
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"].nonstandardMoves = nonstandardMoves;
-			BattleTeambuilderTable["gen9v11championsnatdexdraft"].learnsets = {};
 		}else if (isZACHAMPS){
 			console.log("za + champs time")
 			BattleTeambuilderTable["gen9zachampsnatdexdraft"] = {};
@@ -1282,26 +1271,6 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	}
 	}
 
-	// New Champions  Draft learnsets (mod)
-	const V11CHAMPIONSLearnsets = Dex.mod('gen9v11championsnatdexdraft').data.Learnsets;
-	BattleTeambuilderTable['gen9v11championsnatdexdraft'] = BattleTeambuilderTable['gen9v11championsnatdexdraft'] || {};
-	BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets = {};
-	for (const id in V11CHAMPIONSLearnsets) {
-	const learnset = V11CHAMPIONSLearnsets[id].learnset;
-	if (!learnset) continue;
-	BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id] = {};
-	for (const moveid in learnset) {
-		const gens = learnset[moveid].map(x => Number(x[0]));
-		const minGen = Math.min(...gens);
-		BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id][moveid] = '0123456789'.slice(minGen);
-		if (gens.indexOf(6) >= 0 && learnset[moveid].some(x => x[0] === '6')) BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id][moveid] += 'p';
-		if (gens.indexOf(7) >= 0 && learnset[moveid].some(x => x[0] === '7' && x !== '7V')) BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id][moveid] += 'q';
-		if (gens.indexOf(8) >= 0 && learnset[moveid].some(x => x[0] === '8' && x !== '8V')) BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id][moveid] += 'g';
-		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x[0] === '9' && x !== '9V')) BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id][moveid] += 'a';
-		if (gens.indexOf(9) >= 0 && learnset[moveid].some(x => x === '9E')) BattleTeambuilderTable['gen9v11championsnatdexdraft'].learnsets[id][moveid] += 'e';
-	}
-	}
-
 	// ZA + Champions  Draft learnsets (mod)
 	const ZACHAMPIONSLearnsets = Dex.mod('gen9zachampsnatdexdraft').data.Learnsets;
 	BattleTeambuilderTable['gen9zachampsnatdexdraft'] = BattleTeambuilderTable['gen9zachampsnatdexdraft'] || {};
@@ -1420,7 +1389,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 	//
 
 	// Mods
-	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'gen9mysticnatdexdraft', 'gen9zanatdexdraft', 'gen9aslrelicanthdraft', 'gen9championsnatdexdraft', 'gen9v11championsnatdexdraft', 'gen9zachampsnatdexdraft']) {
+	for (const mod of ['gen3rs', 'gen5bw1', 'gen7letsgo', 'gen8bdsp', 'gen9ssb', 'gen9mysticnatdexdraft', 'gen9zanatdexdraft', 'gen9aslrelicanthdraft', 'gen9championsnatdexdraft', 'gen9zachampsnatdexdraft']) {
 
 		const modDex = Dex.mod(mod);
 		let btMod = mod
