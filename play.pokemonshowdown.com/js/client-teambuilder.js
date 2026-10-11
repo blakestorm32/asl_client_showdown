@@ -1657,6 +1657,7 @@
 			if (this.curTeam.format.includes('championsnatdexdraft')) {
 				console.log("setting format to champions")
 				this.curTeam.dex = Dex.mod('gen9championsnatdexdraft');
+			}
 			this.save();
 			if (this.curTeam.gen === 5 && !Dex.loadedSpriteData['bw']) Dex.loadSpriteData('bw');
 			this.update();
