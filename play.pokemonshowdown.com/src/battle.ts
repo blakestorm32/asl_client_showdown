@@ -3496,10 +3496,6 @@ export class Battle {
 				this.dex = Dex.mod('gen9championsnatdexdraft' as ID);
 				console.log("Setting dex mod to champions natdex draft")
 			}
-			if (this.tier.includes('ZA + Champs NatDex Draft')){
-				this.dex = Dex.mod('gen9zachampsnatdexdraft' as ID);
-				console.log("Setting dex mod to za champions natdex draft")
-			}
 			this.log(args);
 			break;
 		}
