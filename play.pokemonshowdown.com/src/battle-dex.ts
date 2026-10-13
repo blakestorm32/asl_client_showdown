@@ -824,6 +824,8 @@ export const Dex = new class implements ModdedDex {
 		// =========================
 
 		const megaMons = new Set([
+			'dudunsparcemega',
+			'dudunsparcethreesegmentmega',
 			'delibirdmega',
 			'sirfetchdmega',
 			'ariadosmega',
@@ -843,6 +845,22 @@ export const Dex = new class implements ModdedDex {
 			'dhelmisemega',
 			'flygonmega',
 			'victinimega',
+			'ledianmega',
+			'sandslashmega',
+			'aromatissemega',
+			'grumpigmega',
+			'mimikyumega',
+			'mimikyubustedmega',
+			'seakingmega',
+			'fearowmega',
+			'tinkatonmega',
+			'durantmmega',
+			'durantfmega',
+			'heatmormega',
+			'skuntankmega',
+			'tentacruelmega',
+			'porygonzmega',
+			'unownmega'
 		]);
 
 		let overlay = ``;

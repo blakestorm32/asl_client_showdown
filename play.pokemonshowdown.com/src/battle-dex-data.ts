@@ -597,8 +597,8 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	baxcaliburmega: 1320 + 131,
 
 	// Mystic Megas
-	dudunsparcemega: 1560 + 0,
-    dudunsparcethreesegmentmega: 1560 + 0,
+	dudunsparcemega: 982,
+    dudunsparcethreesegmentmega: 982,
     delibirdmega: 225,
     sirfetchdmega: 865,
     ariadosmega: 168,
@@ -618,6 +618,23 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
     dhelmisemega: 781,
     flygonmega: 330,
     victinimega: 494,
+
+	ledianmega: 166,
+	sandslashmega: 28,
+	aromatissemega: 683,
+	grumpigmega: 326,
+	mimikyumega: 778,
+	mimikyubustedmega: 778,
+	seakingmega: 119,
+	fearowmega: 22,
+	tinkatonmega: 959,
+	durantmmega: 632,
+	durantfmega: 632,
+	heatmormega: 631,
+	skuntankmega: 435,
+	tentacruelmega: 73,
+	porygonzmega: 474,
+	unownmega: 201,
 
 	// CAP
 	syclant: 0,
