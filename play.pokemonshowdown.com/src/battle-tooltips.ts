@@ -1184,7 +1184,7 @@ export class BattleTooltips {
 		if (ability === 'purepower' || ability === 'hugepower') {
 			stats.atk *= 2;
 		}
-		if (ability === 'royal power') {
+		if (ability === 'royalpower') {
 			stats.spa *= 2;
 		}
 		if (ability === 'hustle' || (ability === 'gorillatactics' && !clientPokemon?.volatiles['dynamax'])) {
