@@ -624,7 +624,6 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	aromatissemega: 683,
 	grumpigmega: 326,
 	mimikyumega: 778,
-	mimikyubustedmega: 778,
 	seakingmega: 119,
 	fearowmega: 22,
 	tinkatonmega: 959,
@@ -635,6 +634,8 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	tentacruelmega: 73,
 	porygonzmega: 474,
 	unownmega: 201,
+	parasectmega: 47,
+	wailordmega: 321,
 
 	// CAP
 	syclant: 0,

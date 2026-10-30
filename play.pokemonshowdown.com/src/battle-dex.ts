@@ -850,7 +850,6 @@ export const Dex = new class implements ModdedDex {
 			'aromatissemega',
 			'grumpigmega',
 			'mimikyumega',
-			'mimikyubustedmega',
 			'seakingmega',
 			'fearowmega',
 			'tinkatonmega',
@@ -860,7 +859,9 @@ export const Dex = new class implements ModdedDex {
 			'skuntankmega',
 			'tentacruelmega',
 			'porygonzmega',
-			'unownmega'
+			'unownmega',
+			'parasectmega',
+			'wailordmega'
 		]);
 
 		let overlay = ``;
