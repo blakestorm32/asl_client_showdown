@@ -596,7 +596,7 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
 	tatsugiristretchymega: 1320 + 130,
 	baxcaliburmega: 1320 + 131,
 
-	// Mystic Megas
+	// Mystic Megas Wave 1
 	dudunsparcemega: 982,
     dudunsparcethreesegmentmega: 982,
     delibirdmega: 225,
@@ -619,6 +619,7 @@ export const BattlePokemonIconIndexes: { [id: string]: number } = {
     flygonmega: 330,
     victinimega: 494,
 
+	// Mystic Megas Wave 2
 	ledianmega: 166,
 	sandslashmega: 28,
 	aromatissemega: 683,
