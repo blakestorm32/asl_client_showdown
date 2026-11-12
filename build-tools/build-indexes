@@ -560,7 +560,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			BattleTeambuilderTable[gen].nonstandardMoves = nonstandardMoves;
 			BattleTeambuilderTable[gen].learnsets = {};
 		}else if (isMYSTIC){
-			console.log("mystic time!")
+			console.log("mystic time!!")
 			BattleTeambuilderTable["gen9mysticnatdexdraft"] = {};
 			BattleTeambuilderTable["gen9mysticnatdexdraft"].overrideTier = overrideTier;
 			BattleTeambuilderTable["gen9mysticnatdexdraft"].tiers = tiers;
